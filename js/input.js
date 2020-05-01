@@ -20,81 +20,75 @@ function initInput() {
 }
 
 function keyPressed(evt) {
-	console.log("Key pressed: " + evt.keyCode);
-	if(mode == GAME_SCREEN){
-		if (evt.keyCode == KEY_LEFT_ARROW) {
-			holdLeft = true;
-		}
+	//console.log("Key pressed: " + evt.keyCode);
 
-		if (evt.keyCode == KEY_RIGHT_ARROW) {
-			holdRight = true;
-		}
+	switch(mode) {
+		case GAME_SCREEN:
+			playerHoldAction(evt.keyCode, true);
 
-		if (evt.keyCode == KEY_UP_ARROW) {
-			holdUp = true;
-		}
+			if(evt.keyCode == KEY_SPACE) {
+				p1.fireShot();
+				
+			}
+			//cheat keys
+			if(evt.keyCode == KEY_Q) {
 
-		if (evt.keyCode == KEY_DOWN_ARROW) {
-			holdDown = true;
-		}
+			}
 
-		if(evt.keyCode == KEY_SPACE) {
-			p1.fireShot();
-			
-		}
+			if(evt.keyCode == KEY_S) {
+				p1.shield01 = !p1.shield01;
+			}
+			break;
 
-		//cheat keys
-
-		if(evt.keyCode == KEY_Q) {
-
-		}
-
-		if(evt.keyCode == KEY_S) {
-			p1.shield01 = !p1.shield01;
-		}
-
-	}
-
-	if(mode == TITLE_SCREEN || mode == CREDIT_SCREEN) {
-		if(evt.keyCode == KEY_SPACE) {
-			mode = MAIN_MENU;
-		}
-	}
-
-	if(mode == MAIN_MENU) {
-		if(evt.keyCode == KEY_ENTER) {
-			mode = GAME_SCREEN;
-		}
-		if(evt.keyCode == KEY_SHIFT) {
-			mode = CREDIT_SCREEN;
-		}
-	}
-
-	if(mode == WIN_SCREEN || mode == GAME_OVER) {
-		if(evt.keyCode == KEY_SPACE) {
+		case WIN_SCREEN:
+		case GAME_OVER:
+			if(evt.keyCode == KEY_SPACE) {
 			resetGame();
-		}
+			}
+			break;
+
+		case TITLE_SCREEN:
+		case CREDIT_SCREEN:
+			if(evt.keyCode == KEY_SPACE) {
+				mode = MAIN_MENU;
+			}
+			break;
+
+		case MAIN_MENU:
+			if(evt.keyCode == KEY_ENTER) {
+				mode = GAME_SCREEN;
+			}
+			if(evt.keyCode == KEY_SHIFT) {
+				mode = CREDIT_SCREEN;
+			}
+			break;
+
 	}
-	
+
 	evt.preventDefault(); // this is to prevent arrow keys from scrolling the page.
 }
 
 
 function keyReleased(evt) {
-	//console.log("Key released: " + evt.keyCode);
-	if (evt.keyCode == KEY_LEFT_ARROW) {
-		holdLeft = false;
-	}
+	playerHoldAction(evt.keyCode, false);
+}
 
-	if (evt.keyCode == KEY_RIGHT_ARROW) {
-		holdRight = false;
-	}
+function playerHoldAction(keyCode, turnOn) {
+	switch(keyCode) {
+		case KEY_LEFT_ARROW:
+			holdLeft = turnOn;
+			break;
 
-	if (evt.keyCode == KEY_UP_ARROW) {
-		holdUp = false;
-	}
+		case KEY_RIGHT_ARROW:
+			holdRight = turnOn;
+			break;
 
-	if (evt.keyCode == KEY_DOWN_ARROW) {
-		holdDown = false;
+		case KEY_UP_ARROW:
+			holdUp = turnOn;
+			break;
+
+		case KEY_DOWN_ARROW:
+			holdDown = turnOn;
+			break;
 	}
 }
