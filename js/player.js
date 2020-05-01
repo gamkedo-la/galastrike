@@ -15,12 +15,14 @@ function playerClass() {
 	this.shield01 = true;
 	this.myShot = [];
 	this.reverseSpeed = 3;
+	this.reloadFrames = 0;
 
 	this.fireShot = function () {
 		var newShot = new playerBasicShotClass();
 		newShot.basicWeaponActive = true;
 		newShot.x = this.x + PLAYER_SHIP_WIDTH/2;
 		this.myShot.push(newShot);
+		this.reloadFrames = 6;
 	}
 
 	this.draw = function() {
@@ -110,6 +112,13 @@ function playerClass() {
 
 		if (holdDown) {
 			this.moveDown();
+		}
+
+		if(this.reloadFrames > 0) {
+			this.reloadFrames --;
+		}
+		else if (holdSpace) {
+			this.fireShot();
 		}
 
 	}

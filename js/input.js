@@ -13,6 +13,7 @@ var holdLeft = false;
 var holdRight = false;
 var holdUp = false;
 var holdDown = false;
+var holdSpace = false;
 
 function initInput() {
 	document.addEventListener('keydown', keyPressed);
@@ -26,10 +27,6 @@ function keyPressed(evt) {
 		case GAME_SCREEN:
 			playerHoldAction(evt.keyCode, true);
 
-			if(evt.keyCode == KEY_SPACE) {
-				p1.fireShot();
-				
-			}
 			//cheat keys
 			if(evt.keyCode == KEY_Q) {
 
@@ -89,6 +86,10 @@ function playerHoldAction(keyCode, turnOn) {
 
 		case KEY_DOWN_ARROW:
 			holdDown = turnOn;
+			break;
+
+		case KEY_SPACE:
+			holdSpace = turnOn;
 			break;
 	}
 }
