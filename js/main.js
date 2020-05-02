@@ -5,7 +5,7 @@ var fps = 30;
 var screenBuffer = 20;
 
 var p1 = new playerClass();
-var z1 = new basicAlienClass();
+var a1 = new basicAlienClass();
 var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
 
@@ -64,7 +64,7 @@ function moveEverything() {
 	//player
 	p1.move();
 	starMove();	
-	z1.move();
+	a1.move();
 	powerUp1.move();
 }
 
@@ -74,11 +74,11 @@ function gameMode() {
 	p1.draw();
 
 	//basic enemy 
-	z1.draw();
+	a1.draw();
 	
-	//z1.basicShot();
-	z1.shotCheck();
-	z1.respawnAlien();
+
+	a1.shotCheck();
+	a1.respawnAlien();
 	
 	//player score
 	p1.playerScore();

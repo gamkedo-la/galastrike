@@ -28,8 +28,11 @@ function basicAlienClass() {
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
+				
 			}
+			this.basicShot();
 		}
+
 	}
 
 	this.move = function() {

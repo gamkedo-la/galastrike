@@ -25,10 +25,10 @@ function playerBasicShotClass() {
 
 	this.shotCheck = function() { //note called by this.move
 		//enemy collision
-		if(this.y <= z1.y + z1.h && this.x >= z1.x && this.x <= z1.x + z1.w) {
+		if(this.y <= a1.y + a1.h && this.x >= a1.x && this.x <= a1.x + a1.w) {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
-			z1.alienActive = false;
+			a1.alienActive = false;
 			p1.playerScoring();		
 		}
 		//checking screen boundaries
