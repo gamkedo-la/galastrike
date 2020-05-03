@@ -5,6 +5,7 @@ var fps = 30;
 var screenBuffer = 20;
 
 var p1 = new playerClass();
+var gamepad = new GamepadManager();
 var a1 = new basicAlienClass();
 var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
@@ -68,7 +69,8 @@ function drawEverything() {
 }
 
 function moveEverything() {
-	//player
+    //player
+    gamepad.update();
 	p1.move();
 	starMove();	
 	a1.move();
