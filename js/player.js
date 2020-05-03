@@ -91,9 +91,9 @@ function playerClass() {
 	}
 
 	this.playerScore = function() {
-		colorText("ShotCount: " + this.myShot.length, 700, 540, "15px arial", "orange"); // debug output - remove
-		colorText("Score: " + playerScore, 700, 560, "15px arial", "white");
-		colorText("Shields: " + playerShields, 700, 580, "15px arial", "white");
+        colorText("ShotCount: " + this.myShot.length, c.width-120, c.height-50, "15px arial", "orange"); // debug output - remove
+		colorText("Score: " + playerScore, c.width-120, c.height-30, "15px arial", "white");
+		colorText("Shields: " + playerShields, c.width-120, c.height-10, "15px arial", "white");
 	}
 
 	this.handleInput = function() {
