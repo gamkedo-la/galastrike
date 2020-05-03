@@ -11,10 +11,17 @@ var starList = []; //parallax
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
-	ctx = c.getContext ('2d');
+    ctx = c.getContext ('2d');
+    window.onresize = resize; // handle browser resizing
+    this.resize(); // full the browser right away
 	imageLoading();
 	starInit();
 }	
+
+function resize() {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+}
 
 function startGame() {
 	setInterval (function() {
