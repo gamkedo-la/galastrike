@@ -78,20 +78,18 @@ function moveEverything() {
 }
 
 function gameMode() {
-	starDraw();
+    // scrolling bg image
+    backgroundDraw();
+    // awesome parallax starfield
+    starDraw();
 	//player ship
 	p1.draw();
-
 	//basic enemy 
 	a1.draw();
-	
-
 	a1.shotCheck();
 	a1.respawnAlien();
-	
-	//player score
+    //player score
 	p1.playerScore();
-
 	//power ups
 	powerUp1.draw();
 	powerUp1.shieldPowerUp();
