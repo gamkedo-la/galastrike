@@ -2,6 +2,7 @@ const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
 const PLAYER_POS_Y = 600 - PLAYER_SHIP_HEIGHT - 30;
 const PLAYE_POS_X = 400 - PLAYER_SHIP_WIDTH/2;
+const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
 const WIN_SCORE = 5;
 var playerScore = 0;
 var playerShields = 1;
@@ -134,7 +135,7 @@ function playerClass() {
 	}
 
 	this.moveDown = function() {
-		if(this.y <= 460){
+		if(this.y <= c.height-MIN_DIST_FROM_SCREEN_BOTTOM){
 			this.y += 5;
 		}
 	}

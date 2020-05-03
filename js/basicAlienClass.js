@@ -8,7 +8,7 @@ function basicAlienClass() {
 	this.w = 50;
 	this.sx = 4;
 	this.sy = 4;
-	this.bottomLine = 300;
+	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
 	this.alienActive = true;
@@ -41,7 +41,7 @@ function basicAlienClass() {
 
 		//movement ai
 
-		if(this.y >= this.bottomLine ) {
+		if(this.y >= c.height-this.bottomLine ) {
 			this.sy = 0;
 		}
 
@@ -53,7 +53,7 @@ function basicAlienClass() {
 			this.sx = -this.sx;
 		}
 
-		if(this.y >= this.bottomLine) {
+		if(this.y >= c.height-this.bottomLine) {
 			this.rn = Math.round(Math.random() * (25 - 1) + 1);
 			if(this.rn == 1) {
 				this.sy = -4;
