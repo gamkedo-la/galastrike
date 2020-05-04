@@ -75,6 +75,9 @@ function moveEverything() {
 	starMove();	
 	a1.move();
 	powerUp1.move();
+
+	//audio
+	backgroundMusic.updateMusic();
 }
 
 function gameMode() {
