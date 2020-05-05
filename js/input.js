@@ -8,6 +8,7 @@ const KEY_ENTER = 13;
 const KEY_SHIFT = 16;
 const KEY_Q = 81;
 const KEY_S = 83;
+const KEY_F = 70;
 
 var holdLeft = false;
 var holdRight = false;
@@ -58,7 +59,9 @@ function keyPressed(evt) {
 			if(evt.keyCode == KEY_SHIFT) {
 				mode = CREDIT_SCREEN;
 			}
-			toggleFullscreen();
+            if(evt.keyCode == KEY_F) {
+                toggleFullscreen();
+            }
 			break;
 
 	}
