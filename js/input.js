@@ -58,6 +58,7 @@ function keyPressed(evt) {
 			if(evt.keyCode == KEY_SHIFT) {
 				mode = CREDIT_SCREEN;
 			}
+			toggleFullscreen();
 			break;
 
 	}

@@ -30,7 +30,8 @@ function mainMenuScreen() {
 	colorRect(0, 0, c.width, c.height, 'orange');
 	colorText("Main Menu", c.width/2 - 80, c.height/2, "30px arial", "white");
 	colorText("New Game: [ENTER]", 330, 350, "15px arial", "white");
-	colorText("Credits: [SHIFT]", 330, 400, "15px arial", "white");
+	colorText("Fullscreen: [F]", 330, 400, "15px arial", "white");
+	colorText("Credits: [SHIFT]", 330, 450, "15px arial", "white");
 }
 
 function creditScreen() {
