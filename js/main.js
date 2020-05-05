@@ -77,7 +77,9 @@ function moveEverything() {
 	powerUp1.move();
 
 	//audio
-	backgroundMusic.updateMusic();
+    if (window.backgroundMusic) { // it can be undefined here
+      backgroundMusic.updateMusic();
+    }
 }
 
 function gameMode() {
