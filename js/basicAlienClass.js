@@ -153,8 +153,8 @@ function midAlienClass() {
 	this.y = ALIEN_SPAWN_POSY;
 	this.h = 50;
 	this.w = 50;
-	this.sx = 4;
-	this.sy = 4;
+	this.sx = 6;
+	this.sy = 6;
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
@@ -329,7 +329,7 @@ function diverAlienClass() {
 		if(this.alienActive == true) {
 
 			if(this.enteredScreen == false) {
-				this.x = 400;
+				//this.x = 400;
 				this.y += this.sy;
 				if(this.y >= 200) {
 					this.enteredScreen = true;
@@ -346,10 +346,6 @@ function diverAlienClass() {
 				// need to implement player seeking code
 				if(this.dive) {
 					this.y += this.speedDiveY;
-					if(this.y >= c.height) {
-						this.dive = false;
-						this.respawnAlien();
-					}
 				}
 
 			}
@@ -364,7 +360,7 @@ function diverAlienClass() {
 				this.alienActive = true;
 				this.enteredScreen = false;
 				this.respawnTimer = 30;
-				this.x = c.width/2;
+				this.x = Math.random()* (c.width - 150);
 				this.y = ALIEN_SPAWN_POSY; 
 			}
 		}
