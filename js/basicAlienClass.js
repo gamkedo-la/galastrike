@@ -281,7 +281,6 @@ function midAlienClass() {
 
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			
 			this.alienActive = false;
 			p1.substractShield();
 			if(p1.playerShields >= 0) {
@@ -301,12 +300,14 @@ function diverAlienClass() {
 	this.w = 50;
 	this.sx = 4;
 	this.sy = 4;
+	this.speedDiveY = 10;
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
+	this.dive = false;
 
 	this.shotX;
 	this.shotY;
@@ -336,35 +337,21 @@ function diverAlienClass() {
 			}
 
 			if(this.enteredScreen == true) {
-				this.x += this.sx;
-				this.y += this.sy;
-
-				if(this.y >= c.height-this.bottomLine ) {
-					this.sy = 0;
+				this.x = this.x;
+				this.y = this.y;
+				this.rn = Math.round(Math.random() * (25 - 1) + 1); // odds determining when alien will dive towards player
+				if(this.rn == 1) {
+					this.dive = true;
 				}
-
-				if(this.x >= c.width - this.w - this.screenBuffer) {
-					this.sx = -this.sx;
-				}
-
-				if(this.x <= 0 + this.screenBuffer) {
-					this.sx = -this.sx;
-				}
-
-				if(this.y >= c.height-this.bottomLine) {
-					this.rn = Math.round(Math.random() * (25 - 1) + 1);
-					if(this.rn == 1) {
-						this.sy = -4;
+				// need to implement player seeking code
+				if(this.dive) {
+					this.y += this.speedDiveY;
+					if(this.y >= c.height) {
+						this.dive = false;
+						this.respawnAlien();
 					}
 				}
 
-				if(this.y <= 0 + this.screenBuffer) {
-					this.sy = 0;
-					this.rn = Math.round(Math.random() * (25 - 1) + 1);
-					if(this.rn == 1) {
-						this.sy = 4;
-					}
-				}	
 			}
 			this.collitionDetection();
 		}
@@ -377,7 +364,7 @@ function diverAlienClass() {
 				this.alienActive = true;
 				this.enteredScreen = false;
 				this.respawnTimer = 30;
-				//this.x = Math.random() * (c.width - 150);
+				this.x = c.width/2;
 				this.y = ALIEN_SPAWN_POSY; 
 			}
 		}
@@ -385,12 +372,19 @@ function diverAlienClass() {
 
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			
+			this.dive = false;
 			this.alienActive = false;
 			p1.substractShield();
 			if(p1.playerShields >= 0) {
 				p1.playerLose();
 			}
+		}
+
+		if(this.y >= c.height) {
+			console.log("respawn");
+			this.alienActive = false;
+			this.dive = false;
+			this.respawnAlien();
 		}
 	}
 }
