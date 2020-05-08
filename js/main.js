@@ -106,7 +106,7 @@ function resetGame() {
 	playerShields = 1;
 	p1.shield01 = false;
 	p1.x = c.width/2;
-	p1.y = PLAYER_POS_Y;
+	p1.y = c.height - 150;
 }
 
 
