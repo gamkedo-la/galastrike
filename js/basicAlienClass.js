@@ -40,33 +40,37 @@ function basicAlienClass() {
 		this.y += this.sy;
 
 		//movement ai
-
-		if(this.y >= c.height-this.bottomLine ) {
-			this.sy = 0;
-		}
-
-		if(this.x >= c.width - this.w - this.screenBuffer) {
-			this.sx = -this.sx;
-		}
-
-		if(this.x <= 0 + this.screenBuffer) {
-			this.sx = -this.sx;
-		}
-
-		if(this.y >= c.height-this.bottomLine) {
-			this.rn = Math.round(Math.random() * (25 - 1) + 1);
-			if(this.rn == 1) {
-				this.sy = -4;
+		if(this.alienActive == true) {
+			if(this.y >= c.height-this.bottomLine ) {
+				this.sy = 0;
 			}
-		}
 
-		if(this.y <= 0 + this.screenBuffer) {
-			this.sy = 0;
-			this.rn = Math.round(Math.random() * (25 - 1) + 1);
-			if(this.rn == 1) {
-				this.sy = 4;
+			if(this.x >= c.width - this.w - this.screenBuffer) {
+				this.sx = -this.sx;
 			}
+
+			if(this.x <= 0 + this.screenBuffer) {
+				this.sx = -this.sx;
+			}
+
+			if(this.y >= c.height-this.bottomLine) {
+				this.rn = Math.round(Math.random() * (25 - 1) + 1);
+				if(this.rn == 1) {
+					this.sy = -4;
+				}
+			}
+
+			if(this.y <= 0 + this.screenBuffer) {
+				this.sy = 0;
+				this.rn = Math.round(Math.random() * (25 - 1) + 1);
+				if(this.rn == 1) {
+					this.sy = 4;
+				}
+			}	
+
+			this.collitionDetection();
 		}
+		
 
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -119,8 +123,12 @@ function basicAlienClass() {
 
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			p1.substractShield();
+			
 			this.alienActive = false;
+			p1.substractShield();
+			if(p1.playerShields >= 0) {
+				p1.playerLose();
+			}
 		}
 	}
 }

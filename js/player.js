@@ -64,7 +64,7 @@ function playerClass() {
 		playerShields ++;
 		this.shield01 = true;
 	}
-
+            
 	this.substractShield = function() {
 		playerShields --;
 		if(playerShields == 0) {

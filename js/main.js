@@ -91,7 +91,7 @@ function gameMode() {
 	a1.draw();
 	a1.shotCheck();
 	a1.respawnAlien();
-	a1.collitionDetection();
+	
     //player score
 	p1.playerScore();
 	//power ups
