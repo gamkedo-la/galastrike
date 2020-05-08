@@ -1,9 +1,9 @@
-
+const ALIEN_SPAWN_POSY = -100;
 
 function basicAlienClass() {
 
 	this.x = 50;
-	this.y = 50;
+	this.y = ALIEN_SPAWN_POSY;
 	this.h = 50;
 	this.w = 50;
 	this.sx = 4;
@@ -13,6 +13,7 @@ function basicAlienClass() {
 
 	this.alienActive = true;
 	this.respawnTimer = 60;
+	this.enteredScreen = false;
 
 	this.shotX;
 	this.shotY;
@@ -28,50 +29,57 @@ function basicAlienClass() {
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
-				
 			}
 			this.basicShot();
 		}
-
 	}
 
 	this.move = function() {
-		this.x += this.sx;
-		this.y += this.sy;
-
 		//movement ai
 		if(this.alienActive == true) {
-			if(this.y >= c.height-this.bottomLine ) {
-				this.sy = 0;
-			}
 
-			if(this.x >= c.width - this.w - this.screenBuffer) {
-				this.sx = -this.sx;
-			}
-
-			if(this.x <= 0 + this.screenBuffer) {
-				this.sx = -this.sx;
-			}
-
-			if(this.y >= c.height-this.bottomLine) {
-				this.rn = Math.round(Math.random() * (25 - 1) + 1);
-				if(this.rn == 1) {
-					this.sy = -4;
+			if(this.enteredScreen == false) {
+				this.x = 50;
+				this.y += this.sy;
+				if(this.y >= 200) {
+					this.enteredScreen = true;
 				}
 			}
 
-			if(this.y <= 0 + this.screenBuffer) {
-				this.sy = 0;
-				this.rn = Math.round(Math.random() * (25 - 1) + 1);
-				if(this.rn == 1) {
-					this.sy = 4;
-				}
-			}	
+			if(this.enteredScreen == true) {
+				this.x += this.sx;
+				this.y += this.sy;
 
+				if(this.y >= c.height-this.bottomLine ) {
+					this.sy = 0;
+				}
+
+				if(this.x >= c.width - this.w - this.screenBuffer) {
+					this.sx = -this.sx;
+				}
+
+				if(this.x <= 0 + this.screenBuffer) {
+					this.sx = -this.sx;
+				}
+
+				if(this.y >= c.height-this.bottomLine) {
+					this.rn = Math.round(Math.random() * (25 - 1) + 1);
+					if(this.rn == 1) {
+						this.sy = -4;
+					}
+				}
+
+				if(this.y <= 0 + this.screenBuffer) {
+					this.sy = 0;
+					this.rn = Math.round(Math.random() * (25 - 1) + 1);
+					if(this.rn == 1) {
+						this.sy = 4;
+					}
+				}	
+			}
 			this.collitionDetection();
 		}
 		
-
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
@@ -116,8 +124,10 @@ function basicAlienClass() {
 			this.respawnTimer--;
 			if(this.respawnTimer == 0) {
 				this.alienActive = true;
+				this.enteredScreen = false;
 				this.respawnTimer = 30;
-				this.y = Math.random()* (c.height - 300);
+				this.x = Math.random() * (c.width - 150);
+				this.y = ALIEN_SPAWN_POSY; 
 			}
 		}
 	}
