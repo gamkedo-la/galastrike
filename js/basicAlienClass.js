@@ -98,7 +98,7 @@ function basicAlienClass() {
 			}
 		}
 
-		if(playerShields == 0) {
+		if(playerShields >= 0) {
 			if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) {
 				this.shotActive = false;
 				p1.playerLose();
@@ -114,6 +114,13 @@ function basicAlienClass() {
 				this.respawnTimer = 30;
 				this.y = Math.random()* (c.height - 300);
 			}
+		}
+	}
+
+	this.collitionDetection = function() {
+		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
+			p1.substractShield();
+			this.alienActive = false;
 		}
 	}
 }

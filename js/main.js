@@ -91,6 +91,7 @@ function gameMode() {
 	a1.draw();
 	a1.shotCheck();
 	a1.respawnAlien();
+	a1.collitionDetection();
     //player score
 	p1.playerScore();
 	//power ups
@@ -102,7 +103,7 @@ function gameMode() {
 function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
-	playerShields = 0;
+	playerShields = 1;
 	p1.shield01 = false;
 	p1.x = c.width/2;
 	p1.y = PLAYER_POS_Y;
