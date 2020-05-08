@@ -74,6 +74,7 @@ function basicAlienClass() {
 
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
+			this.shotCheck();
 		}
 	}
 

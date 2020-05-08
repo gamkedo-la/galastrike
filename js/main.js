@@ -89,7 +89,7 @@ function gameMode() {
 	p1.draw();
 	//basic enemy 
 	a1.draw();
-	a1.shotCheck();
+	
 	a1.respawnAlien();
 	
     //player score
