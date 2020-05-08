@@ -8,6 +8,7 @@ var p1 = new playerClass();
 var gamepad = new GamepadManager();
 var a1 = new basicAlienClass();
 var a2 = new midAlienClass();
+var a3 = new diverAlienClass();
 var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
 
@@ -76,6 +77,7 @@ function moveEverything() {
 	starMove();	
 	a1.move();
 	a2.move();
+	a3.move();
 	powerUp1.move();
 
 	//audio
@@ -94,6 +96,8 @@ function gameMode() {
 	a1.respawnAlien();
 	a2.draw();
 	a2.respawnAlien();
+	a3.draw();
+	a3.respawnAlien();
     //player score
 	p1.playerScore();
 	//power ups

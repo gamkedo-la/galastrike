@@ -24,18 +24,25 @@ function playerBasicShotClass() {
 	}
 
 	this.shotCheck = function() { //note called by this.move
-		//enemy collision - basic alien
+		//enemy collision - a1 "basic alien"
 		if(this.y <= a1.y + a1.h && this.x >= a1.x && this.x <= a1.x + a1.w) {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
 			a1.alienActive = false;
 			p1.playerScoring();		
 		}
-		//enemy collision - mid alien
+		//enemy collision - a2 "mid alien"
 		if(this.y <= a2.y + a2.h && this.x >= a2.x && this.x <= a2.x + a2.w) {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
 			a2.alienActive = false;
+			p1.playerScoring();		
+		}
+		//enemy collision - a3 "diver alien"
+		if(this.y <= a3.y + a3.h && this.x >= a3.x && this.x <= a3.x + a3.w) {
+			this.basicWeaponActive = false;
+			this.y = p1.y;
+			a3.alienActive = false;
 			p1.playerScoring();		
 		}
 		//checking screen boundaries
