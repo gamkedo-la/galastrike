@@ -22,6 +22,7 @@ function basicAlienClass() {
 	this.lootW = 30;
 	this.lootH = 30;
 	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
+	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
 	this.shotX;
 	this.shotY;
@@ -91,6 +92,10 @@ function basicAlienClass() {
 					}
 				}	
 			}
+		}
+
+		if(this.dropLoot == true) {
+			this.lootY += this.lootYDrift;
 		}
 
 		this.collitionDetection();
@@ -175,9 +180,5 @@ function basicAlienClass() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
 			this.dropLoot = false;
 		}
-	}
-
-	this.hpSystem = function() {
-
 	}
 }
