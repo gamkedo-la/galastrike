@@ -1,8 +1,9 @@
 //image loading
 var imageNames = ["PlayerSpaceship.png",
-                     "Shield.png",
-                     "Level_1_Background.jpg"
-					];
+                  "Shield.png",
+				  "enemyA.png",
+                  "Level_1_Background.jpg"
+				 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];
 

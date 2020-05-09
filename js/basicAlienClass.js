@@ -24,8 +24,8 @@ function basicAlienClass() {
 
 
 	this.draw = function() {
-		if(this.alienActive == true) {
-			colorRect(this.x, this.y, this.w, this.h, 'green');
+	  if(this.alienActive == true) {
+		ctx.drawImage(imageArray["enemyA.png"], this.x, this.y);
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
