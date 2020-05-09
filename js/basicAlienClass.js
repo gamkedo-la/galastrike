@@ -45,7 +45,6 @@ function basicAlienClass() {
 
 		if(this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
-
 		}
 	}
 

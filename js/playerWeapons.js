@@ -47,8 +47,12 @@ function playerBasicShotClass() {
 		if(this.y <= a3.y + a3.h && this.x >= a3.x && this.x <= a3.x + a3.w) {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
-			a3.alienActive = false;
-			p1.playerScoring();		
+			a3.hp --;
+			if(a3.hp <= 0) {
+				a3.alienActive = false;
+				a3.lootDrop();
+				p1.playerScoring();	
+			}	
 		}
 		//checking screen boundaries
 		if(this.y <= 0) {

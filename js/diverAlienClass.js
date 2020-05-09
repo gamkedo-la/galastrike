@@ -11,23 +11,28 @@ function diverAlienClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
+	this.hp = 1;
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
 	this.dive = false;
 
-	this.shotX;
-	this.shotY;
-	this.shotW = 10;
-	this.shotH = 20;
-	this.shotActive = false;
-	this.shotSpeed = 10;
+	this.dropLoot = false;
+	this.lootX;
+	this.lootY;
+	this.lootW = 30;
+	this.lootH = 30;
+	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
+	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
 
 	this.draw = function() {
 		if(this.alienActive == true) {
 			colorRect(this.x, this.y, this.w, this.h, 'red');
-
+			colorText(this.hp, this.x + 50, this.y, "15px arial", "orange");
+		}
+		if(this.dropLoot == true) {
+			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
 		}
 	}
 
@@ -47,7 +52,7 @@ function diverAlienClass() {
 				if(this.x > p1.x - 10) {
 					this.x -= 3;
 				}
-				if(this.x < p1.x - 30) {
+				if(this.x < p1.x - 10) {
 					this.x +=3;
 				}
 			
@@ -55,16 +60,19 @@ function diverAlienClass() {
 				this.rn = Math.round(Math.random() * (25 - 1) + 1); // odds determining when alien will dive towards player
 				if(this.rn == 1) {
 					this.dive = true;
-
 				}
 				// need to implement player seeking code
 				if(this.dive) {
 					this.y += this.speedDiveY;
 				}
-
 			}
-			this.collitionDetection();
 		}
+		if(this.dropLoot == true) {
+			this.lootY += this.lootYDrift;
+		}
+
+		this.collitionDetection();
+		this.lootPickUp();
 	}
 
 	this.respawnAlien = function() {
@@ -72,6 +80,7 @@ function diverAlienClass() {
 			this.respawnTimer--;
 			if(this.respawnTimer == 0) {
 				this.alienActive = true;
+				this.hp = 1;
 				this.enteredScreen = false;
 				this.respawnTimer = 30;
 				this.x = Math.random()* (c.width - 150);
@@ -95,6 +104,22 @@ function diverAlienClass() {
 			this.alienActive = false;
 			this.dive = false;
 			this.respawnAlien();
+		}
+	}
+
+	this.lootDrop = function () {
+		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
+		console.log("loot rate:" + this.rn);
+		if(this.rn == 1) {
+			this.dropLoot = true;
+			this.lootX = this.x;
+			this.lootY = this.y;
+		}
+	}
+
+	this.lootPickUp = function() {
+		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
+			this.dropLoot = false;
 		}
 	}
 }
