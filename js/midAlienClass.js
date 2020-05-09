@@ -1,13 +1,13 @@
-const ALIEN_SPAWN_POSY = -100;
 
-function basicAlienClass() {
 
-	this.x = 50;
+function midAlienClass() {
+
+	this.x = 200;
 	this.y = ALIEN_SPAWN_POSY;
 	this.h = 50;
 	this.w = 50;
-	this.sx = 4;
-	this.sy = 4;
+	this.sx = 6;
+	this.sy = 6;
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
@@ -17,18 +17,18 @@ function basicAlienClass() {
 
 	this.shotX;
 	this.shotY;
-	this.shotW = 5;
-	this.shotH = 10;
+	this.shotW = 10;
+	this.shotH = 20;
 	this.shotActive = false;
-	this.shotSpeed = 5;
+	this.shotSpeed = 10;
 
 
 	this.draw = function() {
-	  if(this.alienActive == true) {
-		ctx.drawImage(imageArray["enemyA.png"], this.x, this.y);
+		if(this.alienActive == true) {
+			colorRect(this.x, this.y, this.w, this.h, 'white');
 
 			if(this.shotActive == true) {
-				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
+				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
 			}
 			this.basicShot();
 		}
@@ -39,7 +39,7 @@ function basicAlienClass() {
 		if(this.alienActive == true) {
 
 			if(this.enteredScreen == false) {
-				this.x = 50;
+				this.x = 200;
 				this.y += this.sy;
 				if(this.y >= 200) {
 					this.enteredScreen = true;
@@ -134,7 +134,6 @@ function basicAlienClass() {
 
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			
 			this.alienActive = false;
 			p1.substractShield();
 			if(p1.playerShields >= 0) {
@@ -143,3 +142,4 @@ function basicAlienClass() {
 		}
 	}
 }
+
