@@ -3,9 +3,9 @@ const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art
 const PLAYER_POS_Y = 1000 - PLAYER_SHIP_HEIGHT - 30;
 const PLAYE_POS_X =  400 - PLAYER_SHIP_WIDTH/2;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
-const WIN_SCORE = 5;
+const WIN_SCORE = 100;
 var playerScore = 0;
-var playerShields = 1;
+var playerShields = 100;
 var shieldRotationSpeed = 0;
 
 function playerClass() {
@@ -70,7 +70,6 @@ function playerClass() {
 		if(playerShields == 0) {
 			this.shield01 = false;
 		}
-
 	}
 
 	this.playerLose = function() {
@@ -124,6 +123,8 @@ function playerClass() {
 
 	}
 
+	//player movement handling
+
 	this.moveUp = function() {
 		if(this.y >= c.height/4){
 			this.y -= 5;
@@ -135,7 +136,7 @@ function playerClass() {
 	}
 
 	this.moveDown = function() {
-		if(this.y <= c.height-MIN_DIST_FROM_SCREEN_BOTTOM){
+		if(this.y <= c.height-MIN_DIST_FROM_SCREEN_BOTTOM) {
 			this.y += 5;
 		}
 	}

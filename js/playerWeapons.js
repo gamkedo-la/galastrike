@@ -29,6 +29,7 @@ function playerBasicShotClass() {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
 			a1.alienActive = false;
+			a1.lootDrop();
 			p1.playerScoring();		
 		}
 		//enemy collision - a2 "mid alien"

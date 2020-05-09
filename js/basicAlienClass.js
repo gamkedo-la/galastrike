@@ -15,6 +15,13 @@ function basicAlienClass() {
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
 
+	this.dropLoot = false;
+	this.lootX;
+	this.lootY;
+	this.lootW = 30;
+	this.lootH = 30;
+	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
+
 	this.shotX;
 	this.shotY;
 	this.shotW = 5;
@@ -31,6 +38,11 @@ function basicAlienClass() {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 			}
 			this.basicShot();
+		}
+
+		if(this.dropLoot == true) {
+			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
+
 		}
 	}
 
@@ -77,8 +89,10 @@ function basicAlienClass() {
 					}
 				}	
 			}
-			this.collitionDetection();
 		}
+
+		this.collitionDetection();
+		this.lootPickUp();
 		
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -102,7 +116,6 @@ function basicAlienClass() {
 	}
 
 	this.shotCheck = function() {
-
 		if(playerShields != 0) {
 			if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) {
 				this.shotActive = false;
@@ -121,25 +134,43 @@ function basicAlienClass() {
 
 	this.respawnAlien = function() {
 		if(this.alienActive == false) {
-			this.respawnTimer--;
-			if(this.respawnTimer == 0) {
-				this.alienActive = true;
-				this.enteredScreen = false;
-				this.respawnTimer = 30;
-				//this.x = Math.random() * (c.width - 150);
-				this.y = ALIEN_SPAWN_POSY; 
+			if(this.dropLoot == false) {
+				this.respawnTimer--;
+				if(this.respawnTimer == 0) {
+					this.alienActive = true;
+					this.enteredScreen = false;
+					this.respawnTimer = 30;
+					//this.x = Math.random() * (c.width - 150);
+					this.y = ALIEN_SPAWN_POSY; 
+				}
 			}
 		}
 	}
 
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			
 			this.alienActive = false;
 			p1.substractShield();
 			if(p1.playerShields >= 0) {
 				p1.playerLose();
 			}
+		}
+	}
+
+	this.lootDrop = function () {
+		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
+		console.log("loot rate:" + this.rn);
+		if(this.rn == 1) {
+			this.dropLoot = true;
+			this.lootX = this.x;
+			this.lootY = this.y;
+		}
+	}
+
+	this.lootPickUp = function() {
+		console.log(this.dropLoot);
+		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
+			this.dropLoot = false;
 		}
 	}
 }
