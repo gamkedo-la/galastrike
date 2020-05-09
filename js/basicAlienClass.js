@@ -11,6 +11,7 @@ function basicAlienClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
+	this.hp = 2;
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
@@ -33,6 +34,7 @@ function basicAlienClass() {
 	this.draw = function() {
 	  if(this.alienActive == true) {
 		ctx.drawImage(imageArray["enemyA.png"], this.x, this.y);
+		colorText(this.hp, this.x + 40, this.y, "15px arial", "orange");
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
@@ -138,6 +140,7 @@ function basicAlienClass() {
 				this.respawnTimer--;
 				if(this.respawnTimer == 0) {
 					this.alienActive = true;
+					this.hp = 2;
 					this.enteredScreen = false;
 					this.respawnTimer = 30;
 					//this.x = Math.random() * (c.width - 150);
@@ -172,5 +175,9 @@ function basicAlienClass() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
 			this.dropLoot = false;
 		}
+	}
+
+	this.hpSystem = function() {
+
 	}
 }
