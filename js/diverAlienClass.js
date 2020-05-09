@@ -44,11 +44,18 @@ function diverAlienClass() {
 			}
 
 			if(this.enteredScreen == true) {
-				this.x = this.x;
+				if(this.x > p1.x - 10) {
+					this.x -= 3;
+				}
+				if(this.x < p1.x - 30) {
+					this.x +=3;
+				}
+			
 				this.y = this.y;
 				this.rn = Math.round(Math.random() * (25 - 1) + 1); // odds determining when alien will dive towards player
 				if(this.rn == 1) {
 					this.dive = true;
+
 				}
 				// need to implement player seeking code
 				if(this.dive) {
