@@ -1,4 +1,5 @@
 const ALIEN_SPAWN_POSY = -100;
+const BASIC_ALIEN_HP = 2;
 
 function basicAlienClass() {
 
@@ -11,7 +12,7 @@ function basicAlienClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 2;
+	this.hp = BASIC_ALIEN_HP;
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
@@ -144,7 +145,7 @@ function basicAlienClass() {
 				this.respawnTimer--;
 				if(this.respawnTimer == 0) {
 					this.alienActive = true;
-					this.hp = 2;
+					this.hp = BASIC_ALIEN_HP;
 					this.enteredScreen = false;
 					this.respawnTimer = 30;
 					//this.x = Math.random() * (c.width - 150);
@@ -166,7 +167,7 @@ function basicAlienClass() {
 
 	this.lootDrop = function () {
 		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("loot rate:" + this.rn);
+		console.log("a1 loot rate:" + this.rn);
 		if(this.rn == 1) {
 			this.dropLoot = true;
 			this.lootX = this.x;

@@ -40,8 +40,13 @@ function playerBasicShotClass() {
 		if(this.y <= a2.y + a2.h && this.x >= a2.x && this.x <= a2.x + a2.w) {
 			this.basicWeaponActive = false;
 			this.y = p1.y;
-			a2.alienActive = false;
-			p1.playerScoring();		
+			a2.hp --;
+			if(a2.hp <= 0) {
+				a2.alienActive = false;
+				a2.lootDrop();
+				p1.playerScoring();	
+			}
+				
 		}
 		//enemy collision - a3 "diver alien"
 		if(this.y <= a3.y + a3.h && this.x >= a3.x && this.x <= a3.x + a3.w) {

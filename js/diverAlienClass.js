@@ -1,4 +1,6 @@
 
+const DIVER_ALIEN_HP = 2;
+
 function diverAlienClass() {
 
 	this.x = 400;
@@ -11,7 +13,7 @@ function diverAlienClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 1;
+	this.hp = DIVER_ALIEN_HP;
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
@@ -77,14 +79,16 @@ function diverAlienClass() {
 
 	this.respawnAlien = function() {
 		if(this.alienActive == false) {
-			this.respawnTimer--;
-			if(this.respawnTimer == 0) {
-				this.alienActive = true;
-				this.hp = 1;
-				this.enteredScreen = false;
-				this.respawnTimer = 30;
-				this.x = Math.random()* (c.width - 150);
-				this.y = ALIEN_SPAWN_POSY; 
+			if(this.dropLoot == false) {
+				this.respawnTimer--;
+				if(this.respawnTimer == 0) {
+					this.alienActive = true;
+					this.hp = DIVER_ALIEN_HP;
+					this.enteredScreen = false;
+					this.respawnTimer = 30;
+					this.x = Math.random()* (c.width - 150);
+					this.y = ALIEN_SPAWN_POSY; 
+				}
 			}
 		}
 	}
@@ -109,7 +113,7 @@ function diverAlienClass() {
 
 	this.lootDrop = function () {
 		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("loot rate:" + this.rn);
+		console.log("a3 loot rate:" + this.rn);
 		if(this.rn == 1) {
 			this.dropLoot = true;
 			this.lootX = this.x;

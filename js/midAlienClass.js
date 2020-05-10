@@ -1,9 +1,9 @@
-
+const MID_ALIEN_HP = 3;
 
 function midAlienClass() {
 
 	this.x = 200;
-	this.y = ALIEN_SPAWN_POSY;
+	this.y = 100;
 	this.h = 50;
 	this.w = 50;
 	this.sx = 6;
@@ -11,9 +11,18 @@ function midAlienClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
+	this.hp = MID_ALIEN_HP;
 	this.alienActive = true;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
+
+	this.dropLoot = false;
+	this.lootX;
+	this.lootY;
+	this.lootW = 30;
+	this.lootH = 30;
+	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
+	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
 	this.shotX;
 	this.shotY;
@@ -26,11 +35,15 @@ function midAlienClass() {
 	this.draw = function() {
 		if(this.alienActive == true) {
 			colorRect(this.x, this.y, this.w, this.h, 'white');
+			colorText(this.hp, this.x + 60, this.y, "15px arial", "orange");
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
 			}
 			this.basicShot();
+		}
+		if(this.dropLoot == true) {
+			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
 		}
 	}
 
@@ -77,8 +90,14 @@ function midAlienClass() {
 					}
 				}	
 			}
-			this.collitionDetection();
 		}
+
+		if(this.dropLoot == true) {
+			this.lootY += this.lootYDrift;
+		}
+
+		this.collitionDetection();
+		this.lootPickUp();
 		
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -121,13 +140,16 @@ function midAlienClass() {
 
 	this.respawnAlien = function() {
 		if(this.alienActive == false) {
-			this.respawnTimer--;
-			if(this.respawnTimer == 0) {
-				this.alienActive = true;
-				this.enteredScreen = false;
-				this.respawnTimer = 30;
-				//this.x = Math.random() * (c.width - 150);
-				this.y = ALIEN_SPAWN_POSY; 
+			if(this.dropLoot == false) {
+				this.respawnTimer--;
+				if(this.respawnTimer == 0) {
+					this.hp = MID_ALIEN_HP;
+					this.alienActive = true;
+					this.enteredScreen = false;
+					this.respawnTimer = 30;
+					//this.x = c.width/2;
+					this.y = -100; 
+				}
 			}
 		}
 	}
@@ -139,6 +161,22 @@ function midAlienClass() {
 			if(p1.playerShields >= 0) {
 				p1.playerLose();
 			}
+		}
+	}
+
+	this.lootDrop = function () {
+		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
+		console.log("a2 loot rate:" + this.rn);
+		if(this.rn == 1) {
+			this.dropLoot = true;
+			this.lootX = this.x;
+			this.lootY = this.y;
+		}
+	}
+
+	this.lootPickUp = function() {
+		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
+			this.dropLoot = false;
 		}
 	}
 }
