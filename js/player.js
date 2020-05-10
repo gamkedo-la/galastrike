@@ -1,3 +1,4 @@
+//Jono - practice git commit 
 const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
 const PLAYER_POS_Y = 1000 - PLAYER_SHIP_HEIGHT - 30;
