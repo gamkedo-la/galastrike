@@ -34,7 +34,8 @@ function midAlienClass() {
 
 	this.draw = function() {
 		if(this.alienActive == true) {
-			colorRect(this.x, this.y, this.w, this.h, 'white');
+			ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
+			//colorRect(this.x, this.y, this.w, this.h, 'white');
 			colorText(this.hp, this.x + 60, this.y, "15px arial", "orange");
 
 			if(this.shotActive == true) {

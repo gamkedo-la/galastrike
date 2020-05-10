@@ -2,6 +2,7 @@
 var imageNames = ["PlayerSpaceship.png",
                   "Shield.png",
 				  "enemyAalt.png",
+				  "enemyB.png",
                   "Level_1_Background.jpg"
 				 ];
 var imageLoadCounter = imageNames.length;
