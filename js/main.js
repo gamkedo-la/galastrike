@@ -1,28 +1,43 @@
 var c;
 var ctx;
 var fps = 30;
-
 var screenBuffer = 20;
 
-var p1 = new playerClass();
-var gamepad = new GamepadManager();
-var a1 = new basicAlienClass();
-var a2 = new midAlienClass();
-var a3 = new diverAlienClass();
-var powerUp1 = new basicPowerUpClass();
-var starList = []; //parallax 
-var ast = new asteroids(); //asteroids
-var sat = new satellites(); //satellites
-var shieldPU = new shieldPowerUp();
+// these globals are assiged in gameInit after onload
+var p1;
+var gamepad;
+var a1;
+var a2;
+var a3;
+var powerUp1;
+var starList; //parallax 
+var ast; //asteroids
+var sat; //satellites
+var shieldPU;
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
     ctx = c.getContext ('2d');
     window.onresize = resize; // handle browser resizing
-    this.resize(); // full the browser right away
-	imageLoading();
+    this.resize(); // fill the browser right away
+    imageLoading();
+    gameInit();
 	starInit();
 }	
+
+// some of these need access to things only available after onload
+function gameInit() {
+    p1 = new playerClass();
+    gamepad = new GamepadManager();
+    a1 = new basicAlienClass();
+    a2 = new midAlienClass();
+    a3 = new diverAlienClass();
+    powerUp1 = new basicPowerUpClass();
+    starList = []; //parallax 
+    ast = new asteroids(); //asteroids
+    sat = new satellites(); //satellites
+    shieldPU = new shieldPowerUp();
+}
 
 function resize() {
     c.width = window.innerWidth;

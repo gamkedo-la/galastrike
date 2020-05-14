@@ -1,7 +1,6 @@
 const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
-const PLAYER_POS_Y = 1000 - PLAYER_SHIP_HEIGHT - 60;
-const PLAYE_POS_X =  400 - PLAYER_SHIP_WIDTH/2;
+const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 150;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
 const WIN_SCORE = 100;
 var playerScore = 0;
@@ -10,9 +9,11 @@ var shieldRotationSpeed = 0;
 
 function playerClass() {
 
-	this.x = PLAYE_POS_X;
-	this.y = PLAYER_POS_Y;
-	this.speedBuffer = false;
+    // start position depends on canvas size
+	this.x = c.width/2 - PLAYER_SHIP_WIDTH/2;
+    this.y = c.height - AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM;
+    
+    this.speedBuffer = false;
 	this.shield01 = true;
 	this.myShot = [];
 	this.reverseSpeed = 3;
@@ -77,7 +78,7 @@ function playerClass() {
 	}
 
 	this.spaceshipAutoReverse = function() {
-		if(this.y <= PLAYER_POS_Y && this.speedBuffer) {
+		if(this.y <= (c.height-AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM) && this.speedBuffer) {
 			this.y += this.reverseSpeed;
 		}
 	}
