@@ -11,8 +11,8 @@ var a2 = new midAlienClass();
 var a3 = new diverAlienClass();
 var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
-var ast = new asteroids();
-var sat = new satellites();
+var ast = new asteroids(); //asteroids
+var sat = new satellites(); //satellites
 var shieldPU = new shieldPowerUp();
 
 window.onload = function () {

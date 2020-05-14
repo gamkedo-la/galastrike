@@ -1,7 +1,7 @@
 
 function asteroids() {
 
-	this.x = 100;
+	this.x = 800;
 	this.y = 0;
 	this.r = 20;
 	this.sy = 5;
@@ -46,7 +46,7 @@ function asteroids() {
 			this.dropLoot = false;
 			shieldPU.pickedUP = false;
 			this.y = -100;
-			this.x = Math.round(Math.random() * (c.width - 50) + 50);
+			this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
 
 	this.playerCollisionDetection = function() {
