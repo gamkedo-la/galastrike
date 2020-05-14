@@ -11,6 +11,7 @@ var a2 = new midAlienClass();
 var a3 = new diverAlienClass();
 var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
+var ast = new asteroids();
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -79,6 +80,7 @@ function moveEverything() {
 	a2.move();
 	a3.move();
 	powerUp1.move();
+	ast.move();
 
 	//audio
     backgroundMusic.updateMusic();
@@ -89,6 +91,8 @@ function gameMode() {
     backgroundDraw();
     // awesome parallax starfield
     starDraw();
+    //asteroid
+    ast.draw();
 	//player ship
 	p1.draw();
 	//basic enemy 
