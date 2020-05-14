@@ -33,7 +33,7 @@ function colorLine(startX, startY, endX, endY, lineWidth, fillColor) {
 	ctx.stroke();
 }
 
-function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY,withAngle) {
+function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY, withAngle) {
 	ctx.save(); // allows us to undo translate movement and rotate spin
 	ctx.translate(atX,atY); // sets the point where our graphic will go
 	ctx.rotate(withAngle); // sets the rotation
