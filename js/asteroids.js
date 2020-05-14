@@ -6,13 +6,16 @@ function asteroids() {
 	this.r = 20;
 	this.sy = 5;
 	this.destroyed = false;
+	this.lootRate = 1;
 
 	this.draw = function() {
 		if(this.destroyed == false){
 			colorCircle(this.x, this.y, this.r, 'orange');	
 		}
-
-		this.respawn();
+		if(this.destroyed == true) {
+			this.lootDrop();
+		}
+		//this.respawn();
 	}
 
 	this.move = function() {
@@ -21,6 +24,14 @@ function asteroids() {
 		if(this.y >= c.height) {
 			this.y = -100;
 			this.x = Math.round(Math.random() * (c.width - 50) + 50);
+		}
+	}
+
+	this.lootDrop = function () {
+		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
+		console.log("ast loot rate:" + this.rn);
+		if(this.rn == 1) {
+			shieldPU.draw();
 		}
 	}
 

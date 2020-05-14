@@ -13,6 +13,7 @@ var powerUp1 = new basicPowerUpClass();
 var starList = []; //parallax 
 var ast = new asteroids();
 var sat = new satellites();
+var shieldPU = new shieldPowerUp();
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
