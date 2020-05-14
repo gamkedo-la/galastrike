@@ -80,7 +80,11 @@ function playerClass() {
 	this.spaceshipAutoReverse = function() {
 		if(this.y <= (c.height-AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM) && this.speedBuffer) {
 			this.y += this.reverseSpeed;
-		}
+        }
+        
+        // don't go off screen past the bottom either (due to a screen resize etc)
+        if(this.y > c.height-PLAYER_SHIP_HEIGHT) 
+            this.y = c.height-PLAYER_SHIP_HEIGHT; // maybe use autoreverse Y instead?
 	}
 
 	this.playerScoring = function() {
