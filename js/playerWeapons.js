@@ -59,6 +59,11 @@ function playerBasicShotClass() {
 				p1.playerScoring();	
 			}	
 		}
+		//asteroid collision detection
+		if(this.y <= ast.y + ast.r && this.x >= ast.x - ast.r && this.x <= ast.x + ast.r) {
+			ast.destroyed = true;
+			this.basicWeaponActive = false;
+		}
 		//checking screen boundaries
 		if(this.y <= 0) {
 			this.basicWeaponActive = false;
