@@ -62,6 +62,7 @@ function playerBasicShotClass() {
 		//asteroid collision detection
 		if(this.y <= ast.y + ast.r && this.x >= ast.x - ast.r && this.x <= ast.x + ast.r) {
 			ast.destroyed = true;
+			ast.dropLoot = true;
 			this.basicWeaponActive = false;
 		}
 		//checking screen boundaries

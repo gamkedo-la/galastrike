@@ -5,7 +5,8 @@ function asteroids() {
 	this.y = 0;
 	this.r = 20;
 	this.sy = 5;
-	this.destroyed = false;
+	this.destroyed = false; // also used in playerWeapon.js
+	this.dropLoot = false; // inserted in playerWeapon.js
 	this.lootRate = 1;
 
 	this.draw = function() {
@@ -15,31 +16,44 @@ function asteroids() {
 		if(this.destroyed == true) {
 			this.lootDrop();
 		}
-		//this.respawn();
 	}
 
 	this.move = function() {
 		this.y += this.sy;
+		this.playerCollisionDetection();
 
 		if(this.y >= c.height) {
-			this.y = -100;
-			this.x = Math.round(Math.random() * (c.width - 50) + 50);
+			this.respawn();
 		}
 	}
 
 	this.lootDrop = function () {
-		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("ast loot rate:" + this.rn);
-		if(this.rn == 1) {
-			shieldPU.draw();
+		if(this.dropLoot == true) {
+			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
+			//console.log("ast loot rate:" + this.rn);
+			if(this.rn == 1) {
+				shieldPU.active = true;
+				shieldPU.x = this.x;
+				shieldPU.y = this.y;
+				shieldPU.draw();
+				shieldPU.move();
+			}
 		}
 	}
 
 	this.respawn = function() {
-		if(this.destroyed == true) {
 			this.destroyed = false;
+			this.dropLoot = false;
+			shieldPU.pickedUP = false;
 			this.y = -100;
 			this.x = Math.round(Math.random() * (c.width - 50) + 50);
+	}
+
+	this.playerCollisionDetection = function() {
+		if(this.destroyed == false && p1.x + PLAYER_SHIP_WIDTH >= this.x + this.r && p1.x <= this.x + this.r && p1.y <= this.y + this.r && p1.y + PLAYER_SHIP_HEIGHT >= this.y + this.r) {
+			this.destroyed = true;
+			p1.substractShield();
+			this.respawn();
 		}
 	}
 }

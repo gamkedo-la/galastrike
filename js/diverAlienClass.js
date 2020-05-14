@@ -104,7 +104,6 @@ function diverAlienClass() {
 		}
 
 		if(this.y >= c.height) {
-			console.log("respawn");
 			this.alienActive = false;
 			this.dive = false;
 			this.respawnAlien();
