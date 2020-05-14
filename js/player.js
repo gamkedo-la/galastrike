@@ -1,6 +1,6 @@
 const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
-const PLAYER_POS_Y = 1000 - PLAYER_SHIP_HEIGHT - 30;
+const PLAYER_POS_Y = 1000 - PLAYER_SHIP_HEIGHT - 60;
 const PLAYE_POS_X =  400 - PLAYER_SHIP_WIDTH/2;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
 const WIN_SCORE = 100;
