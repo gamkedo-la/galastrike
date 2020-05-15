@@ -12,12 +12,16 @@ function playerClass() {
     // start position depends on canvas size
 	this.x = c.width/2 - PLAYER_SHIP_WIDTH/2;
     this.y = c.height - AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM;
+
+    this.sy = 5; 
+    this.sx = 10;
     
     this.speedBuffer = false;
 	this.shield01 = true;
 	this.myShot = [];
 	this.reverseSpeed = 3;
 	this.reloadFrames = 0;
+	this.speedBurstCountdown = 0;
 
 	this.fireShot = function () {
 		var newShot = new playerBasicShotClass();
@@ -55,6 +59,7 @@ function playerClass() {
 
 		this.moveShield();
 		this.spaceshipAutoReverse();
+		this.speedBurst();
 	}
 
 	this.moveShield = function() { // called by this.move
@@ -95,6 +100,8 @@ function playerClass() {
 	}
 
 	this.playerScore = function() {
+        colorText("Speed: " + this.sy, c.width-120, c.height-90, "15px arial", "orange"); // debug output - remove
+        colorText("Speed Timer: " +this.speedBurstCountdown, c.width-120, c.height-70, "15px arial", "orange"); // debug output - remove
         colorText("ShotCount: " + this.myShot.length, c.width-120, c.height-50, "15px arial", "orange"); // debug output - remove
 		colorText("Score: " + playerScore, c.width-120, c.height-30, "15px arial", "white");
 		colorText("Shields: " + playerShields, c.width-120, c.height-10, "15px arial", "white");
@@ -132,7 +139,7 @@ function playerClass() {
 
 	this.moveUp = function() {
 		if(this.y >= c.height/5){
-			this.y -= 5;
+			this.y -= this.sy;
 		}	
 
 		if(starFieldSpeed <= STARFIELD_TOP_SPEED) {
@@ -142,24 +149,38 @@ function playerClass() {
 
 	this.moveDown = function() {
 		if(this.y <= c.height-MIN_DIST_FROM_SCREEN_BOTTOM) {
-			this.y += 5;
+			this.y += this.sy;
 		}
 	}
 
 	this.moveLeft = function() {
 		if(this.x >= 20) {
-			this.x -= 10;
+			this.x -= this.sx;
 		}
 	}
 
 	this.moveRight = function() {
 		if(this.x <= c.width - PLAYER_SHIP_WIDTH - 20) {
-			this.x += 10;
+			this.x += this.sx;
 		}
 	}
 
 	this.addSpeed = function() {
 		console.log("speed Burst!");
+		this.speedBurstCountdown += 120;
+
 	}
 
+	this.speedBurst = function() {
+		if(this.speedBurstCountdown >= 1) {
+			this.speedBurstCountdown --;
+			this.sy = 20;
+			this.sx = 20;
+		} 
+		else {
+			this.sy = 5;
+			this.sx = 10;
+			this.speedBurstCountdown = 0;
+		}
+	}
 }
