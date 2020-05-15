@@ -3,8 +3,8 @@ function satellites() {
 
 	this.x = 500;
 	this.y = 0;
-	this.w = 20;
-	this.h = 40;
+	this.w = 30;
+	this.h = 50;
 	this.sy = 3;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.dropLoot = false; // inserted in playerWeapon.js

@@ -36,7 +36,7 @@ function basicAlienClass() {
 	this.draw = function() {
 	  if(this.alienActive == true) {
 		ctx.drawImage(imageArray["enemyAalt.png"], this.x, this.y);
-		colorText(this.hp, this.x + 40, this.y, "15px arial", "orange");
+		colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
 
 			if(this.shotActive == true) {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');

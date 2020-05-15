@@ -31,7 +31,7 @@ function diverAlienClass() {
 	this.draw = function() {
 		if(this.alienActive == true) {
 			colorRect(this.x, this.y, this.w, this.h, 'red');
-			colorText(this.hp, this.x + 50, this.y, "15px arial", "orange");
+			colorText(this.hp, this.x + 60, this.y, "18px arial", "orange"); // hp indicator
 		}
 		if(this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
