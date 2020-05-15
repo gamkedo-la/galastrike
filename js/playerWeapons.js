@@ -9,8 +9,6 @@ function playerBasicShotClass() {
 	this.basicWeaponActive = false;
 
 	this.draw = function() {
-
-
 		if(this.basicWeaponActive == true) {
 			colorCircle(this.x, this.y, SHOT_DISPLAY_RADIUS, 'white');
 		}		
@@ -64,6 +62,13 @@ function playerBasicShotClass() {
 			ast.destroyed = true;
 			ast.dropLoot = true;
 			this.basicWeaponActive = false;
+		}
+		//satellite collision detection
+		if(this.y + SHOT_DISPLAY_RADIUS <= sat.y + sat.h && this.x >= sat.x && this.x <= sat.x + sat.w) {
+			sat.destroyed = true;
+			sat.dropLoot = true;
+			this.basicWeaponActive = false;
+			console.log("de");
 		}
 		//checking screen boundaries
 		if(this.y <= 0) {
