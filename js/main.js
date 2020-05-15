@@ -4,16 +4,17 @@ var fps = 30;
 var screenBuffer = 20;
 
 // these globals are assiged in gameInit after onload
-var p1;
+var p1; // player 1
 var gamepad;
-var a1;
-var a2;
-var a3;
-var powerUp1;
+var a1; // basic enemy
+var a2; // mid enemy
+var a3; // diver enemy
+var powerUp1; //power up placeholder
 var starList; //parallax 
 var ast; //asteroids
 var sat; //satellites
-var shieldPU;
+var shieldPU; //shield Power Up
+var speedPU; // speed Power Up
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -37,6 +38,7 @@ function gameInit() {
     ast = new asteroids(); //asteroids
     sat = new satellites(); //satellites
     shieldPU = new shieldPowerUp();
+    speedPU = new speedPowerUp();
 }
 
 function resize() {

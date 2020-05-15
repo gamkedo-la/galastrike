@@ -29,16 +29,15 @@ function satellites() {
 	}
 
 	this.lootDrop = function () {
-					console.log ("Working");
 		if(this.dropLoot == true) {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 			console.log("ast loot rate:" + this.rn);
 			if(this.rn == 1) {
-				shieldPU.active = true;
-				shieldPU.x = this.x;
-				shieldPU.y = this.y;
-				shieldPU.draw();
-				shieldPU.move();
+				speedPU.active = true;
+				speedPU.x = this.x;
+				speedPU.y = this.y;
+				speedPU.draw();
+				speedPU.move();
 			}
 		}
 	}
@@ -46,7 +45,7 @@ function satellites() {
 	this.respawn = function() {
 		this.destroyed = false;
 		this.dropLoot = false;
-		shieldPU.pickedUP = false;
+		speedPU.pickedUP = false;
 		this.y = -50;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}

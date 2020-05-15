@@ -131,7 +131,7 @@ function playerClass() {
 	//player movement handling
 
 	this.moveUp = function() {
-		if(this.y >= c.height/4){
+		if(this.y >= c.height/5){
 			this.y -= 5;
 		}	
 
@@ -156,6 +156,10 @@ function playerClass() {
 		if(this.x <= c.width - PLAYER_SHIP_WIDTH - 20) {
 			this.x += 10;
 		}
+	}
+
+	this.addSpeed = function() {
+		console.log("speed Burst!");
 	}
 
 }
