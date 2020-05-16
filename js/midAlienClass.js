@@ -111,8 +111,8 @@ function midAlienClass() {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);
 			if(this.rn == 1) {
 				this.shotActive = true;
-				this.shotY = this.y;
-				this.shotX = this.x;
+				this.shotY = this.y + 80;
+				this.shotX = this.x + 40;
 			} 
 		}
 

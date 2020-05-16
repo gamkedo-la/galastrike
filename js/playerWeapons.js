@@ -68,7 +68,6 @@ function playerBasicShotClass() {
 			sat.destroyed = true;
 			sat.dropLoot = true;
 			this.basicWeaponActive = false;
-			console.log("de");
 		}
 		//checking screen boundaries
 		if(this.y <= 0) {

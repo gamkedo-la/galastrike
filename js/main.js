@@ -15,6 +15,7 @@ var ast; //asteroids
 var sat; //satellites
 var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
+var weaponPU; // weapon Poer Up
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -39,6 +40,7 @@ function gameInit() {
     sat = new satellites(); //satellites
     shieldPU = new shieldPowerUp();
     speedPU = new speedPowerUp();
+    weaponPU = new weaponPowerUp();
 }
 
 function resize() {

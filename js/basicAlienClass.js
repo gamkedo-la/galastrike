@@ -177,6 +177,7 @@ function basicAlienClass() {
 
 	this.lootPickUp = function() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
+			p1.weaponUpgrade();
 			this.dropLoot = false;
 		}
 	}
