@@ -20,6 +20,7 @@ function playerClass() {
 	this.shield01 = true;
 	this.myShot = [];
 	this.weaponTier = "Basic";
+	this.shotReloadRate = 6; //lower the number the more shots
 	this.reverseSpeed = 3;
 	this.reloadFrames = 0;
 	this.speedBurstCountdown = 0;
@@ -29,7 +30,7 @@ function playerClass() {
 		newShot.basicWeaponActive = true;
 		newShot.x = this.x + PLAYER_SHIP_WIDTH/2;
 		this.myShot.push(newShot);
-		this.reloadFrames = 6;
+		this.reloadFrames = this.shotReloadRate;
 	}
 
 	this.draw = function() {
@@ -189,6 +190,7 @@ function playerClass() {
 	this.weaponUpgrade = function() {
 		console.log("weapon Upgrade");
 		this.weaponTier = "Mid";
+		this.shotReloadRate = 1;
 
 	}
 }

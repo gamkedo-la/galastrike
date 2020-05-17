@@ -9,6 +9,7 @@ var gamepad;
 var a1; // basic enemy
 var a2; // mid enemy
 var a3; // diver enemy
+var b1; // level one boss;
 var powerUp1; //power up placeholder
 var starList; //parallax 
 var ast; //asteroids
@@ -34,6 +35,7 @@ function gameInit() {
     a1 = new basicAlienClass();
     a2 = new midAlienClass();
     a3 = new diverAlienClass();
+    b1 = new levelOneBossClass();
     powerUp1 = new basicPowerUpClass();
     starList = []; //parallax 
     ast = new asteroids(); //asteroids
@@ -100,6 +102,7 @@ function moveEverything() {
 	a1.move();
 	a2.move();
 	a3.move();
+	b1.move();
 	powerUp1.move();
 	ast.move();
 	sat.move();
@@ -109,10 +112,13 @@ function moveEverything() {
 }
 
 function gameMode() {
+	backgroundMusic.loopSong("./RAW/gameplayMusicV1.mp3");
     // scrolling bg image
     backgroundDraw();
     // awesome parallax starfield
     starDraw();
+    //boss
+    b1.draw();
     //asteroids & satellites
     ast.draw();
     sat.draw();
