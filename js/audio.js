@@ -17,24 +17,51 @@ function backgroundMusicClass() {
 	var musicSound = null;
 	var fadeTrack = null;
 
+	this.playing = false;
+
 	this.loopSong = function(filenameWithPath) {
-		if (musicSound != null) {
+		if (musicSound != null && fadeTrack != null) {
+			fadeTrack.pause();
+			fadeTrack = musicSound;
+			musicSound = null;
+		} else if (musicSound != null) {
 			fadeTrack = musicSound;
 			musicSound = null;
 		}
+
 		musicSound = new Audio(filenameWithPath);
 		musicSound.loop = true;
 		this.setVolume(musicVolume);
+
+		this.playing = true;
 	}
 
-	this.pauseSound = function() {
+	this.pause = function() {
 		musicSound.pause();
-		fadeTrack.pause();
-		fadeTrack = null;
+		if (fadeTrack != null) {
+			fadeTrack.pause();
+			fadeTrack = null;
+		}
+
+		this.playing = false;
 	}
 
-	this.resumeSound = function() {
+	this.stop = function() {
+		musicSound.pause();
+		if (fadeTrack != null) {
+			fadeTrack.pause();
+			fadeTrack = null;
+		}
+
+		musicSound.currentTime = 0;
+
+		this.playing = false;
+	}
+
+	this.resume = function() {
 		musicSound.play();
+
+		this.playing = true;
 	}
 
 	this.setVolume = function(value) {
