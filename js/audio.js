@@ -17,6 +17,7 @@ function backgroundMusicClass() {
 	var musicSound = null;
 	var fadeTrack = null;
 
+	this.trackName = "";
 	this.playing = false;
 
 	this.loopSong = function(filenameWithPath) {
@@ -33,7 +34,11 @@ function backgroundMusicClass() {
 		musicSound.loop = true;
 		this.setVolume(musicVolume);
 
-		this.playing = true;
+		this.trackName = filenameWithPath;
+
+		if (!musicSound.paused) {
+			this.playing = true;
+		}
 	}
 
 	this.pause = function() {
