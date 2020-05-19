@@ -1,7 +1,6 @@
 
 function asteroids() {
 	
-	// test comment, will remove, xo Alanna
 
 	this.x = 800;
 	this.y = 0;
