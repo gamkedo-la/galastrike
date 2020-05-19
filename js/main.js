@@ -117,6 +117,8 @@ function gameMode() {
     backgroundDraw();
     // awesome parallax starfield
     starDraw();
+    // space tech in front of stars but behind the game action
+    midgroundDraw();
     //boss
     b1.draw();
     //asteroids & satellites
