@@ -9,10 +9,14 @@ function asteroids() {
 	this.destroyed = false; // also used in playerWeapon.js
 	this.dropLoot = false; // inserted in playerWeapon.js
 	this.lootRate = 1;
+	this.rotation = 0;
+	this.rotationSpeed = 0.1;
 
 	this.draw = function() {
 		if(this.destroyed == false){
-			colorCircle(this.x, this.y, this.r, 'orange');	
+			//colorCircle(this.x, this.y, this.r, 'orange');	
+			//ctx.drawImage(imageArray["Asteroid_1.png"], this.x, this.y);
+			drawBitmapCenteredAtLocationWithRotation(imageArray["Asteroid_1.png"], this.x, this.y, this.rotation);
 		}
 		if(this.destroyed == true) {
 			this.lootDrop();
@@ -21,6 +25,7 @@ function asteroids() {
 
 	this.move = function() {
 		this.y += this.sy;
+		this.rotation += this.rotationSpeed;
 		this.playerCollisionDetection();
 
 		if(this.y >= c.height) {
