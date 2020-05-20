@@ -34,7 +34,8 @@ function levelOneBossClass() {
 
 	this.draw = function() {
 	  if(this.alienActive == true) {
-		colorRect(this.x, this.y, this.w, this.h, 'green');;
+		//colorRect(this.x, this.y, this.w, this.h, 'green');
+		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h + 20, "18px arial", "orange"); // hp indicator
 
 			if(this.shotActive == true) {
