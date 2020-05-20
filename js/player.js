@@ -21,13 +21,43 @@ function playerClass() {
 	this.myShot = [];
 	this.weaponTier = "Basic";
 	this.shotReloadRate = 6; //lower the number the more shots
+	// Amount of special ammo we have, start with 0 to use basic ammo
+	this.specialAmmo = 0;
 	this.reverseSpeed = 3;
 	this.reloadFrames = 0;
 	this.speedBurstCountdown = 0;
 
 	this.fireShot = function () {
-		var newShot = new playerBasicShotClass();
-		newShot.basicWeaponActive = true;
+		// Only basic and mid weapons for now
+
+		// There's no more special ammo, go back to normal ammo
+		if(this.specialAmmo <= 0) {
+			this.weaponTier = 'Basic';
+		} else {
+			// We still have special ammo, so continue to use it
+			this.weaponTier = 'Mid';
+			this.specialAmmo--;
+		}
+
+		var newShot;
+		// Amount of hp to remove from an alien with each shot
+		var removeAlienHp;
+
+		// Check what kind of weapon we have
+		switch (this.weaponTier) {
+			case 'Basic': 
+				removeAlienHp = 1;
+				newShot = new playerShotClass('white', removeAlienHp);
+				break;
+			case 'Mid':
+				removeAlienHp = 5;
+				newShot = new playerShotClass('red', removeAlienHp);
+				break;
+		}
+
+		// console.log(`this.weaponTier: ${this.weaponTier}, this.specialAmmo: ${this.specialAmmo}, this.shotReloadRate: ${this.shotReloadRate}`);
+
+		newShot.weaponActive = true;
 		newShot.x = this.x + PLAYER_SHIP_WIDTH/2;
 		this.myShot.push(newShot);
 		this.reloadFrames = this.shotReloadRate;
@@ -188,9 +218,12 @@ function playerClass() {
 	}
 
 	this.weaponUpgrade = function() {
-		console.log("weapon Upgrade");
+		console.log("weapon upgrade from basic to mid");
+		// Change weapon type
 		this.weaponTier = "Mid";
-		this.shotReloadRate = 1;
-
+		// Take a little less time to shoot again
+		this.shotReloadRate = 3;
+		// Amount of special ammo we have 
+		this.specialAmmo = 3;
 	}
 }

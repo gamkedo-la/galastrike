@@ -44,8 +44,9 @@ function basicAlienClass() {
 			this.basicShot();
 		}
 
+		// Made weapon upgrade pink to be easier to identify while working with weapons. Feel free to change the color
 		if(this.dropLoot == true) {
-			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
+			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'pink');
 		}
 	}
 
