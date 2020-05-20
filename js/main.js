@@ -112,7 +112,9 @@ function moveEverything() {
 }
 
 function gameMode() {
-	backgroundMusic.loopSong("./RAW/gameplayMusicV1.mp3");
+	if(backgroundMusic.playing == false) {
+		backgroundMusic.loopSong("./RAW/gameplayMusicV1.mp3");	
+	}
     // scrolling bg image
     backgroundDraw();
     // awesome parallax starfield
