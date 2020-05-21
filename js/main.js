@@ -13,6 +13,64 @@ var speedPU; // speed Power Up
 var weaponPU; // weapon Poer Up
 var enemyList = [];
 
+const ENEMY_KIND_BASIC_ALIEN = 0;
+const ENEMY_KIND_MID_ALIEN = 1;
+const ENEMY_KIND_DIVER_ALIEN = 2;
+const ENEMY_KIND_LONE_BOSS = 3;
+const ENEMY_KIND_AST = 4;
+const ENEMY_KIND_SAT = 5;
+var levelOneData = [
+	{kind:ENEMY_KIND_BASIC_ALIEN, when:0},
+	{kind:ENEMY_KIND_AST, when:30}, 
+	{kind:ENEMY_KIND_SAT, when:100},
+];
+
+var levelTwoData = [
+	{kind:ENEMY_KIND_LONE_BOSS, when:0},
+];
+var levelList = [levelOneData, levelTwoData];
+var levelNum = 0;
+function loadLevel(whichLevel) {
+	enemyList = [];
+	levelNum = whichLevel;
+	levelCurrent = levelList[levelNum];
+	spawnClock = 0;
+}
+var levelCurrent;
+var spawnClock = 0;
+function handelLevelSpawn() {
+	for(var i=0; i<levelCurrent.length; i++){
+		if(spawnClock == levelCurrent[i].when) {
+			var spawnObj;
+			switch(levelCurrent[i].kind) {
+				case ENEMY_KIND_BASIC_ALIEN:
+					spawnObj = new basicAlienClass();
+					break;
+				case ENEMY_KIND_MID_ALIEN:
+					spawnObj = new midAlienClass();
+					break;
+				case ENEMY_KIND_DIVER_ALIEN:
+					spawnObj = new diverAlienClass();
+					break;
+				case ENEMY_KIND_LONE_BOSS:
+					spawnObj = new levelOneBossClass();
+					break;
+				case ENEMY_KIND_AST:
+					spawnObj = new asteroids();
+					break;
+				case ENEMY_KIND_SAT:
+					spawnObj = new satellites();
+					break;
+				default:
+					console.log("attempted to spawn unkown kind " + levelCurrent[i].kind + " at time " + spawnClock);
+					break;
+			}
+			enemyList.push(spawnObj);
+		}
+	}
+	spawnClock ++;
+}
+
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
     ctx = c.getContext ('2d');
@@ -32,14 +90,7 @@ function gameInit() {
     shieldPU = new shieldPowerUp();
     speedPU = new speedPowerUp();
     weaponPU = new weaponPowerUp();
-    // enemyList array below
-    var a1 = new basicAlienClass();
-    var a2 = new midAlienClass();
-    var a3 = new diverAlienClass();
-    var b1 = new levelOneBossClass();
-    var ast = new asteroids(); //asteroids
-    var sat = new satellites(); //satellites
-    enemyList = [a1, a2, a3, b1, ast, sat];
+ 	loadLevel(levelNum);
 }
 
 function resize() {
@@ -92,6 +143,7 @@ function drawEverything() {
 }
 
 function moveEverything() {
+	handelLevelSpawn();
     //player
     gamepad.update();
 	p1.move();
