@@ -1,10 +1,13 @@
-
+var DEBUG_MEETING_VOL = true;
 var musicVolume = 0.7;
 var effectsVolume = 0.7;
 var isMuted = false;
 const VOLUME_INCREMENT = 0.0333;
 
-
+if(DEBUG_MEETING_VOL) {
+	musicVolume = effectsVolume = 0.2;
+	console.log("DEBUG_MEETING_VOL is set so vol is suppresed");
+}
 //define sounds
 
 
