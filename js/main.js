@@ -6,17 +6,12 @@ var screenBuffer = 20;
 // these globals are assiged in gameInit after onload
 var p1; // player 1
 var gamepad;
-var a1; // basic enemy
-var a2; // mid enemy
-var a3; // diver enemy
-var b1; // level one boss;
 var powerUp1; //power up placeholder
 var starList; //parallax 
-var ast; //asteroids
-var sat; //satellites
 var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
 var weaponPU; // weapon Poer Up
+var enemyList = [];
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -32,17 +27,19 @@ window.onload = function () {
 function gameInit() {
     p1 = new playerClass();
     gamepad = new GamepadManager();
-    a1 = new basicAlienClass();
-    a2 = new midAlienClass();
-    a3 = new diverAlienClass();
-    b1 = new levelOneBossClass();
     powerUp1 = new basicPowerUpClass();
     starList = []; //parallax 
-    ast = new asteroids(); //asteroids
-    sat = new satellites(); //satellites
     shieldPU = new shieldPowerUp();
     speedPU = new speedPowerUp();
     weaponPU = new weaponPowerUp();
+    // enemyList array below
+    var a1 = new basicAlienClass();
+    var a2 = new midAlienClass();
+    var a3 = new diverAlienClass();
+    var b1 = new levelOneBossClass();
+    var ast = new asteroids(); //asteroids
+    var sat = new satellites(); //satellites
+    enemyList = [a1, a2, a3, b1, ast, sat];
 }
 
 function resize() {
@@ -99,13 +96,12 @@ function moveEverything() {
     gamepad.update();
 	p1.move();
 	starMove();	
-	a1.move();
-	a2.move();
-	a3.move();
-	b1.move();
 	powerUp1.move();
-	ast.move();
-	sat.move();
+	
+
+	for(var i=0; i<enemyList.length; i++) {
+		enemyList[i].move();
+	}
 
 	//audio
     backgroundMusic.updateMusic();
@@ -121,20 +117,14 @@ function gameMode() {
     starDraw();
     // space tech in front of stars but behind the game action
     midgroundDraw();
-    //boss
-    b1.draw();
-    //asteroids & satellites
-    ast.draw();
-    sat.draw();
+
+    for(var i=0; i<enemyList.length; i++) {
+		enemyList[i].draw();
+	}
+
 	//player ship
 	p1.draw();
-	//basic enemy 
-	a1.draw();
-	a1.respawnAlien();
-	a2.draw();
-	a2.respawnAlien();
-	a3.draw();
-	a3.respawnAlien();
+	
     //player score
 	p1.playerScore();
 	//power ups

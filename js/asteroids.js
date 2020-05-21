@@ -33,6 +33,14 @@ function asteroids() {
 		}
 	}
 
+	this.shotHitMeCheck = function(testShot) {
+		if(testShot.y <= this.y + this.r && testShot.x >= this.x - this.r && testShot.x <= this.x + this.r) {
+			this.destroyed = true;
+			this.dropLoot = true;
+			testShot.weaponActive = false;
+		}
+	}
+
 	this.lootDrop = function () {
 		if(this.dropLoot == true) {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);

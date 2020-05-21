@@ -80,6 +80,12 @@ function levelOneBossClass() {
 		}
 	}
 
+	this.shotHitMeCheck = function(testShot) {
+		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+			console.log("to do handle: boss getting shot");
+		}
+	}
+
 	this.basicShot = function() {
 		if(this.shotActive == false) {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);

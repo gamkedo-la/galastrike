@@ -28,6 +28,14 @@ function satellites() {
 		}
 	}
 
+	this.shotHitMeCheck = function(testShot) {
+		if(testShot.y + SHOT_DISPLAY_RADIUS <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+			this.destroyed = true;
+			this.dropLoot = true;
+			testShot.weaponActive = false;
+		}	
+	}
+
 	this.lootDrop = function () {
 		if(this.dropLoot == true) {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);

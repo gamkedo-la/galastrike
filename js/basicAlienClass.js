@@ -106,6 +106,21 @@ function basicAlienClass() {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
 		}
+
+		this.respawnAlien();
+	}
+
+	this.shotHitMeCheck = function(testShot) {
+		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+			testShot.weaponActive = false;
+			testShot.y = p1.y;
+			this.hp -= testShot.removeAlienHp;
+			if(this.hp <= 0) {
+				this.alienActive = false;
+				this.lootDrop();
+				p1.playerScoring();		
+			}	
+		}
 	}
 
 	this.basicShot = function() {
