@@ -13,10 +13,16 @@ var levelOneData = [
 ];
 
 var levelTwoData = [
+	{kind:ENEMY_KIND_BASIC_ALIEN, when:0},
+	{kind:ENEMY_KIND_MID_ALIEN, when:120},
+	{kind:ENEMY_KIND_DIVER_ALIEN, when:240},
+];
+
+var levelThreeData = [
 	{kind:ENEMY_KIND_LONE_BOSS, when:0},
 ];
 
-var levelList = [levelOneData, levelTwoData];
+var levelList = [levelOneData, levelTwoData, levelThreeData];
 var levelNum = 1; //determines what level is active
 
 function loadLevel(whichLevel) {
