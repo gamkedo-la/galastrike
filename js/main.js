@@ -10,66 +10,7 @@ var powerUp1; //power up placeholder
 var starList; //parallax 
 var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
-var weaponPU; // weapon Poer Up
-var enemyList = [];
-
-const ENEMY_KIND_BASIC_ALIEN = 0;
-const ENEMY_KIND_MID_ALIEN = 1;
-const ENEMY_KIND_DIVER_ALIEN = 2;
-const ENEMY_KIND_LONE_BOSS = 3;
-const ENEMY_KIND_AST = 4;
-const ENEMY_KIND_SAT = 5;
-var levelOneData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:0},
-	{kind:ENEMY_KIND_AST, when:30}, 
-	{kind:ENEMY_KIND_SAT, when:100},
-];
-
-var levelTwoData = [
-	{kind:ENEMY_KIND_LONE_BOSS, when:0},
-];
-var levelList = [levelOneData, levelTwoData];
-var levelNum = 0;
-function loadLevel(whichLevel) {
-	enemyList = [];
-	levelNum = whichLevel;
-	levelCurrent = levelList[levelNum];
-	spawnClock = 0;
-}
-var levelCurrent;
-var spawnClock = 0;
-function handelLevelSpawn() {
-	for(var i=0; i<levelCurrent.length; i++){
-		if(spawnClock == levelCurrent[i].when) {
-			var spawnObj;
-			switch(levelCurrent[i].kind) {
-				case ENEMY_KIND_BASIC_ALIEN:
-					spawnObj = new basicAlienClass();
-					break;
-				case ENEMY_KIND_MID_ALIEN:
-					spawnObj = new midAlienClass();
-					break;
-				case ENEMY_KIND_DIVER_ALIEN:
-					spawnObj = new diverAlienClass();
-					break;
-				case ENEMY_KIND_LONE_BOSS:
-					spawnObj = new levelOneBossClass();
-					break;
-				case ENEMY_KIND_AST:
-					spawnObj = new asteroids();
-					break;
-				case ENEMY_KIND_SAT:
-					spawnObj = new satellites();
-					break;
-				default:
-					console.log("attempted to spawn unkown kind " + levelCurrent[i].kind + " at time " + spawnClock);
-					break;
-			}
-			enemyList.push(spawnObj);
-		}
-	}
-	spawnClock ++;
-}
+var weaponPU; // weapon Power Up
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -109,7 +50,6 @@ function startGame() {
 
 
 function drawEverything() {
-
 	//canvas
 	colorRect(0, 0, c.width, c.height, 'black');
 
@@ -149,10 +89,12 @@ function moveEverything() {
 	p1.move();
 	starMove();	
 	powerUp1.move();
-	
 
-	for(var i=0; i<enemyList.length; i++) {
-		enemyList[i].move();
+	if(mode == GAME_SCREEN) {
+		//moves enemies and sapce debris 
+		for(var i=0; i<enemyList.length; i++) {
+			enemyList[i].move();
+		}
 	}
 
 	//audio
@@ -169,7 +111,7 @@ function gameMode() {
     starDraw();
     // space tech in front of stars but behind the game action
     midgroundDraw();
-
+    //draws enemies and space debris
     for(var i=0; i<enemyList.length; i++) {
 		enemyList[i].draw();
 	}
