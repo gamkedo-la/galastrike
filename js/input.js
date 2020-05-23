@@ -9,6 +9,9 @@ const KEY_SHIFT = 16;
 const KEY_Q = 81;
 const KEY_S = 83;
 const KEY_F = 70;
+const KEY_1 = 49;
+const KEY_2 = 50;
+const KEY_3 = 51;
 
 var holdLeft = false;
 var holdRight = false;
@@ -22,7 +25,7 @@ function initInput() {
 }
 
 function keyPressed(evt) {
-	//console.log("Key pressed: " + evt.keyCode);
+	console.log("Key pressed: " + evt.keyCode);
 
 	switch(mode) {
 		case GAME_SCREEN:
@@ -61,6 +64,18 @@ function keyPressed(evt) {
 			}
             if(evt.keyCode == KEY_F) {
                 toggleFullscreen();
+            }
+            if(evt.keyCode == KEY_1) {
+                levelNum = 0;
+                mode = GAME_SCREEN;
+            }
+            if(evt.keyCode == KEY_2) {
+                levelNum = 1;
+                mode = GAME_SCREEN;
+            }
+            if(evt.keyCode == KEY_3) {
+                levelNum = 2;
+                mode = GAME_SCREEN;
             }
 			break;
 

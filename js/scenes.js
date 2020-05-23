@@ -6,6 +6,7 @@ const GAME_OVER = 2;
 const TITLE_SCREEN = 3;
 const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
+
 var mode = TITLE_SCREEN;
 
 function gameOverScreen() {
@@ -32,6 +33,7 @@ function mainMenuScreen() {
 	colorText("New Game: [ENTER]", c.width/2 - 70, c.height/2 + 40, "15px arial", "white");
 	colorText("Fullscreen: [F]", c.width/2 - 70, c.height/2 + 80, "15px arial", "white");
 	colorText("Credits: [SHIFT]", c.width/2 - 70, c.height/2 + 120, "15px arial", "white");
+	colorText("Level 01 [1]", c.width/2 - 70, c.height/2 + 160, "15px arial", "white");
 }
 
 function creditScreen() {

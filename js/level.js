@@ -23,7 +23,7 @@ var levelThreeData = [
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData];
-var levelNum = 1; //determines what level is active
+var levelNum = 0; //determines what level is active
 
 function loadLevel(whichLevel) {
 	enemyList = [];

@@ -11,6 +11,7 @@ var starList; //parallax
 var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
 var weaponPU; // weapon Power Up
+var activeLevel;
 
 window.onload = function () {
 	c = document.getElementById ('gameCanvas');
@@ -48,7 +49,6 @@ function startGame() {
 	initInput();
 }
 
-
 function drawEverything() {
 	//canvas
 	colorRect(0, 0, c.width, c.height, 'black');
@@ -79,7 +79,6 @@ function drawEverything() {
 		creditScreen();
 		break;
 	}
-
 }
 
 function moveEverything() {
@@ -102,6 +101,10 @@ function moveEverything() {
 }
 
 function gameMode() {
+	console.log(levelNum);
+
+	loadLevel(levelNum);
+
 	if(backgroundMusic.playing == false) {
 		backgroundMusic.loopSong("./RAW/gameplayMusicV1.mp3");	
 	}
