@@ -4,7 +4,7 @@ var effectsVolume = 0.7;
 var isMuted = false;
 const VOLUME_INCREMENT = 0.0333;
 
-if(DEBUG_MEETING_VOL) {
+if (DEBUG_MEETING_VOL) {
 	musicVolume = effectsVolume = 0.2;
 	console.log("DEBUG_MEETING_VOL is set so vol is suppresed");
 }
@@ -23,7 +23,7 @@ function backgroundMusicClass() {
 	this.trackName = "";
 	this.playing = false;
 
-	this.loopSong = function(filenameWithPath) {
+	this.loopSong = function (filenameWithPath) {
 		if (musicSound != null && fadeTrack != null) {
 			fadeTrack.pause();
 			fadeTrack = musicSound;
@@ -44,7 +44,7 @@ function backgroundMusicClass() {
 		}
 	}
 
-	this.pause = function() {
+	this.pause = function () {
 		musicSound.pause();
 		if (fadeTrack != null) {
 			fadeTrack.pause();
@@ -54,7 +54,7 @@ function backgroundMusicClass() {
 		this.playing = false;
 	}
 
-	this.stop = function() {
+	this.stop = function () {
 		musicSound.pause();
 		if (fadeTrack != null) {
 			fadeTrack.pause();
@@ -66,29 +66,29 @@ function backgroundMusicClass() {
 		this.playing = false;
 	}
 
-	this.resume = function() {
+	this.resume = function () {
 		musicSound.play();
 
 		this.playing = true;
 	}
 
-	this.setVolume = function(value) {
+	this.setVolume = function (value) {
 		// Multipliction by a boolean serves as 1 for true and 0 for false
-		if (musicSound == null) {return;}
+		if (musicSound == null) { return; }
 		musicSound.volume = Math.pow(value * !isMuted, 2);
 
-		if(musicSound.volume == 0) {
+		if (musicSound.volume == 0) {
 			musicSound.pause();
 		} else if (musicSound.paused) {
 			musicSound.play();
 		}
 	}
 
-	this.updateMusic = function() {
+	this.updateMusic = function () {
 		if (fadeTrack != null) {
-			var newVolume = fadeTrack.volume - VOLUME_INCREMENT*2;
+			var newVolume = fadeTrack.volume - VOLUME_INCREMENT * 2;
 
-			if(newVolume > 1.0) {
+			if (newVolume > 1.0) {
 				newVolume = 1.0;
 			} else if (newVolume < 0.0) {
 				newVolume = 0.0;
@@ -110,7 +110,7 @@ function soundLoopsClass(filenameWithPath) {
 	var sound = new Audio(fullFilename);
 	sound.loop = true;
 
-	this.play = function() {
+	this.play = function () {
 		if (sound.paused) {
 			sound.currentTime = 0;
 			sound.volume = Math.pow(getRandomVolume() * effectsVolume * !isMuted, 2);
@@ -119,7 +119,7 @@ function soundLoopsClass(filenameWithPath) {
 		}
 	}
 
-	this.stop = function() {
+	this.stop = function () {
 		sound.pause();
 	}
 }
@@ -130,8 +130,8 @@ function soundOverlapsClass(filenameWithPath) {
 	var soundIndex = 0;
 	var sounds = [new Audio(fullFilename), new Audio(fullFilename)];
 
-	this.play = function() {
-		if(!sounds[soundIndex].paused) {
+	this.play = function () {
+		if (!sounds[soundIndex].paused) {
 			sounds.splice(soundIndex, 0, new Audio(fullFilename));
 		}
 
@@ -150,12 +150,12 @@ function soundRandomClass(arrayOfFilenames) {
 
 	for (var i = 0; i < arrayOfFilenames.length; i++) {
 		sounds[i] = new Audio(arrayOfFilenames[i]);
-		sounds[i+arrayOfFilenames.length] = new Audio(arrayOfFilenames[i]);
+		sounds[i + arrayOfFilenames.length] = new Audio(arrayOfFilenames[i]);
 	}
 
-	this.play = function() {
+	this.play = function () {
 		soundIndex = rndInt(0, sounds.length - 1);
-		if(!sounds[soundIndex].paused) {
+		if (!sounds[soundIndex].paused) {
 			soundIndex++;
 			if (soundIndex >= sounds.length) {
 				soundIndex = 0;
@@ -165,12 +165,12 @@ function soundRandomClass(arrayOfFilenames) {
 		sounds[soundIndex].currentTime = 0;
 		sounds[soundIndex].volume = Math.pow(getRandomVolume() * effectsVolume * !isMuted, 2);
 		sounds[soundIndex].play();
-		console.log(`soundRandomClass.play: ${sounds[soundIndex].src} - volume = ${sounds[soundIndex].volume}` );
+		console.log(`soundRandomClass.play: ${sounds[soundIndex].src} - volume = ${sounds[soundIndex].volume}`);
 	}
 }
 
 //sound functions
-function getRandomVolume(){
+function getRandomVolume() {
 	var min = 0.8;
 	var max = 1;
 	var randomVolume = Math.random() * (max - min) + min;
@@ -178,13 +178,23 @@ function getRandomVolume(){
 }
 
 function toggleMute() {
-	isMuted = !isMuted;
-	backgroundMusic.setVolume(musicVolume);
+	console.log("M to mute/umute is pressed");
+
+	if (!isMuted) {
+		setMusicVolume(0);
+		isMuted = !isMuted;
+		console.log("ismuted: " + isMuted);
+	}
+	else {
+		isMuted = !isMuted;
+		setMusicVolume(1);
+		console.log("ismuted: " + isMuted);
+	}
 }
 
 function setEffectsVolume(amount) {
 	effectsVolume = amount;
-	if(effectsVolume > 1.0) {
+	if (effectsVolume > 1.0) {
 		effectsVolume = 1.0;
 	} else if (effectsVolume < 0.0) {
 		effectsVolume = 0.0;
@@ -193,7 +203,7 @@ function setEffectsVolume(amount) {
 
 function setMusicVolume(amount) {
 	musicVolume = amount;
-	if(musicVolume > 1.0) {
+	if (musicVolume > 1.0) {
 		musicVolume = 1.0;
 	} else if (musicVolume < 0.0) {
 		musicVolume = 0.0;

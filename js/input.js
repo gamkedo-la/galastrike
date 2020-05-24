@@ -12,6 +12,7 @@ const KEY_F = 70;
 const KEY_1 = 49;
 const KEY_2 = 50;
 const KEY_3 = 51;
+const KEY_M = 77;
 
 var holdLeft = false;
 var holdRight = false;
@@ -27,56 +28,60 @@ function initInput() {
 function keyPressed(evt) {
 	console.log("Key pressed: " + evt.keyCode);
 
-	switch(mode) {
+	switch (mode) {
 		case GAME_SCREEN:
 			playerHoldAction(evt.keyCode, true);
 
 			//cheat keys
-			if(evt.keyCode == KEY_Q) {
+			if (evt.keyCode == KEY_Q) {
 
 			}
 
-			if(evt.keyCode == KEY_S) {
+			if (evt.keyCode == KEY_M) {
+				toggleMute();
+			}
+
+			if (evt.keyCode == KEY_S) {
 				p1.shield01 = !p1.shield01;
 			}
 			break;
 
 		case WIN_SCREEN:
 		case GAME_OVER:
-			if(evt.keyCode == KEY_SPACE) {
-			resetGame();
+			if (evt.keyCode == KEY_SPACE) {
+				resetGame();
 			}
 			break;
 
 		case TITLE_SCREEN:
 		case CREDIT_SCREEN:
-			if(evt.keyCode == KEY_SPACE) {
+			if (evt.keyCode == KEY_SPACE) {
 				mode = MAIN_MENU;
 			}
 			break;
 
 		case MAIN_MENU:
-			if(evt.keyCode == KEY_ENTER) {
+			if (evt.keyCode == KEY_ENTER) {
 				mode = GAME_SCREEN;
 			}
-			if(evt.keyCode == KEY_SHIFT) {
+			if (evt.keyCode == KEY_SHIFT) {
 				mode = CREDIT_SCREEN;
 			}
-            if(evt.keyCode == KEY_F) {
-                toggleFullscreen();
-            }
-            if(evt.keyCode == KEY_1) {
-                levelNum = 0;
-                mode = GAME_SCREEN;
-            }
-            if(evt.keyCode == KEY_2) {
-                levelNum = 1;
-                mode = GAME_SCREEN;
-            }
-            if(evt.keyCode == KEY_3) {
-                levelNum = 2;
-                mode = GAME_SCREEN;
-            }
+			if (evt.keyCode == KEY_F) {
+				toggleFullscreen();
+			}
+			if (evt.keyCode == KEY_1) {
+				levelNum = 0;
+				mode = GAME_SCREEN;
+			}
+			if (evt.keyCode == KEY_2) {
+				levelNum = 1;
+				mode = GAME_SCREEN;
+			}
+			if (evt.keyCode == KEY_3) {
+				levelNum = 2;
+				mode = GAME_SCREEN;
+			}
 			break;
 
 	}
@@ -90,7 +95,7 @@ function keyReleased(evt) {
 }
 
 function playerHoldAction(keyCode, turnOn) {
-	switch(keyCode) {
+	switch (keyCode) {
 		case KEY_LEFT_ARROW:
 			holdLeft = turnOn;
 			break;
@@ -110,5 +115,6 @@ function playerHoldAction(keyCode, turnOn) {
 		case KEY_SPACE:
 			holdSpace = turnOn;
 			break;
+
 	}
 }
