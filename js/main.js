@@ -101,9 +101,6 @@ function moveEverything() {
 }
 
 function gameMode() {
-	console.log(levelNum);
-
-	loadLevel(levelNum);
 
 	if(backgroundMusic.playing == false) {
 		backgroundMusic.loopSong("./RAW/gameplayMusicV1.mp3");	
