@@ -12,7 +12,8 @@ function satellites() {
 
 	this.draw = function() {
 		if(this.destroyed == false) {
-			colorRect(this.x, this.y, this.w, this.h, 'purple');
+			ctx.drawImage(imageArray["satellite_human.png"], this.x, this.y);
+			//colorRect(this.x, this.y, this.w, this.h, 'purple');
 		}
 		if(this.destroyed == true) {
 			this.lootDrop();

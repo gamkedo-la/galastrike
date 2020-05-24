@@ -1,4 +1,4 @@
-var DEBUG_MEETING_VOL = true;
+var DEBUG_MEETING_VOL = false;
 var musicVolume = 0.7;
 var effectsVolume = 0.7;
 var isMuted = false;

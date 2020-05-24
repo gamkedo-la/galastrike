@@ -5,7 +5,11 @@ var imageNames = ["PlayerSpaceship.png",
 				  "enemyB.png",
                   "Level_1_Background.jpg",
                   "greeblicious.gif",
-                  "Asteroid_1.png",
+                  "Asteroid_2.png",
+                  "Asteroid_3.png",
+                  "Asteroid_4.png",
+                  "Asteroid_5.png",
+                  "satellite_human.png",
                   "LV1_Boss.png"
 				 ];
 var imageLoadCounter = imageNames.length;

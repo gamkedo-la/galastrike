@@ -221,7 +221,6 @@ function playerClass() {
 	}
 
 	this.weaponUpgrade = function() {
-		console.log("weapon upgrade from basic to mid");
 		// Change weapon type
 		this.weaponTier = "Mid";
 		// Amount of special ammo we have 

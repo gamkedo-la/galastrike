@@ -16,7 +16,7 @@ function asteroids() {
 		if(this.destroyed == false){
 			//colorCircle(this.x, this.y, this.r, 'orange');	
 			//ctx.drawImage(imageArray["Asteroid_1.png"], this.x, this.y);
-			drawBitmapCenteredAtLocationWithRotation(imageArray["Asteroid_1.png"], this.x, this.y, this.rotation);
+			drawBitmapCenteredAtLocationWithRotation(imageArray["Asteroid_3.png"], this.x, this.y, this.rotation);
 		}
 		if(this.destroyed == true) {
 			this.lootDrop();
