@@ -1,9 +1,12 @@
 //Common Graphics Functions
+
+// WARNING: this function is extremely slow, use drawImage instead!!
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 	ctx.fillStyle = fillColor;
 	ctx.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
 }
 
+// WARNING: this function is extremely slow, use drawImage instead!!
 function colorCircle(centerX, centerY, radius, fillColor) {
     ctx.fillStyle = fillColor;
     ctx.beginPath();
@@ -11,6 +14,7 @@ function colorCircle(centerX, centerY, radius, fillColor) {
     ctx.fill();
 }
 
+// WARNING: this function is extremely slow, use drawImage instead!!
 function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 	ctx.beginPath();
 	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -18,12 +22,14 @@ function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 	ctx.stroke();
 }
 
+// WARNING: this function is extremely slow, use drawImage instead!!
 function colorText(text, posX, posY, font, color) {
 	ctx.fillStyle = color;
 	ctx.font = font;
 	ctx.fillText (text, posX, posY);
 }
 
+// WARNING: this function is extremely slow, use drawImage instead!!
 function colorLine(startX, startY, endX, endY, lineWidth, fillColor) {
 	ctx.strokeStyle = fillColor;
 	ctx.lineWidth = lineWidth;

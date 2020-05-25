@@ -1,3 +1,4 @@
+const STARFIELD_ENABLED = true; // temporarily turned off for performance tuning
 var starFieldSpeed = 0.5;
 var slowStarField = false;
 const STARFIELD_ACCELERATION = 0.06; // handled in up arrow key press
@@ -12,12 +13,16 @@ function starInit() {
 }
 
 function starDraw() {
-	for(var i=0; i<starList.length; i++) {
-		colorRect(lerp(starList[i].x,c.width, 0.01), starList[i].y, starList[i].sz, starList[i].sz, 'white');
+    if (!STARFIELD_ENABLED) return;
+    for(var i=0; i<starList.length; i++) {
+        // this function runs 1000x slower than drawImage
+        // colorRect(lerp(starList[i].x,c.width, 0.01), starList[i].y, starList[i].sz, starList[i].sz, 'white');
+        ctx.drawImage(imageArray["star.png"],lerp(starList[i].x,c.width, 0.01),starList[i].y, starList[i].sz, starList[i].sz);
 	}
 }
 
 function starMove() {
+    if (!STARFIELD_ENABLED) return;
 	for(var i=0; i<starList.length; i++) {
 		starList[i].y += starList[i].sz * starFieldSpeed;
 		if(starList[i].y > c.height) {

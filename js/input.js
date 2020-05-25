@@ -26,7 +26,7 @@ function initInput() {
 }
 
 function keyPressed(evt) {
-	console.log("Key pressed: " + evt.keyCode);
+	//console.log("Key pressed: " + evt.keyCode);
 
 	switch (mode) {
 		case GAME_SCREEN:
