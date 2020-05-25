@@ -10,7 +10,8 @@ var imageNames = ["PlayerSpaceship.png",
 	"asteroid_4.png",
 	"asteroid_5.png",
 	"satellite_human.png",
-	"LV1_Boss.png"
+    "LV1_Boss.png",
+    "star.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];

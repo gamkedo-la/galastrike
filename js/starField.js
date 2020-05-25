@@ -13,7 +13,9 @@ function starInit() {
 
 function starDraw() {
 	for(var i=0; i<starList.length; i++) {
-		colorRect(lerp(starList[i].x,c.width, 0.01), starList[i].y, starList[i].sz, starList[i].sz, 'white');
+        // this function runs 1000x slower than drawImage
+        // colorRect(lerp(starList[i].x,c.width, 0.01), starList[i].y, starList[i].sz, starList[i].sz, 'white');
+        ctx.drawImage(imageArray["star.png"],lerp(starList[i].x,c.width, 0.01),starList[i].y, starList[i].sz, starList[i].sz);
 	}
 }
 
