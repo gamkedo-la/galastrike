@@ -1,4 +1,4 @@
-const BG_ENABLED = false; // currently turned off for performance tuning
+const BG_ENABLED = true; // currently turned off for performance tuning
 
 var backgroundScrollX = 0;
 var backgroundScrollY = 0;

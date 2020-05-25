@@ -1,6 +1,7 @@
 var c;
 var ctx;
 var fps = 30;
+var fpsInterval = 1000/fps;
 var screenBuffer = 20;
 
 // these globals are assiged in gameInit after onload
@@ -40,14 +41,38 @@ function resize() {
     c.height = window.innerHeight;
 }
 
+var currentTime, elapsedTime, prevFrameTime;
+function animate(timestamp) {
+    
+    currentTime = timestamp || 1;
+    elapsedTime = currentTime - prevFrameTime;    
+    if (elapsedTime > fpsInterval) {    
+        moveEverything();
+        drawEverything();
+        prevFrameTime = currentTime - (elapsedTime % fpsInterval);
+    }
+    requestAnimationFrame(animate);
+
+}
+
 function startGame() {
-	setInterval (function() {
+    
+    console.log("Starting Game!");
+    prevFrameTime = window.performance.now();
+    initInput();
+    animate();
+
+    // setInterval fires irregularly,
+    // (the time is only a rough estimate)
+    // which results in glitchy animation
+    // and is harder to debug via this anonymous function
+    /*
+    setInterval (function() {
 		moveEverything(),
 		drawEverything()
 		},
 		1000/fps);
-
-	initInput();
+    */
 }
 
 function drawEverything() {
