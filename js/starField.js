@@ -1,8 +1,8 @@
 var starFieldSpeed = 0.5;
 var slowStarField = false;
-const STARFIELD_ACCELERATION = 0.05; // handled in up arrow key press
-const STARFIELD_DECELERATION = 0.01;
-const STARFIELD_TOP_SPEED = 3;
+const STARFIELD_ACCELERATION = 0.06; // handled in up arrow key press
+const STARFIELD_DECELERATION = 0.03;
+const STARFIELD_TOP_SPEED = 6;
 const STARFIELD_COUNT = 350;
 
 function starInit() {
@@ -13,7 +13,7 @@ function starInit() {
 
 function starDraw() {
 	for(var i=0; i<starList.length; i++) {
-		colorRect(starList[i].x, starList[i].y, starList[i].sz, starList[i].sz, 'white');
+		colorRect(lerp(starList[i].x,c.width, 0.01), starList[i].y, starList[i].sz, starList[i].sz, 'white');
 	}
 }
 

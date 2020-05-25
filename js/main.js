@@ -42,8 +42,9 @@ function resize() {
 
 function startGame() {
 	setInterval (function() {
-		drawEverything(),
-		moveEverything()},
+		moveEverything(),
+		drawEverything()
+		},
 		1000/fps);
 
 	initInput();

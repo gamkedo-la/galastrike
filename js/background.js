@@ -14,8 +14,9 @@ function backgroundDraw() {
 
 function midgroundDraw() {
     midgroundScrollX = Math.round(c.width/2 - imageArray["greeblicious.gif"].width/2);
-    midgroundScrollX += Math.round((c.width/2-p1.x) / 4); // shift side to side based on player pos
-    midgroundScrollY += 3;
+    midgroundScrollX = lerp(midgroundScrollX,Math.round((c.width/2-p1.x)), 0.2 ) ; // shift side to side based on player pos
+    //midgroundScrollX += Math.round((c.width/2-p1.x) / 3); // shift side to side based on player pos
+    midgroundScrollY = lerp (midgroundScrollY, midgroundScrollY+40, 0.1);
     // greebly space stations
     ctx.drawImage(imageArray["greeblicious.gif"],midgroundScrollX,midgroundScrollY % imageArray["greeblicious.gif"].height);
     ctx.drawImage(imageArray["greeblicious.gif"],midgroundScrollX,(midgroundScrollY % imageArray["greeblicious.gif"].height)-imageArray["greeblicious.gif"].height);
