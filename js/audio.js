@@ -4,6 +4,9 @@ var effectsVolume = 0.7;
 var isMuted = false;
 const VOLUME_INCREMENT = 0.0333;
 
+var soundOnImg = document.getElementById('soundOn');
+var soundOffImg = document.getElementById('soundOn');
+
 if (DEBUG_MEETING_VOL) {
 	musicVolume = effectsVolume = 0.2;
 	console.log("DEBUG_MEETING_VOL is set so vol is suppresed");
@@ -178,17 +181,13 @@ function getRandomVolume() {
 }
 
 function toggleMute() {
-	console.log("M to mute/umute is pressed");
-
 	if (!isMuted) {
 		setMusicVolume(0);
 		isMuted = !isMuted;
-		console.log("ismuted: " + isMuted);
 	}
 	else {
 		isMuted = !isMuted;
-		setMusicVolume(1);
-		console.log("ismuted: " + isMuted);
+		setMusicVolume(0.2); // I should not have hardcoded values here
 	}
 }
 
