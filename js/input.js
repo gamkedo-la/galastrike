@@ -27,15 +27,13 @@ function initInput() {
 
 function keyPressed(evt) {
 	//console.log("Key pressed: " + evt.keyCode);
+	
 
 	switch (mode) {
 		case GAME_SCREEN:
 			playerHoldAction(evt.keyCode, true);
-
 			//cheat keys
-			if (evt.keyCode == KEY_Q) {
-
-			}
+			cheats(evt.key);
 
 			if (evt.keyCode == KEY_M) {
 				toggleMute();
