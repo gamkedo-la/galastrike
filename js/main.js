@@ -1,7 +1,7 @@
 var c;
 var ctx;
 var fps = 30;
-var fpsInterval = 1000/fps;
+var fpsInterval = 1000 / fps;
 var screenBuffer = 20;
 
 // these globals are assiged in gameInit after onload
@@ -15,57 +15,57 @@ var weaponPU; // weapon Power Up
 var activeLevel;
 
 window.onload = function () {
-	c = document.getElementById ('gameCanvas');
-    ctx = c.getContext ('2d');
-    window.onresize = resize; // handle browser resizing
-    this.resize(); // fill the browser right away
-    imageLoading();
-    gameInit();
+	c = document.getElementById('gameCanvas');
+	ctx = c.getContext('2d');
+	window.onresize = resize; // handle browser resizing
+	this.resize(); // fill the browser right away
+	imageLoading();
+	gameInit();
 	starInit();
-}	
+}
 
 // some of these need access to things only available after onload
 function gameInit() {
-    p1 = new playerClass();
-    gamepad = new GamepadManager();
-    powerUp1 = new basicPowerUpClass();
-    starList = []; //parallax 
-    shieldPU = new shieldPowerUp();
-    speedPU = new speedPowerUp();
-    weaponPU = new weaponPowerUp();
- 	loadLevel(levelNum);
+	p1 = new playerClass();
+	gamepad = new GamepadManager();
+	powerUp1 = new basicPowerUpClass();
+	starList = []; //parallax 
+	shieldPU = new shieldPowerUp();
+	speedPU = new speedPowerUp();
+	weaponPU = new weaponPowerUp();
+	loadLevel(levelNum);
 }
 
 function resize() {
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
+	c.width = window.innerWidth;
+	c.height = window.innerHeight;
 }
 
 var currentTime, elapsedTime, prevFrameTime;
 function animate(timestamp) {
-    
-    currentTime = timestamp || 1;
-    elapsedTime = currentTime - prevFrameTime;    
-    if (elapsedTime > fpsInterval) {    
-        moveEverything();
-        drawEverything();
-        prevFrameTime = currentTime - (elapsedTime % fpsInterval);
-    }
-    requestAnimationFrame(animate);
+
+	currentTime = timestamp || 1;
+	elapsedTime = currentTime - prevFrameTime;
+	if (elapsedTime > fpsInterval) {
+		moveEverything();
+		drawEverything();
+		prevFrameTime = currentTime - (elapsedTime % fpsInterval);
+	}
+	requestAnimationFrame(animate);
 
 }
 
 function startGame() {
-    
-    console.log("Starting Game!");
-    prevFrameTime = window.performance.now();
-    initInput();
-    animate();
 
-    // setInterval fires irregularly,
-    // (the time is only a rough estimate)
-    // which results in glitchy animation
-    // and is harder to debug via this anonymous function
+	console.log("Starting Game!");
+	prevFrameTime = window.performance.now();
+	initInput();
+	animate();
+
+	// setInterval fires irregularly,
+	// (the time is only a rough estimate)
+	// which results in glitchy animation
+	// and is harder to debug via this anonymous function
     /*
     setInterval (function() {
 		moveEverything(),
@@ -80,72 +80,72 @@ function drawEverything() {
 	colorRect(0, 0, c.width, c.height, 'black');
 
 	//state machine handling game screens
-	switch(mode) {
+	switch (mode) {
 		case GAME_SCREEN:
-		gameMode();
-		break;
+			gameMode();
+			break;
 
 		case WIN_SCREEN:
-		winScreen();
-		break;
+			winScreen();
+			break;
 
 		case GAME_OVER:
-		gameOverScreen();
-		break;
+			gameOverScreen();
+			break;
 
 		case TITLE_SCREEN:
-		titleScreen();
-		break;
+			titleScreen();
+			break;
 
 		case MAIN_MENU:
-		mainMenuScreen();
-		break;
+			mainMenuScreen();
+			break;
 
 		case CREDIT_SCREEN:
-		creditScreen();
-		break;
+			creditScreen();
+			break;
 	}
 }
 
 function moveEverything() {
 	handelLevelSpawn();
-    //player
-    gamepad.update();
+	//player
+	gamepad.update();
 	p1.move();
-	starMove();	
+	starMove();
 	powerUp1.move();
 
-	if(mode == GAME_SCREEN) {
+	if (mode == GAME_SCREEN) {
 		//moves enemies and sapce debris 
-		for(var i=0; i<enemyList.length; i++) {
+		for (var i = 0; i < enemyList.length; i++) {
 			enemyList[i].move();
 		}
 	}
 
 	//audio
-    backgroundMusic.updateMusic();
+	backgroundMusic.updateMusic();
 }
 
 function gameMode() {
 
-	if(backgroundMusic.playing == false) {
-		backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");	
+	if (backgroundMusic.playing == false) {
+		backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
 	}
-    // scrolling bg image
-    backgroundDraw();
-    // awesome parallax starfield
-    starDraw();
-    // space tech in front of stars but behind the game action
-    midgroundDraw();
-    //draws enemies and space debris
-    for(var i=0; i<enemyList.length; i++) {
+	// scrolling bg image
+	backgroundDraw();
+	// awesome parallax starfield
+	starDraw();
+	// space tech in front of stars but behind the game action
+	midgroundDraw();
+	//draws enemies and space debris
+	for (var i = 0; i < enemyList.length; i++) {
 		enemyList[i].draw();
 	}
 
 	//player ship
 	p1.draw();
-	
-    //player score
+
+	//player score
 	p1.playerScore();
 	//power ups
 	powerUp1.draw();
@@ -153,12 +153,19 @@ function gameMode() {
 	powerUp1.respawn();
 }
 
+/* Should the following values when the game 
+ * is reset be the same as when the game first started?
+ * If yes, remove this comment
+ * If not, the values were  
+ * shield01 = false; 
+ * playerShields = 1;
+ * */
 function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
-	playerShields = 1;
-	p1.shield01 = false;
-	p1.x = c.width/2;
+	playerShields = 100;
+	p1.shield01 = true;
+	p1.x = c.width / 2;
 	p1.y = c.height - 150;
 }
 
