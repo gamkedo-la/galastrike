@@ -34,7 +34,7 @@ function keyPressed(evt) {
 			playerHoldAction(evt.keyCode, true);
 			//cheat keys
 			cheats(evt.key);
-
+			
 			if (evt.keyCode == KEY_M) {
 				toggleMute();
 			}
@@ -90,6 +90,7 @@ function keyPressed(evt) {
 
 function keyReleased(evt) {
 	playerHoldAction(evt.keyCode, false);
+	
 }
 
 function playerHoldAction(keyCode, turnOn) {
