@@ -18,10 +18,10 @@ function basicAlienClass() {
 	this.enteredScreen = false;
 
 	this.dropLoot = false;
-	this.lootX;
-	this.lootY;
-	this.lootW = 30;
-	this.lootH = 30;
+	// this.lootX;
+	// this.lootY;
+	// this.lootW = 30;
+	// this.lootH = 30;
 	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
 	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
@@ -44,10 +44,8 @@ function basicAlienClass() {
 			this.basicShot();
 		}
 
-		// Made weapon upgrade pink to be easier to identify while working with weapons. Feel free to change the color
-		if(this.dropLoot == true) {
-			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'pink');
-		}
+		// Power up - player weapon upgrade
+		weaponPU.draw();
 	}
 
 	this.move = function() {
@@ -95,12 +93,12 @@ function basicAlienClass() {
 			}
 		}
 
-		if(this.dropLoot == true) {
-			this.lootY += this.lootYDrift;
-		}
+		this.lootPickUp();
+
+		// Power up - player weapon upgrade
+		weaponPU.move();
 
 		this.collitionDetection();
-		this.lootPickUp();
 		
 		if(this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -111,10 +109,15 @@ function basicAlienClass() {
 	}
 
 	this.shotHitMeCheck = function(testShot) {
-		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+		// Since the alien stays in game even after dead, the shot can still hit its position, so we check if the alien was already killed(this.alienActive === true) to prevent this behavior
+		// Shot doesn't hit the weapon power up
+
+		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w && this.alienActive) {
+			
 			testShot.weaponActive = false;
 			testShot.y = p1.y;
 			this.hp -= testShot.removeAlienHp;
+
 			if(this.hp <= 0) {
 				this.alienActive = false;
 				this.lootDrop();
@@ -184,16 +187,16 @@ function basicAlienClass() {
 	this.lootDrop = function () {
 		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 		console.log("a1 loot rate:" + this.rn);
+
 		if(this.rn == 1) {
 			this.dropLoot = true;
-			this.lootX = this.x;
-			this.lootY = this.y;
+			// Assign the position of the alien to the weapon upgrade power up and set it to active
+			weaponPU.setup(this.x, this.y);
 		}
 	}
 
 	this.lootPickUp = function() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
-			p1.weaponUpgrade();
 			this.dropLoot = false;
 		}
 	}
