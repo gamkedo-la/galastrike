@@ -51,9 +51,4 @@ function cheats(key) {
 			cheatBuffer = key.toLowerCase();
 			//console.log("bufferReset")
 		}
-	}
-
-	this.kill = function (){
-		
-	}
 }
