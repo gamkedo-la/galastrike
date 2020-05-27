@@ -1,10 +1,7 @@
 var cheatBuffer = "";
 var cheatList = [
-	"kill",
-	"test",
-	"another",
-	"car",
-	"rat"
+	"kill", 	//opens the gameover screen
+	"speed",	//gives the palyer speedburst for 600s
 ];
 
 function cheats(key) {
@@ -25,7 +22,16 @@ function cheats(key) {
 					
 					//If cheatcode fully matches
 					if(cheatBuffer == val){		
-						console.log("yay");
+						console.log("cheat activated: " + val);
+						switch (index) {
+							case 0: //cheat: kill 
+								p1.playerLose();
+								break;
+					
+							case 1: //cheat: speed
+								p1.addSpeed(600);
+								break;
+						}
 						cheatBuffer = "";
 						break;				
 					}
@@ -38,12 +44,16 @@ function cheats(key) {
 			}
 		});
 			
-		console.log(`buffer: ${cheatBuffer}` + " " + mightMatchCode+ " ");
+		//console.log(`buffer: ${cheatBuffer}` + " " + mightMatchCode+ " ");
 
 		// reset complete string if nothing matched.
 		if (mightMatchCode == 0 && key.length == 1 && key.key != " ") {
 			cheatBuffer = key.toLowerCase();
 			//console.log("bufferReset")
 		}
+	}
+
+	this.kill = function (){
+		
 	}
 }

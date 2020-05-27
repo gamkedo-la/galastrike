@@ -206,9 +206,9 @@ function playerClass() {
 		}
 	}
 
-	this.addSpeed = function () {
+	this.addSpeed = function (time) {
 		console.log("speed Burst!");
-		this.speedBurstCountdown += 120;
+		this.speedBurstCountdown += time;
 
 	}
 

@@ -33,7 +33,7 @@ function speedPowerUp() {
 			if(p1.x + PLAYER_SHIP_WIDTH >= this.x && p1.x <= this.x + this.w && p1.y <= this.y + this.h && p1.y + PLAYER_SHIP_HEIGHT >= this.y) {
 				this.pickedUP = true;
 				if(this.pickedUP == true) {
-					p1.addSpeed();
+					p1.addSpeed(120);
 					this.active = false;
 				}
 			}
