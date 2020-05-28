@@ -7,7 +7,7 @@ const ENEMY_KIND_AST = 4;
 const ENEMY_KIND_SAT = 5;
 
 var levelOneData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:0},
+	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:3, countSpacing: 50},
 	{kind:ENEMY_KIND_AST, when:30}, 
 	{kind:ENEMY_KIND_SAT, when:100},
 ];
@@ -59,6 +59,15 @@ function handelLevelSpawn() {
 				default:
 					console.log("attempted to spawn unkown kind " + levelCurrent[i].kind + " at time " + spawnClock);
 					break;
+			}
+			if(levelCurrent[i].atX != undefined) {
+				spawnObj.x = levelCurrent[i].atX * c.width;
+			}
+			if(levelCurrent[i].count != undefined) { 
+				levelCurrent[i].count --; //the one spawns now
+				if(levelCurrent[i].count > 0) {
+					levelCurrent[i].when += levelCurrent[i].countSpacing;
+				}
 			}
 			enemyList.push(spawnObj);
 		}
