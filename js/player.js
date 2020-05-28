@@ -4,7 +4,7 @@ const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 150;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
 const WIN_SCORE = 100;
 var playerScore = 0;
-var playerShields = 100;
+var playerShields = 1; //100
 var shieldRotationSpeed = 0;
 
 function playerClass() {
@@ -97,8 +97,22 @@ function playerClass() {
 		this.speedBurst();
 	}
 
+	this.playerCollisionCheck = function(colliderX, colliderY){
+		var collided = false;
+		var noseYStart = 15;
+		var noseW = 24;
+		var noseH = 55;
+		var bodyW = 132;
+		var bodyH = 40;
+		if (colliderX >= this.x + PLAYER_SHIP_WIDTH/2 - noseW/2 && colliderX <= this.x + PLAYER_SHIP_WIDTH/2 + noseW/2 && colliderY >= this.y + noseYStart && colliderY <= this.y + noseH 
+			|| colliderX >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY >= this.y + noseH && colliderY <= this.y + noseH + bodyH) {
+			collided = true;
+			}
+		console.log("collided " + collided);
+		return collided;
+	}
 	this.moveShield = function () { // called by this.move
-		shieldRotationSpeed += .01;
+		shieldRotationSpeed += .02;
 	}
 
 	this.addShield = function () {

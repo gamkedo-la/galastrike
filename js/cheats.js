@@ -2,7 +2,9 @@ var cheatBuffer = "";
 var cheatList = [
 	"kill", 		//opens the gameover screen
 	"speed",		//gives the palyer speedburst for 600s
-	"UUDDLRLRba"	//Konami code
+	"UUDDLRLRba",	//Konami code
+	"kk",			//lower fps for debug
+	"ll",			//increase fps for debug
 ];
 
 function cheats(key) {
@@ -47,6 +49,12 @@ function cheats(key) {
 								break;
 							case 2: //cheat: konami
 								p1.addSpeed(600);
+								break;
+							case 3: //cheat: fps lower
+								if(fps >= 5) fps -= 5;			
+								break;
+							case 4: //cheat: fps higher
+								fps += 5;			
 								break;
 						}
 						cheatBuffer = "";

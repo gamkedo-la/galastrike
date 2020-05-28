@@ -28,7 +28,7 @@ function basicAlienClass() {
 	this.shotW = 20;
 	this.shotH = 20;
 	this.shotActive = false;
-	this.shotSpeed = 5;
+	this.shotSpeed = 20;
 
 
 	this.draw = function() {
@@ -85,7 +85,7 @@ function basicAlienClass() {
 
 	this.basicShot = function() {
 		if(this.shotActive == false) {
-			this.rn = Math.round(Math.random() * (15 - 1) + 1);
+			this.rn = Math.round(Math.random() * (3 - 1) + 1); //15
 			if(this.rn == 1) {
 				this.shotActive = true;
 				if (Math.floor(Math.random() * (1 - 0 +1)) + 0 == 0){
@@ -113,9 +113,10 @@ function basicAlienClass() {
 		}
 
 		if(playerShields >= 0) {
-			if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) {
+			//if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) 
+			if (p1.playerCollisionCheck(this.shotX, this.shotY)){
 				this.shotActive = false;
-				p1.playerLose();
+				//p1.playerLose();
 			}
 		}
 	}
