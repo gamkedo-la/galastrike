@@ -1,16 +1,30 @@
 var cheatBuffer = "";
 var cheatList = [
-	"kill", 	//opens the gameover screen
-	"speed",	//gives the palyer speedburst for 600s
+	"kill", 		//opens the gameover screen
+	"speed",		//gives the palyer speedburst for 600s
+	"UUDDLRLRba"	//Konami code
 ];
 
 function cheats(key) {
 	var mightMatchCode = 0; //counts possible solutions
+	var keyBuffer = "";
 
-	// Only single char and turn to lowercase
-	if(key.length == 1 && key.key != " "){
-		cheatBuffer += key.toLowerCase();
-			
+	// Turn inputs to lowercase and exceptions to uppercase
+	if(key.length == 1){
+		keyBuffer = key.toLowerCase();
+	}else if(key == "ArrowUp"){
+		keyBuffer = "U";
+	}else if(key == "ArrowDown"){
+		keyBuffer = "D";
+	}else if(key == "ArrowLeft"){
+		keyBuffer = "L";
+	}else if(key == "ArrowRight"){
+		keyBuffer = "R";
+	}
+
+	
+	if(keyBuffer != " "){
+		cheatBuffer += keyBuffer;
 		//run a check for each cheatcode in the array
 		cheatList.forEach (function (val,index){
 			//Give points for each index
@@ -31,6 +45,9 @@ function cheats(key) {
 							case 1: //cheat: speed
 								p1.addSpeed(600);
 								break;
+							case 2: //cheat: konami
+								p1.addSpeed(600);
+								break;
 						}
 						cheatBuffer = "";
 						break;				
@@ -47,8 +64,8 @@ function cheats(key) {
 		//console.log(`buffer: ${cheatBuffer}` + " " + mightMatchCode+ " ");
 
 		// reset complete string if nothing matched.
-		if (mightMatchCode == 0 && key.length == 1 && key.key != " ") {
-			cheatBuffer = key.toLowerCase();
+		if (mightMatchCode == 0 && keyBuffer.length == 1 && keyBuffer != " ") {
+			cheatBuffer = keyBuffer;
 			//console.log("bufferReset")
 		}
 	}
