@@ -25,7 +25,7 @@ function satellites() {
 		this.playerCollisionDetection();
 
 		if(this.y >= c.height) {
-			this.respawn();
+			//this.respawn();
 		}
 	}
 
@@ -65,5 +65,9 @@ function satellites() {
 			p1.substractShield();
 			this.respawn();
 		}
+	}
+
+	this.readyToRemove = function() {
+		return (this.hp <= 0 || this.y > c.height);
 	}
 }

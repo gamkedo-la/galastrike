@@ -42,10 +42,7 @@ function basicAlienClass() {
 				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 			}
 			this.basicShot();
-		}
-
-		// Power up - player weapon upgrade
-		weaponPU.draw();
+		}		
 	}
 
 	this.move = function() {
@@ -93,10 +90,7 @@ function basicAlienClass() {
 			}
 		}
 
-		this.lootPickUp();
-
-		// Power up - player weapon upgrade
-		weaponPU.move();
+		this.lootPickUp();		
 
 		this.collitionDetection();
 		
@@ -105,7 +99,7 @@ function basicAlienClass() {
 			this.shotCheck();
 		}
 
-		this.respawnAlien();
+		//this.respawnAlien();
 	}
 
 	this.shotHitMeCheck = function(testShot) {
@@ -121,6 +115,7 @@ function basicAlienClass() {
 			if(this.hp <= 0) {
 				this.alienActive = false;
 				this.lootDrop();
+				console.log("Loot?");
 				p1.playerScoring();		
 			}	
 		}
@@ -199,5 +194,9 @@ function basicAlienClass() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
 			this.dropLoot = false;
 		}
+	}
+
+	this.readyToRemove = function() {
+		return (this.hp <= 0 || this.y > c.height);
 	}
 }

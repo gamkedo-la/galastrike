@@ -114,11 +114,17 @@ function moveEverything() {
 	p1.move();
 	starMove();
 	powerUp1.move();
+	weaponPU.move();
 
 	if (mode == GAME_SCREEN) {
 		//moves enemies and sapce debris 
 		for (var i = 0; i < enemyList.length; i++) {
 			enemyList[i].move();
+		}
+		for (var i = enemyList.length-1; i >= 0; i--) {
+			if(enemyList[i].readyToRemove()) {
+				enemyList.splice(i, 1);
+			}
 		}
 	}
 
@@ -151,6 +157,7 @@ function gameMode() {
 	powerUp1.draw();
 	powerUp1.shieldPowerUp();
 	powerUp1.respawn();
+	weaponPU.draw();
 }
 
 /* Should the following values when the game 

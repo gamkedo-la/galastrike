@@ -105,7 +105,7 @@ function midAlienClass() {
 			this.shotCheck();
 		}
 
-		this.respawnAlien();
+		//this.respawnAlien();
 	}
 
 	this.shotHitMeCheck = function(testShot) {
@@ -194,6 +194,10 @@ function midAlienClass() {
 		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
 			this.dropLoot = false;
 		}
+	}
+
+	this.readyToRemove = function() {
+		return (this.hp <= 0 || this.y > c.height);
 	}
 }
 

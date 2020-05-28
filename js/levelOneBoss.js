@@ -144,4 +144,8 @@ function levelOneBossClass() {
 			this.dropLoot = false;
 		}
 	}
+
+	this.readyToRemove = function() {
+		return (this.hp < 0 || this.y > c.height);
+	}
 }
