@@ -4,7 +4,7 @@ function asteroids() {
 
 	this.x = 800;
 	this.y = 0;
-	this.r = 20;
+	this.r = 30;
 	this.sy = 5;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.dropLoot = false; // inserted in playerWeapon.js
@@ -29,7 +29,7 @@ function asteroids() {
 		this.playerCollisionDetection();
 
 		if (this.y >= c.height) {
-			//this.respawn();
+			this.respawn();
 		}
 	}
 
@@ -64,7 +64,8 @@ function asteroids() {
 	}
 
 	this.playerCollisionDetection = function () {
-		if (this.destroyed == false && p1.x + PLAYER_SHIP_WIDTH >= this.x + this.r && p1.x <= this.x + this.r && p1.y <= this.y + this.r && p1.y + PLAYER_SHIP_HEIGHT >= this.y + this.r) {
+		//if (this.destroyed == false && p1.x + PLAYER_SHIP_WIDTH >= this.x + this.r && p1.x <= this.x + this.r && p1.y <= this.y + this.r && p1.y + PLAYER_SHIP_HEIGHT >= this.y + this.r) {
+		if(p1.playerRoundCollisionCheck(this.x, this.y, this.r)){
 			this.destroyed = true;
 			p1.substractShield();
 			this.respawn();
