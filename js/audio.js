@@ -187,8 +187,9 @@ function toggleMute() {
 	}
 	else {
 		isMuted = !isMuted;
-		setMusicVolume(0.2); // I should not have hardcoded values here
+		setMusicVolume(0.7); // I should not have hardcoded values here
 	}
+	console.log(musicVolume);
 }
 
 function setEffectsVolume(amount) {

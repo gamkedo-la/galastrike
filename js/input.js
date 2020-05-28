@@ -33,7 +33,7 @@ function keyPressed(evt) {
 		case GAME_SCREEN:
 			playerHoldAction(evt.keyCode, true);
 			//cheat keys
-			cheats(evt.key);
+			//cheats(evt.key);
 			
 			if (evt.keyCode == KEY_M) {
 				toggleMute();
