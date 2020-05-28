@@ -25,8 +25,8 @@ function basicAlienClass() {
 
 	this.shotX;
 	this.shotY;
-	this.shotW = 5;
-	this.shotH = 10;
+	this.shotW = 20;
+	this.shotH = 20;
 	this.shotActive = false;
 	this.shotSpeed = 5;
 
@@ -36,7 +36,8 @@ function basicAlienClass() {
 		colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
 
 		if(this.shotActive == true) {
-			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
+			ctx.drawImage(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY);
+			//colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
 		this.basicShot();	
 	}
@@ -87,8 +88,13 @@ function basicAlienClass() {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);
 			if(this.rn == 1) {
 				this.shotActive = true;
-				this.shotY = this.y;
-				this.shotX = this.x;
+				if (Math.floor(Math.random() * (1 - 0 +1)) + 0 == 0){
+					this.shotY = this.y + 69 - this.shotW/2;
+					this.shotX = this.x + 9 - this.shotH/2;
+				}else{
+					this.shotY = this.y + 69 - this.shotW/2;
+					this.shotX = this.x + 69 - this.shotH/2;
+				}
 			} 
 		}
 

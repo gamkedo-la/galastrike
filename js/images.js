@@ -2,6 +2,7 @@
 var imageNames = ["PlayerSpaceship.png",
 	"Shield.png",
 	"enemyAalt.png",
+	"enemyAalt_shot.png",
 	"enemyB.png",
 	"Level_1_Background.jpg",
 	"greeblicious.gif",
