@@ -144,8 +144,11 @@ function playerClass() {
 		if (playerShields == 0 && !this.shield01)
 			this.playerLose();
 
-		if (playerShields == 0)
+		if (playerShields == 0 || playerShields < 0)
 			this.shield01 = false;
+
+		if (playerShields < 0)
+			this.playerLose();
 
 	}
 

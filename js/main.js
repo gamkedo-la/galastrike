@@ -121,8 +121,8 @@ function moveEverything() {
 		for (var i = 0; i < enemyList.length; i++) {
 			enemyList[i].move();
 		}
-		for (var i = enemyList.length-1; i >= 0; i--) {
-			if(enemyList[i].readyToRemove()) {
+		for (var i = enemyList.length - 1; i >= 0; i--) {
+			if (enemyList[i].readyToRemove()) {
 				enemyList.splice(i, 1);
 			}
 		}
@@ -160,21 +160,13 @@ function gameMode() {
 	weaponPU.draw();
 }
 
-/* Should the following values when the game 
- * is reset be the same as when the game first started?
- * If yes, remove this comment
- * If not, the values were  
- * shield01 = false; 
- * playerShields = 1;
- * */
 function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
 	playerShields = 100;
 	p1.shield01 = true;
-	p1.x = c.width / 2;
-	p1.y = c.height - 150;
 }
+
 
 
 
