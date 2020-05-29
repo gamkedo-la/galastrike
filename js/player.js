@@ -89,7 +89,6 @@ function playerClass() {
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
 					break;
 			}
-			//drawBitmapCenteredAtLocationWithRotation(imageArray["Shield.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
 		}
 
 		for (var i = 0; i < this.myShot.length; i++) {
@@ -114,6 +113,22 @@ function playerClass() {
 		this.speedBurst();
 	}
 
+	this.playerCollisionCheck = function(colliderX, colliderY, colliderW_R, colliderH){
+		//cooliderW_R is either the width (square objects) or the radius(round objects) of the collision object
+		//if colliderH is left out on the function call than its assumed to be a round object that wants to collide
+		//otherwise its a square object
+
+		if(colliderH !== undefined){ //if object uses radius
+			if(playerShields > 0){
+				//run shield collision check round here
+			}else{
+
+			}
+
+		}
+		return collided;
+	}
+
 	this.playerSquareCollisionCheck = function(colliderX, colliderY, colliderW, colliderH){
 		var collided = false;
 		var noseYStart = 15;
@@ -125,7 +140,7 @@ function playerClass() {
 			|| colliderX + colliderW/2 >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX - colliderW/2 <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY +colliderH/2 >= this.y + noseH && colliderY - colliderH/2 <= this.y + noseH + bodyH) {
 			collided = true;
 			}
-		console.log("collided " + collided);
+		//console.log("collided " + collided);
 		return collided;
 	}
 
@@ -141,7 +156,7 @@ function playerClass() {
 			|| colliderX + colliderR >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX - colliderR <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY + colliderR >= this.y + noseH && colliderY - colliderR <= this.y + noseH + bodyH) {
 			collided = true;
 			}
-		console.log("collided " + collided);
+		//console.log("collided " + collided);
 		return collided;
 	}
 

@@ -1,6 +1,5 @@
 //image loading
 var imageNames = ["PlayerSpaceship.png",
-	"Shield.png",
 	"shield_1.png",
 	"shield_2.png",
 	"shield_3.png",
