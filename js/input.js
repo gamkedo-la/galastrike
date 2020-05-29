@@ -13,6 +13,9 @@ const KEY_1 = 49;
 const KEY_2 = 50;
 const KEY_3 = 51;
 const KEY_M = 77;
+const KEY_P = 80;
+
+var pausePressed = false;
 
 var holdLeft = false;
 var holdRight = false;
@@ -37,6 +40,11 @@ function keyPressed(evt) {
 
 			if (evt.keyCode == KEY_M) {
 				toggleMute();
+			}
+
+			if (evt.keyCode == KEY_P) {
+				pausePressed = !pausePressed;
+				pauseGame(pausePressed);
 			}
 
 			if (evt.keyCode == KEY_S) {
@@ -82,6 +90,12 @@ function keyPressed(evt) {
 			}
 			break;
 
+		case GAME_PAUSE:
+			if (evt.keyCode == KEY_P) {
+				pausePressed = !pausePressed;
+				pauseGame(pausePressed);
+			}
+			break;
 	}
 
 	evt.preventDefault(); // this is to prevent arrow keys from scrolling the page.

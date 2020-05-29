@@ -93,6 +93,10 @@ function drawEverything() {
 			gameOverScreen();
 			break;
 
+		case GAME_PAUSE:
+			gamePauseScreen();
+			break;
+
 		case TITLE_SCREEN:
 			titleScreen();
 			break;
@@ -167,6 +171,12 @@ function resetGame() {
 	p1.shield01 = true;
 }
 
+function pauseGame(pausePressed) {
+	if (pausePressed)
+		mode = GAME_PAUSE;
+	else
+		mode = GAME_SCREEN;
+}
 
 
 
