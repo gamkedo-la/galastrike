@@ -1,10 +1,10 @@
 const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
-const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 150;
-const MIN_DIST_FROM_SCREEN_BOTTOM = 150;
+const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 160;
+const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
 var playerScore = 0;
-var playerShields = 100;
+var playerShields = 5; //Not more then 5!
 var shieldRotationSpeed = 0;
 
 function playerClass() {
@@ -72,7 +72,24 @@ function playerClass() {
 
 		//ship shield
 		if (this.shield01) {
-			drawBitmapCenteredAtLocationWithRotation(imageArray["Shield.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+			switch (playerShields) {
+				case 5:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+				case 4:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2,-shieldRotationSpeed);
+				case 3:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+				case 2:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
+				case 1:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+				case 0:		
+					break;
+				case 6:
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+					break;
+			}
+			//drawBitmapCenteredAtLocationWithRotation(imageArray["Shield.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
 		}
 
 		for (var i = 0; i < this.myShot.length; i++) {
