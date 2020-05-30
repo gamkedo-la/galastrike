@@ -64,8 +64,7 @@ function asteroids() {
 	}
 
 	this.playerCollisionDetection = function () {
-		//if (this.destroyed == false && p1.x + PLAYER_SHIP_WIDTH >= this.x + this.r && p1.x <= this.x + this.r && p1.y <= this.y + this.r && p1.y + PLAYER_SHIP_HEIGHT >= this.y + this.r) {
-		if(p1.playerCollisionCheck(true, this.x, this.y, this.r)){
+		if(this.destroyed === false && p1.collisionCheck(false, this.x, this.y, this.r)){
 			this.destroyed = true;
 			p1.substractShield();
 			this.respawn();

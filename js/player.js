@@ -5,7 +5,7 @@ const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
 var playerScore = 0;
 var playerShields = 5; //Not more then 5!
-var playerShieldSize;
+var playerShieldRadius;
 var shieldRotationSpeed = 0;
 
 function playerClass() {
@@ -76,24 +76,24 @@ function playerClass() {
 			switch (playerShields) {
 				case 5:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 5) playerShieldSize = 190;
+					if(playerShields == 5) playerShieldRadius = 190 / 2;
 				case 4:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2,-shieldRotationSpeed);
-					if(playerShields == 4) playerShieldSize = 180;
+					if(playerShields == 4) playerShieldRadius = 180 / 2;
 				case 3:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 3) playerShieldSize = 170;
+					if(playerShields == 3) playerShieldRadius = 170 / 2;
 				case 2:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if(playerShields == 2) playerShieldSize = 160;
+					if(playerShields == 2) playerShieldRadius = 160 / 2;
 				case 1:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 1) playerShieldSize = 150;
+					if(playerShields == 1) playerShieldRadius = 150 / 2;
 				case 0:		
 					break;
 				case 6:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 6) playerShieldSize = 190;
+					if(playerShields == 6) playerShieldRadius = 190 / 2;
 					break;
 			}
 		}
@@ -148,92 +148,42 @@ function playerClass() {
 		mode = GAME_OVER;
 	}
 
-	this.playerCollisionCheck = function(ignoreShield, colliderX, colliderY, colliderW_R, colliderH){
-		//cooliderW_R is either the width (square objects) or the radius(round objects) of the collision object
-		//if colliderH is left out on the function call than its assumed to be a round object that wants to collide
-		//otherwise its a square object
-		
-		var collided = false;
+	this.collisionCheck = function(ignoreShield, colliderX, colliderY, colliderW_R, colliderH){
+		//cooliderW_R is either the width (square objects) if you provided colliderH
+		// or the radius(round objects) of the collision object if colliderH wasnt provided
+	
+		var noseYStart = 15;
+		var noseW = 24;
+		var noseH = 55;
+		var bodyW = 132;
+		var bodyH = 40;
 
 		if(colliderH === undefined){ //if object uses round collision
-			
-			if(playerShields > 0 && ignoreShield === false){
-				
-			}else{
-				collided = this.playerCollisionWithRound(colliderX, colliderY, colliderW_R);
+		
+			if(playerShields > 0 && ignoreShield === false){ //checked against Shield
+				return(roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH/2, this.y + PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY,colliderW_R));	
+			}else{ //checked against playership
+				if(roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart - PLAYER_SHIP_HEIGHT/2, noseW, noseH)){
+					return true;
+				}else if(roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart -noseH - PLAYER_SHIP_HEIGHT/2, bodyW, bodyH)){
+					return true;
+				}else{
+					return false;
+				}
 			}
-
 		}else{ //If object uses square collision
-
-			if(playerShields > 0  && ignoreShield === false){
-				//run shield collision check round here
-			}else{
-				collided = this.playerCollisionWithSquare(colliderX, colliderY, colliderW_R, colliderH);
+			if(playerShields > 0  && ignoreShield === false){//checked against Shield
+				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH/2, this.y - PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
+			}else{//checked against playership
+				if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart - PLAYER_SHIP_HEIGHT/2, noseW, noseH)){
+					return true;
+				}else if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart -noseH - PLAYER_SHIP_HEIGHT/2, bodyW, bodyH)){
+					return true;
+				}else{
+					return false;
+				}
 			}
-			
 		}
-		console.log(collided)
-		return collided;
-	}
-
-	this.playerCollisionWithSquare = function(colliderX, colliderY, colliderW, colliderH){
-		//dont call this function directly, use .playerCollisionCheck 
-		var collided = false;
-		var noseYStart = 15;
-		var noseW = 24;
-		var noseH = 55;
-		var bodyW = 132;
-		var bodyH = 40;
-		if (colliderX + colliderW/2 >= this.x + PLAYER_SHIP_WIDTH/2 - noseW/2 && colliderX - colliderW/2 <= this.x + PLAYER_SHIP_WIDTH/2 + noseW/2 && colliderY + colliderH/2 >= this.y + noseYStart && colliderY - colliderH/2  <= this.y + noseH 
-			|| colliderX + colliderW/2 >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX - colliderW/2 <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY +colliderH/2 >= this.y + noseH && colliderY - colliderH/2 <= this.y + noseH + bodyH) {
-			collided = true;
-			}
-		//console.log("collided with player square: " + collided);
-		return collided;
-	}
-
-	this.playerCollisionWithRound = function(colliderX, colliderY, colliderR){
-		//dont call this function directly, use .playerCollisionCheck 
-		var collided = false;
-		var noseYStart = 15;
-		var noseW = 24;
-		var noseH = 55;
-		var bodyW = 132;
-		var bodyH = 40;
-
-		if (colliderX + colliderR >= this.x + PLAYER_SHIP_WIDTH/2 - noseW/2 && colliderX - colliderR <= this.x + PLAYER_SHIP_WIDTH/2 + noseW/2 && colliderY + colliderR >= this.y + noseYStart && colliderY - colliderR  <= this.y + noseH 
-			|| colliderX + colliderR >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX - colliderR <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY + colliderR >= this.y + noseH && colliderY - colliderR <= this.y + noseH + bodyH) {
-			collided = true;
-			}
-		//console.log("collided with player round: " + collided);
-		return collided;
-	}
-
-	this.playerShieldCollisionWithRound = function(colliderX, colliderY, colliderR){
-		//dont call this function directly, use .playerCollisionCheck 
-		var collided = false;
-
-		if (colliderX + colliderR >= this.x - playerShieldSize/2 && colliderX - colliderR <= this.x + playerShieldSize/2 && colliderY + colliderR >= this.y - playerShieldSize/2 && colliderY - colliderR  <= this.y + playerShieldSize/2 ) {
-			collided = true;
-			}
-		//console.log("collided with shield round: " + collided);
-		return collided;
-	}
-
-	this.playerShieldCollisionWithSquare = function(colliderX, colliderY, colliderW, colliderH){
-		//dont call this function directly, use .playerCollisionCheck 
-		var collided = false;
-		var noseYStart = 15;
-		var noseW = 24;
-		var noseH = 55;
-		var bodyW = 132;
-		var bodyH = 40;
-		if (colliderX + colliderW/2 >= this.x + PLAYER_SHIP_WIDTH/2 - noseW/2 && colliderX - colliderW/2 <= this.x + PLAYER_SHIP_WIDTH/2 + noseW/2 && colliderY + colliderH/2 >= this.y + noseYStart && colliderY - colliderH/2  <= this.y + noseH 
-			|| colliderX + colliderW/2 >= this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2 && colliderX - colliderW/2 <= this.x + PLAYER_SHIP_WIDTH/2 + bodyW/2 && colliderY +colliderH/2 >= this.y + noseH && colliderY - colliderH/2 <= this.y + noseH + bodyH) {
-			collided = true;
-			}
-		//console.log("collided with player square: " + collided);
-		return collided;
 	}
 
 	this.spaceshipAutoReverse = function () {
