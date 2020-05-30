@@ -24,7 +24,7 @@ var levelThreeData = [
 
 var levelFourData = [
 	{kind:ENEMY_KIND_AST, when:0, count:20, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, when:100, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_SAT, when:0, count:5, countSpacing: 50},
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];

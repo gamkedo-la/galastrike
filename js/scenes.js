@@ -8,7 +8,7 @@ const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
 
-var mode = GAME_SCREEN;
+var mode = TITLE_SCREEN;
 
 function gameOverScreen() {
 	colorRect(0, 0, c.width, c.height, 'blue');
@@ -34,7 +34,10 @@ function mainMenuScreen() {
 	colorText("New Game: [ENTER]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
 	colorText("Fullscreen: [F]", c.width / 2 - 70, c.height / 2 + 80, "15px arial", "white");
 	colorText("Credits: [SHIFT]", c.width / 2 - 70, c.height / 2 + 120, "15px arial", "white");
-	colorText("Level 01 [1]", c.width / 2 - 70, c.height / 2 + 160, "15px arial", "white");
+	colorText("LV 01 [1]", c.width / 2 - 70, c.height / 2 + 160, "15px arial", "white");
+	colorText("LV 02 [2]", c.width / 2 - 70, c.height / 2 + 200, "15px arial", "white");
+	colorText("LV 03 [3]", c.width / 2 - 70, c.height / 2 + 240, "15px arial", "white");
+	colorText("LV 04 [4]", c.width / 2 - 70, c.height / 2 + 280, "15px arial", "white");
 }
 
 function creditScreen() {

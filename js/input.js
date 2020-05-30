@@ -12,6 +12,7 @@ const KEY_F = 70;
 const KEY_1 = 49;
 const KEY_2 = 50;
 const KEY_3 = 51;
+const KEY_4 = 52;
 const KEY_M = 77;
 const KEY_P = 80;
 
@@ -77,15 +78,19 @@ function keyPressed(evt) {
 				toggleFullscreen();
 			}
 			if (evt.keyCode == KEY_1) {
-				levelNum = 0;
+				loadLevel(0);
 				mode = GAME_SCREEN;
 			}
 			if (evt.keyCode == KEY_2) {
-				levelNum = 1;
+				loadLevel(1);
 				mode = GAME_SCREEN;
 			}
 			if (evt.keyCode == KEY_3) {
-				levelNum = 2;
+				loadLevel(2);
+				mode = GAME_SCREEN;
+			}
+			if (evt.keyCode == KEY_4) {
+				loadLevel(3);
 				mode = GAME_SCREEN;
 			}
 			break;
