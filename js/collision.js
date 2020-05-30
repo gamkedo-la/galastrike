@@ -20,8 +20,8 @@
 	}
 
 	function roundShapeCollisionWithSquareShape (obj1X, obj1Y, obj1R, obj2X, obj2Y, obj2W, obj2H){
-		var distX = Math.abs(obj1X - obj2X + obj2W/2)
-		var distY = Math.abs(obj1Y - obj2Y + obj2H/2)
+		var distX = Math.abs(obj1X - obj2X - obj2W/2)
+		var distY = Math.abs(obj1Y - obj2Y - obj2H/2)
 		
 		if (distX > (obj2W/2 + obj1R)) { return false; }
 		if (distY > (obj2H/2 + obj1R)) { return false; }

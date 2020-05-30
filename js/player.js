@@ -175,11 +175,11 @@ function playerClass() {
 			}
 		}else{ //If object uses square collision
 			if(playerShields > 0  && ignoreShield === false){//checked against Shield
-				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH/2, this.y - PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
+				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH/2, this.y + PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
 			}else{//checked against playership
-				if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart , noseW, noseH)){
+				if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2 - noseW/2, this.y + noseYStart, noseW, noseH)){
 					return true;
-				}else if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2, this.y - noseYStart -noseH, bodyW, bodyH)){
+				}else if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2, this.y + noseYStart + noseH, bodyW, bodyH)){
 					return true;
 				}else{
 					return false;
