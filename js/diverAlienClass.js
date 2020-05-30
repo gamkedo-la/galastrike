@@ -20,7 +20,6 @@ function diverAlienClass() {
 
 	this.dropLoot = false;
 	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
-	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
 
 	this.draw = function() {
@@ -94,8 +93,6 @@ function diverAlienClass() {
 		console.log("a3 loot rate:" + this.rn);
 		if(this.rn == 1) {
 			this.dropLoot = true;
-			this.lootX = this.x;
-			this.lootY = this.y;
 		}
 	}
 

@@ -22,8 +22,13 @@ var levelThreeData = [
 	{kind:ENEMY_KIND_LONE_BOSS, when:0},
 ];
 
-var levelList = [levelOneData, levelTwoData, levelThreeData];
-var levelNum = 1; //determines what level is active
+var levelFourData = [
+	{kind:ENEMY_KIND_AST, when:0, count:20, countSpacing: 50}, 
+	{kind:ENEMY_KIND_SAT, when:100, count:5, countSpacing: 50},
+];
+
+var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
+var levelNum = 3; //determines what level is active
 
 function loadLevel(whichLevel) {
 	enemyList = [];

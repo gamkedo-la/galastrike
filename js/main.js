@@ -161,7 +161,7 @@ function gameMode() {
 function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
-	playerShields = 100;
+	playerShields = 5;
 	p1.shield01 = true;
 }
 

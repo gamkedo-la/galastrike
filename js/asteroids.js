@@ -29,7 +29,7 @@ function asteroids() {
 		this.playerCollisionDetection();
 
 		if (this.y >= c.height) {
-			//this.respawn();
+			this.respawn();
 		}
 	}
 
