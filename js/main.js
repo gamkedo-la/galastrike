@@ -75,7 +75,7 @@ function startGame() {
 
 function drawEverything() {
 	//canvas
-	colorRect(0, 0, c.width, c.height, 'black');
+	//colorRect(0, 0, c.width, c.height, 'black');
 
 	//state machine handling game screens
 	switch (mode) {
@@ -170,6 +170,7 @@ function pauseGame(pausePressed) {
 		mode = GAME_PAUSE;
 	else
 		mode = GAME_SCREEN;
+	countAlpha = 0;
 }
 
 

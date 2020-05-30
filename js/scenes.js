@@ -8,6 +8,7 @@ const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
 
+var countAlpha = 0; // counting for Pause draw screen
 var mode = TITLE_SCREEN;
 
 function gameOverScreen() {
@@ -48,7 +49,10 @@ function creditScreen() {
 
 
 function gamePauseScreen() {
-	ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-	ctx.fillRect(0, 0, c.width, c.height);
-	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+	if (countAlpha == 0) {
+		ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		ctx.fillRect(0, 0, c.width, c.height);
+		countAlpha++;
+	}
+	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 + 40, "30px arial", "white");
 }
