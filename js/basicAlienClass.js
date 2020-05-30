@@ -16,10 +16,6 @@ function basicAlienClass() {
 	this.respawnTimer = 60;
 
 	this.dropLoot = false;
-	// this.lootX;
-	// this.lootY;
-	// this.lootW = 30;
-	// this.lootH = 30;
 	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
 	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
 
@@ -63,8 +59,6 @@ function basicAlienClass() {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
 		}
-
-		//this.respawnAlien();
 	}
 
 	this.shotHitMeCheck = function(testShot) {
@@ -117,18 +111,6 @@ function basicAlienClass() {
 			if (p1.playerSquareCollisionCheck(this.shotX, this.shotY,this.shotW,this.shotH)){
 				this.shotActive = false;
 				p1.playerLose();
-			}
-		}
-	}
-
-	this.respawnAlien = function() {
-		if(this.dropLoot == false) {
-			this.respawnTimer--;
-			if(this.respawnTimer == 0) {
-				this.hp = BASIC_ALIEN_HP;
-				this.respawnTimer = 30;
-				//this.x = Math.random() * (c.width - 150);
-				this.y = ALIEN_SPAWN_POSY; 
 			}
 		}
 	}

@@ -7,7 +7,6 @@ var screenBuffer = 20;
 // these globals are assiged in gameInit after onload
 var p1; // player 1
 var gamepad;
-var powerUp1; //power up placeholder
 var starList; //parallax 
 var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
@@ -28,7 +27,6 @@ window.onload = function () {
 function gameInit() {
 	p1 = new playerClass();
 	gamepad = new GamepadManager();
-	powerUp1 = new basicPowerUpClass();
 	starList = []; //parallax 
 	shieldPU = new shieldPowerUp();
 	speedPU = new speedPowerUp();
@@ -117,14 +115,14 @@ function moveEverything() {
 	gamepad.update();
 	p1.move();
 	starMove();
-	powerUp1.move();
 	weaponPU.move();
 
 	if (mode == GAME_SCREEN) {
-		//moves enemies and sapce debris 
+		//moves enemies and space debris 
 		for (var i = 0; i < enemyList.length; i++) {
 			enemyList[i].move();
 		}
+		//looks to see if it needs to remove enemies and debris
 		for (var i = enemyList.length - 1; i >= 0; i--) {
 			if (enemyList[i].readyToRemove()) {
 				enemyList.splice(i, 1);
@@ -157,10 +155,6 @@ function gameMode() {
 
 	//player score
 	p1.playerScore();
-	//power ups
-	powerUp1.draw();
-	powerUp1.shieldPowerUp();
-	powerUp1.respawn();
 	weaponPU.draw();
 }
 

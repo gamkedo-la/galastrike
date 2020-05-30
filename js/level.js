@@ -7,9 +7,9 @@ const ENEMY_KIND_AST = 4;
 const ENEMY_KIND_SAT = 5;
 
 var levelOneData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:3, countSpacing: 50},
-	{kind:ENEMY_KIND_AST, when:30}, 
-	{kind:ENEMY_KIND_SAT, when:100},
+	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_AST, when:100, atX:0.2, count:5, countSpacing: 50}, 
+	{kind:ENEMY_KIND_SAT, when:100, atX:0.8, count:5, countSpacing: 50},
 ];
 
 var levelTwoData = [
@@ -31,6 +31,7 @@ function loadLevel(whichLevel) {
 	levelCurrent = levelList[levelNum];
 	spawnClock = 0;
 }
+
 var levelCurrent;
 var spawnClock = 0;
 function handelLevelSpawn() {
@@ -57,7 +58,7 @@ function handelLevelSpawn() {
 					spawnObj = new satellites();
 					break;
 				default:
-					console.log("attempted to spawn unkown kind " + levelCurrent[i].kind + " at time " + spawnClock);
+					console.log("attempted to spawn unknown kind " + levelCurrent[i].kind + " at time " + spawnClock);
 					break;
 			}
 			if(levelCurrent[i].atX != undefined) {
