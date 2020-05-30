@@ -106,7 +106,7 @@ function basicAlienClass() {
 
 		if(playerShields >= 0) {
 			//if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) 
-			if (p1.playerSquareCollisionCheck(this.shotX, this.shotY,this.shotW,this.shotH)){
+			if (p1.playerCollisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)){
 				this.shotActive = false;
 				p1.playerLose();
 			}
