@@ -8,7 +8,7 @@ const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
 
-var mode = TITLE_SCREEN;
+var mode = GAME_SCREEN;
 
 function gameOverScreen() {
 	colorRect(0, 0, c.width, c.height, 'blue');

@@ -51,8 +51,6 @@ function basicAlienClass() {
 			this.sx = -this.sx;
 		}
 
-		this.lootPickUp();		
-
 		this.collitionDetection();
 		
 		if(this.shotActive == true) {
@@ -132,12 +130,6 @@ function basicAlienClass() {
 			this.dropLoot = true;
 			// Assign the position of the alien to the weapon upgrade power up and set it to active
 			weaponPU.setup(this.x, this.y);
-		}
-	}
-
-	this.lootPickUp = function() {
-		if(this.lootX >= p1.x && this.lootX + this.lootW <= p1.x + PLAYER_SHIP_WIDTH && this.lootY >= p1.y && this.lootY <= p1.y + PLAYER_SHIP_HEIGHT) {
-			this.dropLoot = false;
 		}
 	}
 

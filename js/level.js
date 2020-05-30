@@ -13,9 +13,9 @@ var levelOneData = [
 ];
 
 var levelTwoData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:0},
-	{kind:ENEMY_KIND_MID_ALIEN, when:120},
-	{kind:ENEMY_KIND_DIVER_ALIEN, when:240},
+	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_MID_ALIEN, when:100, atX:0.2, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, when:100, atX:0.8, count:5, countSpacing: 50},
 ];
 
 var levelThreeData = [

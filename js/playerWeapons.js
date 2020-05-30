@@ -33,13 +33,6 @@ function playerShotClass(color, removeAlienHp) {
 			this.weaponActive = false;
 			this.y = p1.y;			
 		}
-
-		// power up collision
-		if(this.y <= powerUp1.y + powerUp1.h && this.y >= powerUp1.y && this.x >= powerUp1.x - 10 && this.x <= powerUp1.x + powerUp1.w + 10) {
-			powerUp1.powerUpAccessible = true;
-			this.weaponActive = false;
-			this.y = p1.y;
-		}
 	}
 
 }// end of player basic shot class
