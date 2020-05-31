@@ -137,7 +137,12 @@ function moveEverything() {
 function gameMode() {
 
 	if (backgroundMusic.playing == false) {
-		backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+		if(levelNum == 0) {
+			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+		}
+		if(levelNum == 1) {
+			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
+		}
 	}
 	// scrolling bg image
 	backgroundDraw();
