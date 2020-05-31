@@ -50,12 +50,14 @@ function playerClass() {
 				removeAlienHp = 1;
 				this.shotReloadRate = 6;
 				newShot = new playerShotClass('white', removeAlienHp);
+				playBasicShootingSound();
 				break;
 			case 'Mid':
 				removeAlienHp = 5;
 				// Take a little less time to shoot again
 				this.shotReloadRate = 3;
 				newShot = new playerShotClass('red', removeAlienHp);
+				playMidShootingSound();
 				break;
 		}
 
@@ -65,8 +67,6 @@ function playerClass() {
 		newShot.x = this.x + PLAYER_SHIP_WIDTH / 2;
 		this.myShot.push(newShot);
 		this.reloadFrames = this.shotReloadRate;
-
-		playShootingSoundEffect();
 	}
 
 	this.draw = function () {

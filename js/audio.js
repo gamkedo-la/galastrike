@@ -231,7 +231,13 @@ function turnEffectsVolumeDown() {
 	console.log("Turn down Effects");
 }
 
-function playShootingSoundEffect() {
+function playBasicShootingSound() {
 	var audio = new soundOverlapsClass('./shot.mp3');
 	audio.play();
 }
+
+function playMidShootingSound() {
+	var audio = new soundOverlapsClass('./midShot.mp3');
+	audio.play();
+}
+
