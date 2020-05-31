@@ -65,6 +65,8 @@ function playerClass() {
 		newShot.x = this.x + PLAYER_SHIP_WIDTH / 2;
 		this.myShot.push(newShot);
 		this.reloadFrames = this.shotReloadRate;
+
+		playShootingSoundEffect();
 	}
 
 	this.draw = function () {
@@ -76,24 +78,24 @@ function playerClass() {
 			switch (playerShields) {
 				case 5:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 5) playerShieldRadius = 190 / 2;
+					if (playerShields == 5) playerShieldRadius = 190 / 2;
 				case 4:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2,-shieldRotationSpeed);
-					if(playerShields == 4) playerShieldRadius = 180 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
+					if (playerShields == 4) playerShieldRadius = 180 / 2;
 				case 3:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 3) playerShieldRadius = 170 / 2;
+					if (playerShields == 3) playerShieldRadius = 170 / 2;
 				case 2:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if(playerShields == 2) playerShieldRadius = 160 / 2;
+					if (playerShields == 2) playerShieldRadius = 160 / 2;
 				case 1:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 1) playerShieldRadius = 150 / 2;
-				case 0:		
+					if (playerShields == 1) playerShieldRadius = 150 / 2;
+				case 0:
 					break;
 				case 6:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if(playerShields == 6) playerShieldRadius = 190 / 2;
+					if (playerShields == 6) playerShieldRadius = 190 / 2;
 					break;
 			}
 		}
@@ -148,40 +150,40 @@ function playerClass() {
 		mode = GAME_OVER;
 	}
 
-	this.collisionCheck = function(ignoreShield, colliderX, colliderY, colliderW_R, colliderH){
+	this.collisionCheck = function (ignoreShield, colliderX, colliderY, colliderW_R, colliderH) {
 		//cooliderW_R is either the width (square objects) if you provided colliderH
 		// or the radius(round objects) of the collision object if colliderH wasnt provided
-	
+
 		var noseYStart = 15;
 		var noseW = 24;
 		var noseH = 30;
 		var bodyW = 132;
 		var bodyH = 40;
 
-		if(colliderH === undefined){ //if object uses round collision
-		
-			if(playerShields > 0 && ignoreShield === false){ //checked against Shield
-				return(roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH/2, this.y + PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY,colliderW_R));	
-			}else{ //checked against playership
-				if(roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH/2 - noseW/2, this.y + noseYStart , noseW, noseH)){
+		if (colliderH === undefined) { //if object uses round collision
+
+			if (playerShields > 0 && ignoreShield === false) { //checked against Shield
+				return (roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R));
+			} else { //checked against playership
+				if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
 					//check against the playership Nose part
 					return true;
-				}else if(roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2, this.y + noseYStart + noseH, bodyW, bodyH)){
+				} else if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) {
 					//check aginst the playership body part
 					return true;
-				}else{
+				} else {
 					return false;
 				}
 			}
-		}else{ //If object uses square collision
-			if(playerShields > 0  && ignoreShield === false){//checked against Shield
-				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH/2, this.y + PLAYER_SHIP_HEIGHT/2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
-			}else{//checked against playership
-				if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2 - noseW/2, this.y + noseYStart, noseW, noseH)){
+		} else { //If object uses square collision
+			if (playerShields > 0 && ignoreShield === false) {//checked against Shield
+				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
+			} else {//checked against playership
+				if (squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
 					return true;
-				}else if(squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH/2 - bodyW/2, this.y + noseYStart + noseH, bodyW, bodyH)){
+				} else if (squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) {
 					return true;
-				}else{
+				} else {
 					return false;
 				}
 			}

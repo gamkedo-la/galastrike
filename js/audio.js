@@ -230,3 +230,8 @@ function turnEffectsVolumeDown() {
 	setEffectsVolume(effectsVolume - VOLUME_INCREMENT);
 	console.log("Turn down Effects");
 }
+
+function playShootingSoundEffect() {
+	var audio = new soundOverlapsClass('./shot.mp3');
+	audio.play();
+}
