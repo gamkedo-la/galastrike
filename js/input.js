@@ -100,6 +100,10 @@ function keyPressed(evt) {
 				pausePressed = !pausePressed;
 				pauseGame(pausePressed);
 			}
+
+			if(evt.keyCode == KEY_SPACE) {
+				mode = MAIN_MENU;
+			}
 			break;
 	}
 
