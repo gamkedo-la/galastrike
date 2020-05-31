@@ -18,7 +18,8 @@ function playerClass() {
 	this.sx = 10;
 
 	this.speedBuffer = false;
-	this.shield01 = true;
+	this.shieldActive = true;
+	this.invincible = false;
 	this.myShot = [];
 	this.weaponTier = "Basic";
 	this.shotReloadRate = 6; //lower the number the more shots
@@ -74,7 +75,7 @@ function playerClass() {
 		ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
 
 		//ship shield
-		if (this.shield01) {
+		if (this.shieldActive) {
 			switch (playerShields) {
 				case 5:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
@@ -127,23 +128,31 @@ function playerClass() {
 	}
 
 	this.addShield = function () {
+
 		playerShields++;
-		this.shield01 = true;
+		this.shieldActive = true;
 	}
 
-	this.substractShield = function () {
+	this.getHit = function (amount){
+		if(!this.invincible){
+			if (!this.shieldActive){
+				this.playerLose();
+				return;
+			}
 
-		playerShields--;
+			if (amount === undefined){
+				playerShields--;
+			}else{
+				playerShields -= amount;
+			}
 
-		if (playerShields == 0 && !this.shield01)
-			this.playerLose();
-
-		if (playerShields == 0 || playerShields < 0)
-			this.shield01 = false;
-
-		if (playerShields < 0)
-			this.playerLose();
-
+			if(playerShields == 0){
+				this.shieldActive = false;
+				return;
+			}else if(playerShields < 0){
+				this.playerLose();
+			}
+		}
 	}
 
 	this.playerLose = function () {

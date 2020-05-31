@@ -49,7 +49,7 @@ function keyPressed(evt) {
 			}
 
 			if (evt.keyCode == KEY_S) {
-				p1.shield01 = !p1.shield01;
+				p1.shieldActive = !p1.shieldActive;
 			}
 			break;
 

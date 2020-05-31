@@ -1,8 +1,12 @@
 var cheatBuffer = "";
+
+// Note: single character cheats dont work, must be atleast 2 characters and all lowercase
 var cheatList = [
 	"kill", 		//opens the gameover screen
 	"speed",		//gives the palyer speedburst for 600s
 	"UUDDLRLRba",	//Konami code
+	"oo",			//add shield
+	"ll"			//subtract shield
 ];
 
 function cheats(key) {
@@ -40,13 +44,18 @@ function cheats(key) {
 						switch (index) {
 							case 0: //cheat: kill 
 								p1.playerLose();
-								break;
-					
+								break;	
 							case 1: //cheat: speed
 								p1.addSpeed(600);
 								break;
 							case 2: //cheat: konami
 								p1.addSpeed(600);
+								break;
+							case 3: //cheat: add shield
+								p1.addShield();
+								break;
+							case 4: //cheat: get Hit once
+								p1.getHit();
 								break;
 						}
 						cheatBuffer = "";

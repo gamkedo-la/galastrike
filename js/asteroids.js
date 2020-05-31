@@ -66,9 +66,8 @@ function asteroids() {
 	this.playerCollisionDetection = function () {
 		
 		if(this.destroyed === false && p1.collisionCheck(false, this.x, this.y, this.r)){
-			console.log(this.x + " a " + this.y)
 			this.destroyed = true;
-			p1.substractShield();
+			p1.getHit();
 			this.respawn();
 		}
 	}

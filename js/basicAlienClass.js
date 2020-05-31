@@ -96,29 +96,15 @@ function basicAlienClass() {
 	}
 
 	this.shotCheck = function() {
-		if(playerShields != 0) {
-			if(p1.collisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)) {
-				this.shotActive = false;
-				this.shotY = this.y;
-				p1.substractShield();
-			}
-		}
-
-		if(playerShields >= 0) {
-			//if(this.shotY >= p1.y - 20 && this.shotY <= p1.y + PLAYER_SHIP_HEIGHT/2 && this.shotX >= p1.x - 20 && this.shotX <= p1.x + PLAYER_SHIP_WIDTH + 20) 
-			if (p1.collisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)){
-				this.shotActive = false;
-				p1.playerLose();
-			}
+		if(p1.collisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)) {
+			this.shotActive = false;
+			p1.getHit();
 		}
 	}
 
 	this.collitionDetection = function() {
-		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
-			p1.substractShield();
-			if(p1.playerShields >= 0) {
-				p1.playerLose();
-			}
+		if(p1.collisionCheck(false, this.x, this.y,this.w,this.h)){
+			p1.getHit();
 		}
 	}
 

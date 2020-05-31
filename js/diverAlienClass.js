@@ -77,10 +77,7 @@ function diverAlienClass() {
 	this.collitionDetection = function() {
 		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
 			this.dive = false;
-			p1.substractShield();
-			if(p1.playerShields >= 0) {
-				p1.playerLose();
-			}
+			p1.getHit();
 		}
 
 		if(this.y >= c.height) {

@@ -12,6 +12,8 @@ function backgroundDraw() {
     // tile multiple - FIXME: chop
     ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX,backgroundScrollY % imageArray["Level_1_Background.jpg"].height);
     ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX,(backgroundScrollY % imageArray["Level_1_Background.jpg"].height)-imageArray["Level_1_Background.jpg"].height);
+    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX + 2000,backgroundScrollY % imageArray["Level_1_Background.jpg"].height);
+    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX + 2000,(backgroundScrollY % imageArray["Level_1_Background.jpg"].height)-imageArray["Level_1_Background.jpg"].height);
 }
 
 function midgroundDraw() {

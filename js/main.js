@@ -170,7 +170,7 @@ function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
 	playerShields = 5;
-	p1.shield01 = true;
+	p1.shieldActive = true;
 }
 
 function pauseGame(pausePressed) {

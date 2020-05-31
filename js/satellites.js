@@ -3,8 +3,8 @@ function satellites() {
 
 	this.x = 500;
 	this.y = 0;
-	this.w = 30;
-	this.h = 50;
+	this.w = 120;
+	this.h = 64;
 	this.sy = 3;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.dropLoot = false; // inserted in playerWeapon.js
@@ -60,9 +60,9 @@ function satellites() {
 	}
 
 	this.playerCollisionDetection = function() {
-		if(this.destroyed == false && p1.x + PLAYER_SHIP_WIDTH >= this.x && p1.x <= this.x + this.w && p1.y <= this.y + this.h && p1.y + PLAYER_SHIP_HEIGHT >= this.y) {
+		if(p1.collisionCheck(false, this.x, this.y,this.w,this.h)){
 			this.destroyed = true;
-			p1.substractShield();
+			p1.getHit();
 			this.respawn();
 		}
 	}
