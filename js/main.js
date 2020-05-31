@@ -143,6 +143,9 @@ function gameMode() {
 		if(levelNum == 1) {
 			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
 		}
+		else {
+			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+		}
 	}
 	// scrolling bg image
 	backgroundDraw();
