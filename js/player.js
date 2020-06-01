@@ -114,6 +114,10 @@ function playerClass() {
 	this.move = function () {
 		this.handleInput();
 
+		if(p1.invincible){
+			p1.reduceInvincibleTimer();
+		}
+	
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].move();
 		}
@@ -186,41 +190,18 @@ function playerClass() {
 	}
 
 	this.collisionCheck = function (ignoreShield, colliderX, colliderY, colliderW_R, colliderH) {
-		//cooliderW_R is either the width (square objects) if you provided colliderH
-		// or the radius(round objects) of the collision object if colliderH wasnt provided
-
 		var noseYStart = 15;
 		var noseW = 24;
 		var noseH = 30;
 		var bodyW = 132;
 		var bodyH = 40;
 
-		if (colliderH === undefined) { //if object uses round collision
-
-			if (this.playerShields > 0 && ignoreShield === false && this.shieldActive) { //checked against Shield
-				return (roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R));
-			} else { //checked against playership
-				if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
-					//check against the playership Nose part
-					return true;
-				} else if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) {
-					//check aginst the playership body part
-					return true;
-				} else {
-					return false;
-				}
-			}
-		} else { //If object uses square collision
-			if (this.playerShields > 0 && ignoreShield === false) {//checked against Shield
-				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
-			} else {//checked against playership
-				if (squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
-					return true;
-				} else if (squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) {
-					return true;
-				} else {
-					return false;
-				}
+		if (this.playerShields > 0 && ignoreShield === false && this.shieldActive) { //checked against Shield
+			return (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius));
+		} else { //checked against playership
+			if (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH) ||	//check against the playership Nose part
+				collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) { 	//check aginst the playership body part 
+				return true;
 			}
 		}
 	}
