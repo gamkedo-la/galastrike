@@ -116,6 +116,9 @@ function moveEverything() {
 	p1.move();
 	starMove();
 	weaponPU.move();
+	if(p1.invincible){
+		p1.reduceInvincibleTimer();
+	}
 
 	if (mode == GAME_SCREEN) {
 		//moves enemies and space debris 
@@ -169,7 +172,7 @@ function gameMode() {
 function resetGame() {
 	mode = GAME_SCREEN;
 	playerScore = 0;
-	playerShields = 5;
+	p1.playerShields = 5;
 	p1.shieldActive = true;
 }
 

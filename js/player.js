@@ -4,7 +4,7 @@ const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 160;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
 var playerScore = 0;
-var playerShields = 5; //Not more then 5!
+
 var playerShieldRadius;
 var shieldRotationSpeed = 0;
 
@@ -17,9 +17,11 @@ function playerClass() {
 	this.sy = 5;
 	this.sx = 10;
 
+	this.playerShields = 5; //Not more then 5!
 	this.speedBuffer = false;
 	this.shieldActive = true;
 	this.invincible = false;
+	this.invincibleTimer = 0;
 	this.myShot = [];
 	this.weaponTier = "Basic";
 	this.shotReloadRate = 6; //lower the number the more shots
@@ -73,30 +75,33 @@ function playerClass() {
 	this.draw = function () {
 		//space ship
 		ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
-
 		//ship shield
 		if (this.shieldActive) {
-			switch (playerShields) {
+			switch (this.playerShields) {
 				case 5:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (playerShields == 5) playerShieldRadius = 190 / 2;
+					if (this.playerShields == 5) playerShieldRadius = 190 / 2;
 				case 4:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if (playerShields == 4) playerShieldRadius = 180 / 2;
+					if (this.playerShields == 4) playerShieldRadius = 180 / 2;
 				case 3:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (playerShields == 3) playerShieldRadius = 170 / 2;
+					if (this.playerShields == 3) playerShieldRadius = 170 / 2;
 				case 2:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if (playerShields == 2) playerShieldRadius = 160 / 2;
+					if (this.playerShields == 2) playerShieldRadius = 160 / 2;
 				case 1:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (playerShields == 1) playerShieldRadius = 150 / 2;
+					if (this.playerShields == 1) playerShieldRadius = 150 / 2;
 				case 0:
 					break;
 				case 6:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (playerShields == 6) playerShieldRadius = 190 / 2;
+					if (this.playerShields == 6) playerShieldRadius = 190 / 2;
+					if (this.invincibleTimer > 100 ){
+						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+					}else if (this.invincibleTimer % 5 != 0){
+						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+					}
 					break;
 			}
 		}
@@ -127,10 +132,31 @@ function playerClass() {
 		shieldRotationSpeed += .02;
 	}
 
-	this.addShield = function () {
+	this.addShield = function (amount) {
+		
+		if (amount === undefined){
+			this.playerShields++;
+		}else{
+			this.playerShields += amount;
+		}
 
-		playerShields++;
+		if(this.playerShields >= 6){
+			this.playerShields = 6;
+			this.invincible = true;
+			//set invincible duration time here
+			this.invincibleTimer = 300;
+		}
+
 		this.shieldActive = true;
+	}
+
+	this.reduceInvincibleTimer = function(){
+		this.invincibleTimer--;
+		if (this.invincibleTimer <= 0){
+			this.playerShields = 5;
+			this.invincible = false;			
+		}
+
 	}
 
 	this.getHit = function (amount){
@@ -141,15 +167,15 @@ function playerClass() {
 			}
 
 			if (amount === undefined){
-				playerShields--;
+				this.playerShields--;
 			}else{
-				playerShields -= amount;
+				this.playerShields -= amount;
 			}
 
-			if(playerShields == 0){
+			if(this.playerShields == 0){
 				this.shieldActive = false;
 				return;
-			}else if(playerShields < 0){
+			}else if(this.playerShields < 0){
 				this.playerLose();
 			}
 		}
@@ -171,7 +197,7 @@ function playerClass() {
 
 		if (colliderH === undefined) { //if object uses round collision
 
-			if (playerShields > 0 && ignoreShield === false) { //checked against Shield
+			if (this.playerShields > 0 && ignoreShield === false) { //checked against Shield
 				return (roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R));
 			} else { //checked against playership
 				if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
@@ -185,7 +211,7 @@ function playerClass() {
 				}
 			}
 		} else { //If object uses square collision
-			if (playerShields > 0 && ignoreShield === false) {//checked against Shield
+			if (this.playerShields > 0 && ignoreShield === false) {//checked against Shield
 				return (roundShapeCollisionWithSquareShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R, colliderH));
 			} else {//checked against playership
 				if (squareShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
@@ -222,7 +248,7 @@ function playerClass() {
 		colorText("Speed Timer: " + this.speedBurstCountdown, c.width - 120, c.height - 70, "15px arial", "orange"); // debug output - remove
 		colorText("ShotCount: " + this.myShot.length, c.width - 120, c.height - 50, "15px arial", "orange"); // debug output - remove
 		colorText("Score: " + playerScore, c.width - 120, c.height - 30, "15px arial", "white");
-		colorText("Shields: " + playerShields, c.width - 120, c.height - 10, "15px arial", "white");
+		colorText("Shields: " + this.playerShields, c.width - 120, c.height - 10, "15px arial", "white");
 	}
 
 	this.handleInput = function () {

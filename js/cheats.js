@@ -51,8 +51,8 @@ function cheats(key) {
 							case 2: //cheat: konami
 								p1.addSpeed(600);
 								break;
-							case 3: //cheat: add shield
-								p1.addShield();
+							case 3: //cheat: Super shield
+								p1.addShield(6);
 								break;
 							case 4: //cheat: get Hit once
 								p1.getHit();

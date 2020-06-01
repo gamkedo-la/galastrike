@@ -77,7 +77,7 @@ function basicAlienClass() {
 
 	this.basicShot = function() {
 		if(this.shotActive == false) {
-			this.rn = Math.round(Math.random() * (3 - 1) + 1); //15
+			this.rn = Math.round(Math.random() * (6 - 1) + 1); //15
 			if(this.rn == 1) {
 				this.shotActive = true;
 				if (Math.floor(Math.random() * (1 - 0 +1)) + 0 == 0){
