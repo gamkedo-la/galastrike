@@ -80,8 +80,9 @@ function levelOneBossClass() {
 		}
 	}
 
-	this.shotHitMeCheck = function(testShot) {
-		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+	this.shotHitMeCheck = function(theShot) {
+		if(collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
+			theShot.weaponActive = false;
 			console.log("to do handle: boss getting shot");
 		}
 	}

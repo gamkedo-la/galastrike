@@ -5,8 +5,9 @@ function basicAlienClass() {
 
 	this.x = 50;
 	this.y = ALIEN_SPAWN_POSY;
-	this.h = 50;
-	this.w = 50;
+	this.h = 70;
+	this.w = 60;
+	this.r = 20;
 	this.sx = 0;
 	this.sy = 4;
 	this.bottomLine = 300; // distance from bottom of screen
@@ -21,8 +22,7 @@ function basicAlienClass() {
 
 	this.shotX;
 	this.shotY;
-	this.shotW = 20;
-	this.shotH = 20;
+	this.shotR = 10;
 	this.shotActive = false;
 	this.shotSpeed = 5;
 
@@ -32,7 +32,7 @@ function basicAlienClass() {
 		colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
 
 		if(this.shotActive == true) {
-			ctx.drawImage(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY);
+			drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
 			//colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
 		this.basicShot();	
@@ -59,14 +59,15 @@ function basicAlienClass() {
 		}
 	}
 
-	this.shotHitMeCheck = function(testShot) {
+	this.shotHitMeCheck = function(theShot) {
 		// Shot doesn't hit the weapon power up
 
-		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+		if(collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
+		collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {			//alien round plate on front
 			
-			testShot.weaponActive = false;
-			testShot.y = p1.y;
-			this.hp -= testShot.removeAlienHp;
+			theShot.weaponActive = false;
+			theShot.y = p1.y;
+			this.hp -= theShot.removeAlienHp;
 
 			if(this.hp <= 0) {
 				this.lootDrop();
@@ -81,11 +82,11 @@ function basicAlienClass() {
 			if(this.rn == 1) {
 				this.shotActive = true;
 				if (Math.floor(Math.random() * (1 - 0 +1)) + 0 == 0){
-					this.shotY = this.y + 69 - this.shotW/2;
-					this.shotX = this.x + 9 - this.shotH/2;
+					this.shotY = this.y + 69;
+					this.shotX = this.x + 9;
 				}else{
-					this.shotY = this.y + 69 - this.shotW/2;
-					this.shotX = this.x + 69 - this.shotH/2;
+					this.shotY = this.y + 69;
+					this.shotX = this.x + 69;
 				}
 			} 
 		}
@@ -96,14 +97,15 @@ function basicAlienClass() {
 	}
 
 	this.shotCheck = function() {
-		if(p1.collisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)) {
+		if(p1.collisionCheck(false, this.shotX, this.shotY,this.shotR)) {
 			this.shotActive = false;
 			p1.getHit();
 		}
 	}
 
 	this.collitionDetection = function() {
-		if(p1.collisionCheck(false, this.x, this.y,this.w,this.h)){
+		if(p1.collisionCheck(false, this.x + 5, this.y,this.w,this.h) ||	//alien body
+		p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)){		//alien round plate on front
 			p1.getHit();
 		}
 	}

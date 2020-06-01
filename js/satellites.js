@@ -4,7 +4,8 @@ function satellites() {
 	this.x = 500;
 	this.y = 0;
 	this.w = 120;
-	this.h = 64;
+	this.h = 33;
+	this.r = 13;
 	this.sy = 3;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.dropLoot = false; // inserted in playerWeapon.js
@@ -29,11 +30,12 @@ function satellites() {
 		}
 	}
 
-	this.shotHitMeCheck = function(testShot) {
-		if(testShot.y + SHOT_DISPLAY_RADIUS <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
+	this.shotHitMeCheck = function(theShot) {
+		if(collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
+		collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
+			theShot.weaponActive = false;
 			this.destroyed = true;
 			this.dropLoot = true;
-			testShot.weaponActive = false;
 		}	
 	}
 
@@ -60,7 +62,8 @@ function satellites() {
 	}
 
 	this.playerCollisionDetection = function() {
-		if(p1.collisionCheck(false, this.x, this.y,this.w,this.h)){
+		if(p1.collisionCheck(false, this.x, this.y + 12, this.w, this.h) ||		//sattelite body
+		p1.collisionCheck(false, this.x + 48, this.y + 60, this.r)){			//sattelite round plate on front
 			this.destroyed = true;
 			p1.getHit();
 			this.respawn();

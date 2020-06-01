@@ -62,11 +62,11 @@ function diverAlienClass() {
 		this.collitionDetection();
 	}
 
-	this.shotHitMeCheck = function(testShot) {
-		if(testShot.y <= this.y + this.h && testShot.x >= this.x && testShot.x <= this.x + this.w) {
-			testShot.weaponActive = false;
-			testShot.y = p1.y;
-			this.hp -= testShot.removeAlienHp;
+	this.shotHitMeCheck = function(theShot) {
+		if(collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h )) {
+			theShot.weaponActive = false;
+			theShot.y = p1.y;
+			this.hp -= theShot.removeAlienHp;
 			if(this.hp <= 0) {
 				this.lootDrop();
 				p1.playerScoring();		
@@ -75,7 +75,7 @@ function diverAlienClass() {
 	}
 
 	this.collitionDetection = function() {
-		if(this.x >= p1.x && this.x+this.w <= p1.x+PLAYER_SHIP_WIDTH && this.y >= p1.y && this.y <= p1.y+PLAYER_SHIP_HEIGHT) {
+		if(p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
 			this.dive = false;
 			p1.getHit();
 		}

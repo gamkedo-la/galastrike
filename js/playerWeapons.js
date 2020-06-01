@@ -2,17 +2,19 @@ const SHOT_DISPLAY_RADIUS = 3.0;
 const PLAYER_SHOT_SPEED = 10;
 
 // color of shot, amount of hp to remove from enemy
-function playerShotClass(color, removeAlienHp) {
+function playerShotClass(color, removeAlienHp, shotW_R, shotH) {
 
 	this.x = p1.x + PLAYER_SHIP_WIDTH/2;
 	this.y = p1.y;
+	this.w = shotW_R;
+	this.h = shotH;
 	this.weaponActive = false;
 	this.color = color;
 	this.removeAlienHp = removeAlienHp;
 
 	this.draw = function() {
 		if(this.weaponActive == true) {
-			colorCircle(this.x, this.y, SHOT_DISPLAY_RADIUS, this.color);
+			colorCircle(this.x, this.y, this.w, this.color);
 		}		
 	}
 

@@ -52,14 +52,14 @@ function playerClass() {
 			case 'Basic':
 				removeAlienHp = 1;
 				this.shotReloadRate = 6;
-				newShot = new playerShotClass('white', removeAlienHp);
+				newShot = new playerShotClass('white', removeAlienHp,3);
 				playBasicShootingSound();
 				break;
 			case 'Mid':
 				removeAlienHp = 5;
 				// Take a little less time to shoot again
 				this.shotReloadRate = 3;
-				newShot = new playerShotClass('red', removeAlienHp);
+				newShot = new playerShotClass('red', removeAlienHp,5);
 				playMidShootingSound();
 				break;
 		}
@@ -196,7 +196,7 @@ function playerClass() {
 		var bodyW = 132;
 		var bodyH = 40;
 
-		if (this.playerShields > 0 && ignoreShield === false && this.shieldActive) { //checked against Shield
+		if (this.playerShields > 0 && ignoreShield == false && this.shieldActive) { //checked against Shield
 			return (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius));
 		} else { //checked against playership
 			if (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH) ||	//check against the playership Nose part

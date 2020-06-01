@@ -28,7 +28,7 @@ function shieldPowerUp() {
 
 	this.itemPlayerCollision = function() {
 		if(this.active == true) {
-			if(p1.x + PLAYER_SHIP_WIDTH >= this.x && p1.x <= this.x + this.w && p1.y <= this.y + this.h && p1.y + PLAYER_SHIP_HEIGHT >= this.y) {
+			if(p1.collisionCheck(true, this.x, this.y, this.w, this.h)) {
 				this.pickedUP = true;
 				if(this.pickedUP == true) {
 					p1.addShield();

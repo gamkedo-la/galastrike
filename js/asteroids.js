@@ -33,11 +33,11 @@ function asteroids() {
 		}
 	}
 
-	this.shotHitMeCheck = function (testShot) {
-		if (testShot.y <= this.y + this.r && testShot.x >= this.x - this.r && testShot.x <= this.x + this.r) {
+	this.shotHitMeCheck = function (theShot) {
+		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.r)) {
 			this.destroyed = true;
 			this.dropLoot = true;
-			testShot.weaponActive = false;
+			theShot.weaponActive = false;
 		}
 	}
 
@@ -63,8 +63,7 @@ function asteroids() {
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
 
-	this.playerCollisionDetection = function () {
-		
+	this.playerCollisionDetection = function () {	
 		if(this.destroyed === false && p1.collisionCheck(false, this.x, this.y, this.r)){
 			this.destroyed = true;
 			p1.getHit();
