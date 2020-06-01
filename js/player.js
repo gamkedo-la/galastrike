@@ -160,7 +160,7 @@ function playerClass() {
 	}
 
 	this.getHit = function (amount){
-		if(!this.invincible){
+		if(!this.invincible || !this.shieldActive){
 			if (!this.shieldActive){
 				this.playerLose();
 				return;
@@ -197,7 +197,7 @@ function playerClass() {
 
 		if (colliderH === undefined) { //if object uses round collision
 
-			if (this.playerShields > 0 && ignoreShield === false) { //checked against Shield
+			if (this.playerShields > 0 && ignoreShield === false && this.shieldActive) { //checked against Shield
 				return (roundShapeCollisionWithRoundShape(this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius, colliderX, colliderY, colliderW_R));
 			} else { //checked against playership
 				if (roundShapeCollisionWithSquareShape(colliderX, colliderY, colliderW_R, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH)) {
