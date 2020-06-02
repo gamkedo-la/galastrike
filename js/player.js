@@ -30,6 +30,7 @@ function playerClass() {
 	this.reverseSpeed = 3;
 	this.reloadFrames = 0;
 	this.speedBurstCountdown = 0;
+	this.testangle = 0;
 
 	this.fireShot = function () {
 		// Only basic and mid weapons for now
@@ -75,6 +76,11 @@ function playerClass() {
 	this.draw = function () {
 		//space ship
 		ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
+	/*	console.log(this.testangle)
+		this.testangle += 0.01;
+		drawLaserBeamLine(imageArray["enemyAalt_shot.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -this.testangle);
+		if(this.testangle >Math.PI/180 * 90){this.testangle = 0;}
+*/
 		//ship shield
 		if (this.shieldActive) {
 			switch (this.playerShields) {
