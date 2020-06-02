@@ -164,6 +164,8 @@ function gameMode() {
 	//player score
 	p1.playerScore();
 	weaponPU.draw();
+
+	drawRails();
 }
 
 function resetGame() {

@@ -14,7 +14,8 @@ var levelOneData = [
 
 var levelTwoData = [
 	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:5, countSpacing: 50},
-	{kind:ENEMY_KIND_MID_ALIEN, when:100, atX:0.2, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_MID_ALIEN, when:100, atX:0.2, count:5, countSpacing: 50, onRail:0},
+	{kind:ENEMY_KIND_MID_ALIEN, when:200, atX:0.2, count:3, countSpacing: 50, onRail:1},
 	{kind:ENEMY_KIND_DIVER_ALIEN, when:100, atX:0.8, count:5, countSpacing: 50},
 ];
 
@@ -68,6 +69,9 @@ function handelLevelSpawn() {
 			}
 			if(levelCurrent[i].atX != undefined) {
 				spawnObj.x = levelCurrent[i].atX * c.width;
+			}
+			if(levelCurrent[i].onRail != undefined) {
+				spawnObj.followRail = levelCurrent[i].onRail;
 			}
 			if(levelCurrent[i].count != undefined) { 
 				levelCurrent[i].count --; //the one spawns now

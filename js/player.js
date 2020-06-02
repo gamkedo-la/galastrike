@@ -17,7 +17,7 @@ function playerClass() {
 	this.sy = 5;
 	this.sx = 10;
 
-	this.playerShields = 5; //Not more then 5!
+	this.playerShields = 100; //Not more then 5!
 	this.speedBuffer = false;
 	this.shieldActive = true;
 	this.invincible = false;

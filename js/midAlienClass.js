@@ -25,10 +25,13 @@ function midAlienClass() {
 	this.shotActive = false;
 	this.shotSpeed = 10;
 
+	this.followRail = -1;
+	this.railPt = 0;
+	this.ang = 0;
 
 	this.draw = function() {
-
-		ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
+		drawBitmapCenteredAtLocationWithRotation(imageArray["enemyB.png"], this.x, this.y, this.ang);
+		//ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
 		//colorRect(this.x, this.y, this.w, this.h, 'white');
 		colorText(this.hp, this.x + 90, this.y, "18px arial", "orange"); // hp indicator
 
@@ -46,6 +49,31 @@ function midAlienClass() {
 		//movement ai
 		this.x += this.sx;
 		this.y += this.sy;
+
+
+		if(this.dropLoot == true) {
+			this.lootY += this.lootYDrift;
+		}
+
+		this.collitionDetection();
+
+		if(this.shotActive == true) {
+			this.shotY += this.shotSpeed;
+			this.shotCheck();
+		}
+		if(this.fallowRail != -1 && this.railPt < railList[this.followRail].length) {
+			var goalX = railList[this.followRail][this.railPt].x * c.width;
+			var goalY = railList[this.followRail][this.railPt].y * c.height;
+
+			this.ang = Math.atan2(goalY - this.y, goalX - this.x);
+			this.sx = Math.cos(this.ang) * 4;
+			this.sy = Math.sin(this.ang) * 4;
+
+			if(roundShapeCollisionWithRoundShape (this.x, this.y, 10, goalX, goalY, 10)) {
+				this.railPt ++;
+			}
+			return;
+		}
 
 		if(this.y >= c.height-this.bottomLine ) {
 			this.sy = 0;
@@ -73,18 +101,6 @@ function midAlienClass() {
 				this.sy = 4;
 			}
 		}	
-		
-
-		if(this.dropLoot == true) {
-			this.lootY += this.lootYDrift;
-		}
-
-		this.collitionDetection();
-
-		if(this.shotActive == true) {
-			this.shotY += this.shotSpeed;
-			this.shotCheck();
-		}
 	}
 
 	this.shotHitMeCheck = function(theShot) {
