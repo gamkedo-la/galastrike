@@ -246,3 +246,7 @@ function playBossShootingSound() {
 	audio.play();
 }
 
+function playDestroyedEnemyMidSound() {
+	var audio = new soundOverlapsClass('./inSmokeTwo.mp3');
+	audio.play();
+}

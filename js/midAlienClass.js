@@ -29,39 +29,39 @@ function midAlienClass() {
 	this.railPt = 0;
 	this.ang = 0;
 
-	this.draw = function() {
+	this.draw = function () {
 		drawBitmapCenteredAtLocationWithRotation(imageArray["enemyB.png"], this.x, this.y, this.ang);
 		//ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
 		//colorRect(this.x, this.y, this.w, this.h, 'white');
 		colorText(this.hp, this.x + 90, this.y, "18px arial", "orange"); // hp indicator
 
-		if(this.shotActive == true) {
+		if (this.shotActive == true) {
 			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
 		}
 		this.basicShot();
-	
-		if(this.dropLoot == true) {
+
+		if (this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
 		}
 	}
 
-	this.move = function() {
+	this.move = function () {
 		//movement ai
 		this.x += this.sx;
 		this.y += this.sy;
 
 
-		if(this.dropLoot == true) {
+		if (this.dropLoot == true) {
 			this.lootY += this.lootYDrift;
 		}
 
 		this.collitionDetection();
 
-		if(this.shotActive == true) {
+		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
 		}
-		if(this.fallowRail != -1 && this.railPt < railList[this.followRail].length) {
+		if (this.fallowRail != -1 && this.railPt < railList[this.followRail].length) {
 			var goalX = railList[this.followRail][this.railPt].x * c.width;
 			var goalY = railList[this.followRail][this.railPt].y * c.height;
 
@@ -69,79 +69,80 @@ function midAlienClass() {
 			this.sx = Math.cos(this.ang) * 4;
 			this.sy = Math.sin(this.ang) * 4;
 
-			if(roundShapeCollisionWithRoundShape (this.x, this.y, 10, goalX, goalY, 10)) {
-				this.railPt ++;
+			if (roundShapeCollisionWithRoundShape(this.x, this.y, 10, goalX, goalY, 10)) {
+				this.railPt++;
 			}
 			return;
 		}
 
-		if(this.y >= c.height-this.bottomLine ) {
+		if (this.y >= c.height - this.bottomLine) {
 			this.sy = 0;
 		}
 
-		if(this.x >= c.width - this.w - this.screenBuffer) {
+		if (this.x >= c.width - this.w - this.screenBuffer) {
 			this.sx = -this.sx;
 		}
 
-		if(this.x <= 0 + this.screenBuffer) {
+		if (this.x <= 0 + this.screenBuffer) {
 			this.sx = -this.sx;
 		}
 
-		if(this.y >= c.height-this.bottomLine) {
+		if (this.y >= c.height - this.bottomLine) {
 			this.rn = Math.round(Math.random() * (25 - 1) + 1);
-			if(this.rn == 1) {
+			if (this.rn == 1) {
 				this.sy = -4;
 			}
 		}
 
-		if(this.y <= 0 + this.screenBuffer) {
+		if (this.y <= 0 + this.screenBuffer) {
 			this.sy = 0;
 			this.rn = Math.round(Math.random() * (25 - 1) + 1);
-			if(this.rn == 1) {
+			if (this.rn == 1) {
 				this.sy = 4;
 			}
-		}	
+		}
 	}
 
-	this.shotHitMeCheck = function(theShot) {
-		if(collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 15, 48, 30) ||		//upper alien body
-		collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
+	this.shotHitMeCheck = function (theShot) {
+		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 15, 48, 30) ||		//upper alien body
+			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
 			theShot.weaponActive = false;
 			theShot.y = p1.y;
 			this.hp -= theShot.removeAlienHp;
-			if(this.hp <= 0) {
+			if (this.hp <= 0) {
 				this.lootDrop();
-				p1.playerScoring();		
-			}	
+				p1.playerScoring();
+				playDestroyedEnemyMidSound();
+			}
 		}
 	}
 
-	this.basicShot = function() {
-		if(this.shotActive == false) {
+	this.basicShot = function () {
+		if (this.shotActive == false) {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);
-			if(this.rn == 1) {
+			if (this.rn == 1) {
 				this.shotActive = true;
 				this.shotY = this.y + 80;
 				this.shotX = this.x + 40;
-			} 
+			}
 		}
 
-		if(this.shotY >= c.height) {
+		if (this.shotY >= c.height) {
 			this.shotActive = false;
 		}
 	}
 
-	this.shotCheck = function() {
-		if(p1.collisionCheck(false, this.shotX, this.shotY,this.shotW,this.shotH)) {
+	this.shotCheck = function () {
+		if (p1.collisionCheck(false, this.shotX, this.shotY, this.shotW, this.shotH)) {
 			this.shotActive = false;
 			p1.getHit();
 		}
 	}
 
-	this.collitionDetection = function() {
-		if(p1.collisionCheck(false,  this.x + 24, this.y + 15, 48, 30) || 	//upper alien body
-		p1.collisionCheck(false,  this.x + 24, this.y + 45, 32, 45)){		//lower alien body
-			
+	this.collitionDetection = function () {
+		if (p1.collisionCheck(false, this.x + 24, this.y + 15, 48, 30) || 	//upper alien body
+			p1.collisionCheck(false, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
+
 			p1.getHit();
 		}
 	}
@@ -149,14 +150,14 @@ function midAlienClass() {
 	this.lootDrop = function () {
 		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 		console.log("a2 loot rate:" + this.rn);
-		if(this.rn == 1) {
+		if (this.rn == 1) {
 			this.dropLoot = true;
 			this.lootX = this.x;
 			this.lootY = this.y;
 		}
 	}
 
-	this.readyToRemove = function() {
+	this.readyToRemove = function () {
 		return (this.hp <= 0 || this.y > c.height);
 	}
 }
