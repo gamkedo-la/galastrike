@@ -64,7 +64,7 @@ function diverAlienClass() {
 
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
-			theShot.weaponActive = false;
+			theShot.shotActive = false;
 			theShot.y = p1.y;
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {

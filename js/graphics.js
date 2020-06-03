@@ -47,11 +47,10 @@ function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY, withAngle) 
 	ctx.restore(); // undo the translation movement and rotation since save()
 }
 
-function drawLaserBeamLine(graphic, atX, atY, withAngle) {
-	for (var i = 0; i < (c.width) / graphic.height; i++){
+function drawLaserBeamLine(graphic, atX, atY) {
+	for (var i = 0; i < (c.height) / graphic.height; i++){
 		ctx.save(); // allows us to undo translate movement and rotate spin
-		ctx.translate(atX + Math.cos(withAngle)*graphic.width * i,atY + Math.sin(withAngle)* graphic.height * i); // sets the point where our graphic will go
-		ctx.rotate(withAngle);// sets the rotation
+		ctx.translate(atX,atY + Math.sin(180)* graphic.height * i); // sets the point where our graphic will go
 		ctx.drawImage(graphic,-graphic.width/2,-graphic.height/2); //
 		ctx.restore(); // undo the translation movement and rotation since save()
 	}

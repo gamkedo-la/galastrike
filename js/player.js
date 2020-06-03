@@ -5,9 +5,6 @@ const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
 var playerScore = 0;
 
-var playerShieldRadius;
-var shieldRotationSpeed = 0;
-
 function playerClass() {
 
 	// start position depends on canvas size
@@ -16,97 +13,74 @@ function playerClass() {
 
 	this.sy = 5;
 	this.sx = 10;
-
-	this.playerShields = 100; //Not more then 5!
-	this.speedBuffer = false;
+	this.playerShields = 5; //Not more then 5!
+	this.shieldRotationSpeed = 0;
+	this.playerShieldRadius;
 	this.shieldActive = true;
 	this.invincible = false;
 	this.invincibleTimer = 0;
-	this.myShot = [];
-	this.weaponTier = "Basic";
-	this.shotReloadRate = 6; //lower the number the more shots
-	// Amount of special ammo we have, start with 0 to use basic ammo
-	this.specialAmmo = 0;
+	this.speedBuffer = false;
 	this.reverseSpeed = 3;
-	this.reloadFrames = 0;
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
+	this.myShot = [];
+	this.weapons = [["basic", 0],["mid",3],["laser",0]];
+	this.weaponCurrent;
+	this.reloadFrames = 0;
 
 	this.fireShot = function () {
 		// Only basic and mid weapons for now
+		console.log(this.weapons [1][1]);
 
-		// There's no more special ammo, go back to normal ammo
-		if (this.specialAmmo <= 0) {
-			this.weaponTier = 'Basic';
-		} else {
-			// We still have special ammo, so continue to use it
-			this.weaponTier = 'Mid';
-			this.specialAmmo--;
+		//set the current weapon
+		for (var i = this.weapons.length-1; i >= 0; i--){
+			if(this.weapons[i][1] > 0){
+				this.weaponCurrent = this.weapons[i][0];
+				this.weapons [i][1]--;
+				break;
+			}else if (i == 0){
+				this.weaponCurrent = this.weapons[0][0];
+			}
 		}
 
-		var newShot;
-		// Amount of hp to remove from an alien with each shot
-		var removeAlienHp;
-
-		// Check what kind of weapon we have
-		switch (this.weaponTier) {
-			case 'Basic':
-				removeAlienHp = 1;
-				this.shotReloadRate = 6;
-				newShot = new playerShotClass('white', removeAlienHp,3);
-				playBasicShootingSound();
-				break;
-			case 'Mid':
-				removeAlienHp = 5;
-				// Take a little less time to shoot again
-				this.shotReloadRate = 3;
-				newShot = new playerShotClass('red', removeAlienHp,5);
-				playMidShootingSound();
-				break;
-		}
-
-		// console.log(`this.weaponTier: ${this.weaponTier}, this.specialAmmo: ${this.specialAmmo}, this.shotReloadRate: ${this.shotReloadRate}`);
-
-		newShot.weaponActive = true;
-		newShot.x = this.x + PLAYER_SHIP_WIDTH / 2;
+		var newShot = newShot = new playerShotClass(this.weaponCurrent, this);
+		newShot.shotActive = true;
 		this.myShot.push(newShot);
-		this.reloadFrames = this.shotReloadRate;
+		this.reloadFrames = newShot.shotReloadRate;
+
+
 	}
 
 	this.draw = function () {
 		//space ship
 		ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
-	/*	console.log(this.testangle)
-		this.testangle += 0.01;
-		drawLaserBeamLine(imageArray["enemyAalt_shot.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -this.testangle);
-		if(this.testangle >Math.PI/180 * 90){this.testangle = 0;}
-*/
+
 		//ship shield
 		if (this.shieldActive) {
 			switch (this.playerShields) {
 				case 5:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (this.playerShields == 5) playerShieldRadius = 190 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
+					if (this.playerShields == 5) this.playerShieldRadius = 190 / 2;
 				case 4:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if (this.playerShields == 4) playerShieldRadius = 180 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_4.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -this.shieldRotationSpeed);
+					if (this.playerShields == 4) this.playerShieldRadius = 180 / 2;
 				case 3:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (this.playerShields == 3) playerShieldRadius = 170 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_3.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
+					if (this.playerShields == 3) this.playerShieldRadius = 170 / 2;
 				case 2:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -shieldRotationSpeed);
-					if (this.playerShields == 2) playerShieldRadius = 160 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_2.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, -this.shieldRotationSpeed);
+					if (this.playerShields == 2) this.playerShieldRadius = 160 / 2;
 				case 1:
-					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
-					if (this.playerShields == 1) playerShieldRadius = 150 / 2;
+					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
+					if (this.playerShields == 1) this.playerShieldRadius = 150 / 2;
 				case 0:
 					break;
 				case 6:
-					if (this.playerShields == 6) playerShieldRadius = 190 / 2;
+					if (this.playerShields == 6) this.playerShieldRadius = 190 / 2;
 					if (this.invincibleTimer > 100 ){
-						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
 					}else if (this.invincibleTimer % 5 != 0){
-						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, shieldRotationSpeed);
+						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
 					}
 					break;
 			}
@@ -119,16 +93,16 @@ function playerClass() {
 
 	this.move = function () {
 		this.handleInput();
-
-		if(p1.invincible){
-			p1.reduceInvincibleTimer();
+		//invinvible timer for the shield
+		if(this.invincible){
+			this.reduceInvincibleTimer();
 		}
-	
+
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].move();
 		}
 		for (var i = this.myShot.length - 1; i >= 0; i--) { //for loop goes backwards to not skip cause of the splice
-			if (this.myShot[i].weaponActive == false) {
+			if (this.myShot[i].shotActive == false) {
 				this.myShot.splice(i, 1);
 			}
 		}
@@ -139,7 +113,7 @@ function playerClass() {
 	}
 
 	this.moveShield = function () { // called by this.move
-		shieldRotationSpeed += .02;
+		this.shieldRotationSpeed += .02;
 	}
 
 	this.addShield = function (amount) {
@@ -203,7 +177,7 @@ function playerClass() {
 		var bodyH = 40;
 
 		if (this.playerShields > 0 && ignoreShield == false && this.shieldActive) { //checked against Shield
-			return (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, playerShieldRadius));
+			return (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.playerShieldRadius));
 		} else { //checked against playership
 			if (collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - noseW / 2, this.y + noseYStart, noseW, noseH) ||	//check against the playership Nose part
 				collisionCheck(colliderX, colliderY, colliderW_R, colliderH, this.x + PLAYER_SHIP_WIDTH / 2 - bodyW / 2, this.y + noseYStart + noseH, bodyW, bodyH)) { 	//check aginst the playership body part 
@@ -230,7 +204,7 @@ function playerClass() {
 	}
 
 	this.playerScore = function () {
-		colorText("W Type: " + this.weaponTier, c.width - 120, c.height - 110, "15px arial", "orange"); // debug output - remove
+		colorText("W Type: " + this.weaponCurrent, c.width - 120, c.height - 110, "15px arial", "orange"); // debug output - remove
 		colorText("Speed: " + this.sy, c.width - 120, c.height - 90, "15px arial", "orange"); // debug output - remove
 		colorText("Speed Timer: " + this.speedBurstCountdown, c.width - 120, c.height - 70, "15px arial", "orange"); // debug output - remove
 		colorText("ShotCount: " + this.myShot.length, c.width - 120, c.height - 50, "15px arial", "orange"); // debug output - remove
@@ -317,8 +291,6 @@ function playerClass() {
 
 	this.weaponUpgrade = function () {
 		// Change weapon type
-		this.weaponTier = "Mid";
-		// Amount of special ammo we have 
-		this.specialAmmo = 3;
+		this.weapons[1][1]++;
 	}
 }

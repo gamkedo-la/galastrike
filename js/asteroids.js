@@ -37,7 +37,7 @@ function asteroids() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.r)) {
 			this.destroyed = true;
 			this.dropLoot = true;
-			theShot.weaponActive = false;
+			theShot.deactivate();
 		}
 	}
 

@@ -64,8 +64,7 @@ function basicAlienClass() {
 
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
-			theShot.weaponActive = false;
-			theShot.y = p1.y;
+			theShot.deactivate(theShot);
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
 				this.lootDrop();

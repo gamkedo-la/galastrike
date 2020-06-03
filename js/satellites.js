@@ -33,7 +33,7 @@ function satellites() {
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
-			theShot.weaponActive = false;
+			theShot.shotActive = false;
 			this.destroyed = true;
 			this.dropLoot = true;
 		}
