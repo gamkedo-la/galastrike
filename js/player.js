@@ -24,7 +24,7 @@ function playerClass() {
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0],["mid",3],["laser",0]];
+	this.weapons = [["basic", 0],["mid",3],["laser",4],["chris",0]];
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 

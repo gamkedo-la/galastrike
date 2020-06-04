@@ -27,13 +27,22 @@ function playerShotClass(weaponType, ship) {
 				playMidShootingSound();
 				break;
 			case 'laser':
-				this.w = 20;
-				this.h = -c.height;
+				this.w = 30;
+				this.h = c.height;
 				this.removeAlienHp = 5;
-				this.shotReloadRate = 60;
+				this.shotReloadRate = 300;
 				this.shootSpeed = 20;
 				playMidShootingSound();
 				break;
+			case 'chris':
+				this.w = 30;
+				this.h = c.height;
+				this.removeAlienHp = 5;
+				this.shotReloadRate = 300;
+				this.shootSpeed = 20;
+				playMidShootingSound();
+				break;
+
 		}	
 	
 	this.draw = function() {
@@ -46,8 +55,8 @@ function playerShotClass(weaponType, ship) {
 					colorCircle(this.x , this.y, 10, 'red');
 					break;
 				case 'laser':
-					console.log(this.w + " " + this.h)
-					drawLaserBeamLine(imageArray["enemyAalt_shot.png"],ship.x + PLAYER_SHIP_WIDTH/2, ship.y);
+					//console.log(this.x + " " + this.y + " " + this.shotActive + " " + this.shotReloadRate)
+					drawLaserBeamLine(imageArray["shot_laser1.png"],ship.x + PLAYER_SHIP_WIDTH/2, ship.y);
 					break;
 			}			
 		}		
@@ -57,7 +66,11 @@ function playerShotClass(weaponType, ship) {
 	this.move = function() {
 		if(this.shotActive == true) {
 			if(this.weaponType != 'laser'){
-			this.y -= this.shootSpeed;
+				this.y -= this.shootSpeed;
+			}else if(this.weaponType == 'laser'){
+				this.x = ship.x + PLAYER_SHIP_WIDTH/2 - 15;
+				this.y = ship.y - c.height;
+				this.shotReloadRate--;
 			}
 			this.shotCheck();
 			this.shotReloadRate--;
@@ -69,15 +82,22 @@ function playerShotClass(weaponType, ship) {
 			enemyList[i].shotHitMeCheck(this);
 		}
 
-		//checking screen boundaries
-		if(this.y <= 0) {
+		
+		if(this.weaponType != 'laser'){
+			//checking screen boundaries
+			if(this.y <= 0) {
+				this.shotActive = false;
+				this.y = p1.y;			
+			}
+		}else if(this.weaponType == 'laser' && this.shotReloadRate < 0){
 			this.shotActive = false;
-			this.y = p1.y;			
+			this.y = p1.y;
 		}
+
 	}
 
-	this.deactivate = function (){
-		if (this.weaponType != 'laser'){
+	this.deactivate = function (shotToDeactivate){
+		if (shotToDeactivate.weaponType != 'laser'){
 		this.shotActive = false;
 		this.y = p1.y;
 		}

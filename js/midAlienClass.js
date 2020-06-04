@@ -106,8 +106,7 @@ function midAlienClass() {
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 15, 48, 30) ||		//upper alien body
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
-			theShot.shotActive = false;
-			theShot.y = p1.y;
+			theShot.deactivate(theShot);
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
 				this.lootDrop();

@@ -33,7 +33,7 @@ function satellites() {
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
-			theShot.shotActive = false;
+			theShot.deactivate(theShot);
 			this.destroyed = true;
 			this.dropLoot = true;
 		}
@@ -42,7 +42,7 @@ function satellites() {
 	this.lootDrop = function () {
 		if (this.dropLoot == true) {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-			console.log("ast loot rate:" + this.rn);
+			//console.log("ast loot rate:" + this.rn);
 			if (this.rn == 1) {
 				speedPU.active = true;
 				speedPU.x = this.x;

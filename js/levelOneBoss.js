@@ -80,7 +80,7 @@ function levelOneBossClass() {
 
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
-			theShot.shotActive = false;
+			theShot.deactivate(theShot);
 			console.log("to do handle: boss getting shot");
 		}
 	}
