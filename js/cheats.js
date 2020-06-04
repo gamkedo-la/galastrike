@@ -2,11 +2,12 @@ var cheatBuffer = "";
 
 // Note: single character cheats dont work, must be atleast 2 characters and all lowercase
 var cheatList = [
-	"kill", 		//opens the gameover screen
-	"speed",		//gives the palyer speedburst for 600s
-	"UUDDLRLRba",	//Konami code
-	"oo",			//add shield
-	"ll"			//subtract shield
+	"kill", 		// 0 - opens the gameover screen
+	"speed",		// 1 - gives the palyer speedburst for 600s
+	"UUDDLRLRba",	// 2 - Konami code
+	"shield",		// 3 - get super shield
+	"chris",		// 4 - super secret chris weapon
+	"sss",			// 5 - shield active toggle
 ];
 
 function cheats(key) {
@@ -54,8 +55,13 @@ function cheats(key) {
 							case 3: //cheat: Super shield
 								p1.addShield(6);
 								break;
-							case 4: //cheat: get Hit once
-								p1.getHit();
+							case 4: //cheat: Chris
+								p1.chrisCode = true;
+								p1.weapons[4][1]++;
+								p1.addShield(6);
+								break;
+							case 5: //cheat: shield toggle
+								p1.shieldActive = !p1.shieldActive;
 								break;
 						}
 						cheatBuffer = "";

@@ -19,24 +19,23 @@ function playerClass() {
 	this.shieldActive = true;
 	this.invincible = false;
 	this.invincibleTimer = 0;
+	this.chrisCode = false;
 	this.speedBuffer = false;
 	this.reverseSpeed = 3;
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0],["mid",3],["laser",4],["chris",0]];
+	this.weapons = [["basic", 0],["mid",1],["laser",1],["atom",1],["chris",0]];
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 
 	this.fireShot = function () {
-		// Only basic and mid weapons for now
-		console.log(this.weapons [1][1]);
-
 		//set the current weapon
 		for (var i = this.weapons.length-1; i >= 0; i--){
 			if(this.weapons[i][1] > 0){
 				this.weaponCurrent = this.weapons[i][0];
 				this.weapons [i][1]--;
+				console.log(this.weaponCurrent);
 				break;
 			}else if (i == 0){
 				this.weaponCurrent = this.weapons[0][0];
@@ -47,14 +46,15 @@ function playerClass() {
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
 		this.reloadFrames = newShot.shotReloadRate;
-
-
 	}
 
 	this.draw = function () {
 		//space ship
-		ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
-
+		if(this.chrisCode == false){
+			ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
+		}else{
+			ctx.drawImage(imageArray["PlayerSpaceship_chris.png"], this.x, this.y);
+		}
 		//ship shield
 		if (this.shieldActive) {
 			switch (this.playerShields) {

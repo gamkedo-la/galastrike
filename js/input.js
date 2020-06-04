@@ -48,9 +48,6 @@ function keyPressed(evt) {
 				pauseGame(pausePressed);
 			}
 
-			if (evt.keyCode == KEY_S) {
-				p1.shieldActive = !p1.shieldActive;
-			}
 			break;
 
 		case WIN_SCREEN:
