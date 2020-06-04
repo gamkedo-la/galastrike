@@ -289,8 +289,16 @@ function playerClass() {
 		}
 	}
 
-	this.weaponUpgrade = function () {
-		// Change weapon type
-		this.weapons[1][1]++;
+	this.weaponUpgrade = function (weaponType, amountToAdd) {
+		
+		if (weaponType == 'mid'){
+			this.weapons[1][1] += amountToAdd;
+		}else if(weaponType == 'laser'){
+			this.weapons[2][1] += amountToAdd;
+		}else if(weaponType == 'atom'){
+			this.weapons[3][1] += amountToAdd;
+		}else if(weaponType == 'chris'){
+			this.weapons[4][1] += amountToAdd;
+		}
 	}
 }

@@ -57,7 +57,7 @@ function cheats(key) {
 								break;
 							case 4: //cheat: Chris
 								p1.chrisCode = true;
-								p1.weapons[4][1]++;
+								p1.weaponUpgrade("chris", 1)
 								p1.addShield(6);
 								break;
 							case 5: //cheat: shield toggle
