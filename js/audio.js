@@ -2,7 +2,9 @@ var DEBUG_MEETING_VOL = true;
 var musicVolume = 0.7;
 var effectsVolume = 0.7;
 var isMuted = false;
+
 const VOLUME_INCREMENT = 0.0333;
+const DEBUG_SOUNDS = false; // spammy console logs
 
 var soundOnImg = document.getElementById('soundOn');
 var soundOffImg = document.getElementById('soundOn');
@@ -143,7 +145,7 @@ function soundOverlapsClass(filenameWithPath) {
 		sounds[soundIndex].play();
 
 		soundIndex = (++soundIndex) % sounds.length;
-		console.log(`soundOverlapsClass.play: ${fullFilename}`);
+		if (DEBUG_SOUNDS) console.log(`soundOverlapsClass.play: ${fullFilename}`);
 	}
 }
 

@@ -3,6 +3,8 @@ const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art
 const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 160;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
+const DEBUG_WEAPONS = false; // turn on spammy console logs
+
 var playerScore = 0;
 
 function playerClass() {
@@ -35,7 +37,7 @@ function playerClass() {
 			if(this.weapons[i][1] > 0){
 				this.weaponCurrent = this.weapons[i][0];
 				this.weapons [i][1]--;
-				console.log(this.weaponCurrent);
+				if (DEBUG_WEAPONS) console.log(this.weaponCurrent);
 				break;
 			}else if (i == 0){
 				this.weaponCurrent = this.weapons[0][0];
@@ -196,14 +198,14 @@ function playerClass() {
 			this.y = c.height - PLAYER_SHIP_HEIGHT; // maybe use autoreverse Y instead?
 	}
 
-	this.playerScoring = function () {
-		playerScore++;
+	this.addToScore = function (howMany=1) {
+		playerScore += howMany;
 		if (playerScore >= WIN_SCORE) {
 			mode = WIN_SCREEN;
 		}
 	}
 
-	this.playerScore = function () {
+	this.drawPlayerScore = function () {
 		colorText("W Type: " + this.weaponCurrent, c.width - 120, c.height - 110, "15px arial", "orange"); // debug output - remove
 		colorText("Speed: " + this.sy, c.width - 120, c.height - 90, "15px arial", "orange"); // debug output - remove
 		colorText("Speed Timer: " + this.speedBurstCountdown, c.width - 120, c.height - 70, "15px arial", "orange"); // debug output - remove

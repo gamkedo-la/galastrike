@@ -157,7 +157,7 @@ function gameMode() {
 	p1.draw();
 
 	//player score
-	p1.playerScore();
+	p1.drawPlayerScore();
 	weaponPU.draw();
 
 	drawRails();
