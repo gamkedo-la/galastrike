@@ -3,7 +3,6 @@ const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art
 const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 160;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
 const WIN_SCORE = 100;
-const DEBUG_WEAPONS = false; // turn on spammy console logs
 
 var playerScore = 0;
 
@@ -27,7 +26,7 @@ function playerClass() {
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0],["mid",1],["laser",1],["atom",1],["chris",0]];
+	this.weapons = [["basic", 0],["mid",20],["laser",0],["atom",0],["chris",0]];
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 
@@ -37,7 +36,6 @@ function playerClass() {
 			if(this.weapons[i][1] > 0){
 				this.weaponCurrent = this.weapons[i][0];
 				this.weapons [i][1]--;
-				if (DEBUG_WEAPONS) console.log(this.weaponCurrent);
 				break;
 			}else if (i == 0){
 				this.weaponCurrent = this.weapons[0][0];

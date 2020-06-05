@@ -14,7 +14,7 @@ function playerShotClass(weaponType, ship) {
 
 		switch (this.weaponType) {
 			case 'basic':
-				this.w = 3;
+				this.w = 4;
 				this.removeAlienHp = 1;
 				this.shotReloadRate = 10;
 				this.shootSpeed = 10;
@@ -58,16 +58,20 @@ function playerShotClass(weaponType, ship) {
 		if(this.shotActive == true) {
 			switch (this.weaponType) {
 				case 'basic':
-					colorCircle(this.x , this.y, this.w, 'white');
+					drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_basic.png"], this.x, this.y , 0);
 					break;
 				case 'mid':
-					colorCircle(this.x , this.y, this.w, 'red');
+					drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_mid.png"], this.x, this.y , 0);
 					break;
 				case 'laser':
 					drawLaserBeamLine(imageArray["shot_laser1.png"],ship.x + PLAYER_SHIP_WIDTH/2, ship.y);
 					break;
 				case 'atom':
-					colorCircle(this.x , this.y, this.w, 'green');
+					if(!this.atomActive){
+						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_1.png"], this.x, this.y , 0);
+					}else{
+						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_2.png"], this.x, this.y , 0);
+					}
 					break;
 				case 'chris':
 					drawLaserBeamLine(imageArray["shot_laser2.png"],ship.x + PLAYER_SHIP_WIDTH/2 - 18, ship.y + 43);
@@ -126,7 +130,7 @@ function playerShotClass(weaponType, ship) {
 		this.y = p1.y;
 		} else if(shotToDeactivate.weaponType == 'atom'){
 			this.atomActive = true;
-			this.w = 400;
+			this.w = 350;
 		}
 	}
 
