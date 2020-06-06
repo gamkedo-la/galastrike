@@ -2,9 +2,9 @@
 function levelOneBossClass() {
 
 	this.x = 50;
-	this.y = - 300;
-	this.h = 300;
-	this.w = 550;
+	this.y = -500;
+	this.h = 500;
+	this.w = 600;
 	this.sx = 4;
 	this.sy = 4;
 	this.bottomLine = 300; // distance from bottom of screen
@@ -12,6 +12,7 @@ function levelOneBossClass() {
 
 	this.hp = 15;
 	this.enteredScreen = false;
+	this.fullyOnScreen = false;
 
 	this.dropLoot = false;
 	this.lootX;
@@ -31,7 +32,6 @@ function levelOneBossClass() {
 
 	this.draw = function () {
 
-		//colorRect(this.x, this.y, this.w, this.h, 'green');
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h + 20, "18px arial", "orange"); // hp indicator
 
@@ -39,7 +39,7 @@ function levelOneBossClass() {
 			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
 		this.basicShot();
-		
+
 
 		if (this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
@@ -61,7 +61,13 @@ function levelOneBossClass() {
 			this.x = this.x;
 			this.y = this.y;
 		}
-	
+
+		if (this.fullyOnScreen) {
+			if (this.y < c.height / 2 - this.h) {
+				this.y += this.sy;
+			}
+		}
+
 
 		if (this.dropLoot == true) {
 			this.lootY += this.lootYDrift;
@@ -79,12 +85,14 @@ function levelOneBossClass() {
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
 			theShot.deactivate(theShot);
-			console.log("to do handle: boss getting shot");
+			this.hp--;
+			if (this.hp <= 10) {
+				this.fullyOnScreen = true;
+			}
 		}
 	}
 
 	this.basicShot = function () {
-		console.log("inside basic shot");
 		if (this.shotActive == false) {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);
 			if (this.rn == 1) {

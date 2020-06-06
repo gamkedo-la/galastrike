@@ -32,7 +32,7 @@ function playerClass() {
 
 	this.fireShot = function () {
 		//set the current weapon
-		for (var i = this.weapons.length-1; i >= 0; i--){
+		/*for (var i = this.weapons.length-1; i >= 0; i--){
 			if(this.weapons[i][1] > 0){
 				this.weaponCurrent = this.weapons[i][0];
 				this.weapons [i][1]--;
@@ -40,7 +40,9 @@ function playerClass() {
 			}else if (i == 0){
 				this.weaponCurrent = this.weapons[0][0];
 			}
-		}
+		}*/
+
+		this.weaponCurrent = this.weapons[0][0];
 
 		var newShot = new playerShotClass(this.weaponCurrent, this);
 		newShot.shotActive = true;
