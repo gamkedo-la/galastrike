@@ -110,7 +110,7 @@ function midAlienClass() {
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
 				this.lootDrop();
-				p1.addToPlayerScore();
+				p1.addToPlayerScore(50);
 				playDestroyedEnemyMidSound();
 			}
 		}

@@ -68,7 +68,7 @@ function basicAlienClass() {
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
 				this.lootDrop();
-				p1.playerScoring();
+				p1.playerScoring(25);
 				playDestroyedEnemyMidSound();
 			}
 		}
