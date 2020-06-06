@@ -1,12 +1,12 @@
 
 function asteroids() {
 
-
+	this.hp = 1;
 	this.x = 800;
 	this.y = 0;
 	this.r = 30;
 	this.sy = 5;
-	this.destroyed = false; // also used in playerWeapon.js
+	this.destroyed = false; 
 	this.dropLoot = false; // inserted in playerWeapon.js
 	this.lootRate = 1;
 	this.rotation = 0;
@@ -14,12 +14,10 @@ function asteroids() {
 
 	this.draw = function () {
 		if (this.destroyed == false) {
-			//colorCircle(this.x, this.y, this.r, 'orange');	
-			//ctx.drawImage(imageArray["Asteroid_1.png"], this.x, this.y);
 			drawBitmapCenteredAtLocationWithRotation(imageArray["asteroid_3.png"], this.x, this.y, this.rotation);
 		}
 		if (this.destroyed == true) {
-			this.lootDrop();
+			
 		}
 	}
 
@@ -35,16 +33,31 @@ function asteroids() {
 
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.r)) {
-			this.destroyed = true;
-			this.dropLoot = true;
-			theShot.deactivate(theShot);
+			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
-				this.lootDrop();
-				p1.playerScoring(25);
-				playDestroyedEnemyMidSound();
+				this.onDestroyed();
 			}
 		}
+	}
+
+	this.playerCollisionDetection = function () {	
+		if(p1.collisionCheck(false, this.x, this.y, this.r)){
+			p1.getHit();
+			this.hp--;
+			if (this.hp <= 0) {
+				this.onDestroyed();
+			}
+		}
+	}
+
+	this.onDestroyed = function(){
+		this.destroyed = true;
+		this.dropLoot = true;
+		this.lootDrop();
+		//p1.playerScoring(25); //needs to be fixed
+		playDestroyedEnemyMidSound();
+		this.respawn();
 	}
 
 	this.lootDrop = function () {
@@ -69,20 +82,7 @@ function asteroids() {
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
 
-	this.playerCollisionDetection = function () {	
-		if(this.destroyed === false && p1.collisionCheck(false, this.x, this.y, this.r)){
-			this.destroyed = true;
-			p1.getHit();
-			this.hp--;
-			if (this.hp <= 0) {
-				this.lootDrop();
-				p1.playerScoring(25);
-				playDestroyedEnemyMidSound();
-			}
-		}
-	}
-
 	this.readyToRemove = function() {
-		return (this.hp <= 0 || this.y > c.height);
+		return (this.destroyed || this.y > c.height);
 	}
 }

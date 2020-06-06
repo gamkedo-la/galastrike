@@ -15,6 +15,7 @@ function basicAlienClass() {
 
 	this.hp = BASIC_ALIEN_HP;
 	this.respawnTimer = 60;
+	this.destroyed = false;
 
 	this.dropLoot = false;
 	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
@@ -33,7 +34,6 @@ function basicAlienClass() {
 
 		if (this.shotActive == true) {
 			drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
-			//colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
 		this.basicShot();
 	}
@@ -51,26 +51,11 @@ function basicAlienClass() {
 			this.sx = -this.sx;
 		}
 
-		this.collitionDetection();
+		this.playerCollitionDetection();
 
 		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
-		}
-	}
-
-	this.shotHitMeCheck = function (theShot) {
-		// Shot doesn't hit the weapon power up
-
-		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
-			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
-			theShot.deactivate(theShot);
-			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0) {
-				this.lootDrop();
-				p1.addToScore(25);
-				playDestroyedEnemyMidSound();
-			}
 		}
 	}
 
@@ -101,10 +86,25 @@ function basicAlienClass() {
 		}
 	}
 
-	this.collitionDetection = function () {
+	this.shotHitMeCheck = function (theShot) {
+		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
+			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
+			theShot.deactivate();
+			this.hp -= theShot.removeAlienHp;
+			if (this.hp <= 0) {
+				this.onDestroyed();
+			}
+		}
+	}
+
+	this.playerCollitionDetection = function () {
 		if (p1.collisionCheck(false, this.x + 5, this.y, this.w, this.h) ||	//alien body
-			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
+			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {	//alien round plate on front
 			p1.getHit();
+			this.hp--;
+			if (this.hp <= 0) {
+				this.onDestroyed();
+			}
 		}
 	}
 
@@ -119,7 +119,15 @@ function basicAlienClass() {
 		}
 	}
 
+	this.onDestroyed = function(){
+		this.destroyed = true;
+		this.dropLoot = true;
+		this.lootDrop();
+		//p1.playerScoring(25); //needs to be fixed
+		playDestroyedEnemyMidSound();
+	}
+
 	this.readyToRemove = function () {
-		return (this.hp <= 0 || this.y > c.height);
+		return (this.destroyed || this.y > c.height);
 	}
 }

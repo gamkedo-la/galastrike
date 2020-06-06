@@ -14,6 +14,7 @@ function diverAlienClass() {
 	this.screenBuffer = 20;
 
 	this.hp = DIVER_ALIEN_HP;
+	this.destroyed = false;
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
 	this.dive = false;
@@ -59,29 +60,42 @@ function diverAlienClass() {
 			}
 		}
 
-		this.collitionDetection();
+		this.playerCollisionDetection();
 	}
 
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
-			theShot.deactivate(theShot);
+			
+			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
 			if (this.hp <= 0) {
-				this.lootDrop();
-				p1.addToScore(75);
+				this.onDestroyed();
+			}
+
+		}
+	}
+
+	this.playerCollisionDetection = function () {
+		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
+			
+			p1.getHit();
+			this.hp--;
+			if (this.hp <= 0) {
+				this.onDestroyed();
+			}
+
+			if (this.y >= c.height) {
+				this.dive = false;
 			}
 		}
 	}
 
-	this.collitionDetection = function () {
-		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
-			this.dive = false;
-			p1.getHit();
-		}
-
-		if (this.y >= c.height) {
-			this.dive = false;
-		}
+	this.onDestroyed = function(){
+		this.destroyed = true;
+		this.dropLoot = true;
+		this.lootDrop();
+		//p1.playerScoring(25); //needs to be fixed
+		playDestroyedEnemyMidSound();
 	}
 
 	this.lootDrop = function () {
@@ -93,6 +107,6 @@ function diverAlienClass() {
 	}
 
 	this.readyToRemove = function () {
-		return (this.hp <= 0 || this.y > c.height);
+		return (this.destroyed || this.y > c.height);
 	}
 }
