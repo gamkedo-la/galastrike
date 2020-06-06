@@ -1,4 +1,5 @@
 var enemyList = [];
+var lootList = [];
 const ENEMY_KIND_BASIC_ALIEN = 0;
 const ENEMY_KIND_MID_ALIEN = 1;
 const ENEMY_KIND_DIVER_ALIEN = 2;
@@ -33,6 +34,7 @@ var levelNum = 3; //determines what level is active
 
 function loadLevel(whichLevel) {
 	enemyList = [];
+	lootList = [];
 	levelNum = whichLevel;
 	levelCurrent = levelList[levelNum];
 	spawnClock = 0;

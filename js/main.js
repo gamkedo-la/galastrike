@@ -8,9 +8,6 @@ var screenBuffer = 20;
 var p1; // player 1
 var gamepad;
 var starList; //parallax 
-var shieldPU; //shield Power Up
-var speedPU; // speed Power Up
-var weaponPU; // weapon Power Up
 var activeLevel;
 
 window.onload = function () {
@@ -28,9 +25,6 @@ function gameInit() {
 	p1 = new playerClass();
 	gamepad = new GamepadManager();
 	starList = []; //parallax 
-	shieldPU = new shieldPowerUp();
-	speedPU = new speedPowerUp();
-	weaponPU = new weaponPowerUp();
 	loadLevel(levelNum);
 }
 
@@ -114,53 +108,10 @@ function moveEverything() {
 	//player
 	gamepad.update();
 	p1.move();
-	starMove();
-	weaponPU.move();
 
-	if (mode == GAME_SCREEN) {
-		//moves enemies and space debris 
-		for (var i = 0; i < enemyList.length; i++) {
-			enemyList[i].move();
-		}
-		//looks to see if it needs to remove enemies and debris
-		for (var i = enemyList.length - 1; i >= 0; i--) {
-			if (enemyList[i].readyToRemove()) {
-				enemyList.splice(i, 1);
-			}
-		}
-	}
 
 	//audio
 	backgroundMusic.updateMusic();
-}
-
-function gameMode() {
-
-	if (backgroundMusic.playing == false) {
-		if (levelNum == 1)
-			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
-		else
-			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
-	}
-	// scrolling bg image
-	backgroundDraw();
-	// awesome parallax starfield
-	starDraw();
-	// space tech in front of stars but behind the game action
-	midgroundDraw();
-	//draws enemies and space debris
-	for (var i = 0; i < enemyList.length; i++) {
-		enemyList[i].draw();
-	}
-
-	//player ship
-	p1.draw();
-
-	//player score
-	p1.drawPlayerScore();
-	weaponPU.draw();
-
-	drawRails();
 }
 
 function resetGame() {

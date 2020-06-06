@@ -38,6 +38,12 @@ function asteroids() {
 			this.destroyed = true;
 			this.dropLoot = true;
 			theShot.deactivate(theShot);
+			this.hp -= theShot.removeAlienHp;
+			if (this.hp <= 0) {
+				this.lootDrop();
+				p1.playerScoring(25);
+				playDestroyedEnemyMidSound();
+			}
 		}
 	}
 
@@ -46,11 +52,11 @@ function asteroids() {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 			//console.log("ast loot rate:" + this.rn);
 			if (this.rn == 1) {
-				shieldPU.active = true;
+			/*	shieldPU.active = true;
 				shieldPU.x = this.x;
 				shieldPU.y = this.y;
 				shieldPU.draw();
-				shieldPU.move();
+				shieldPU.move(); */
 			}
 		}
 	}
@@ -58,7 +64,7 @@ function asteroids() {
 	this.respawn = function () {
 		this.destroyed = false;
 		this.dropLoot = false;
-		shieldPU.pickedUP = false;
+		//shieldPU.pickedUP = false;
 		this.y = -100;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
@@ -67,7 +73,12 @@ function asteroids() {
 		if(this.destroyed === false && p1.collisionCheck(false, this.x, this.y, this.r)){
 			this.destroyed = true;
 			p1.getHit();
-			this.respawn();
+			this.hp--;
+			if (this.hp <= 0) {
+				this.lootDrop();
+				p1.playerScoring(25);
+				playDestroyedEnemyMidSound();
+			}
 		}
 	}
 

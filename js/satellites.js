@@ -34,6 +34,12 @@ function satellites() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
 			theShot.deactivate(theShot);
+			this.hp -= theShot.removeAlienHp;
+			if (this.hp <= 0) {
+				this.lootDrop();
+				p1.playerScoring(25);
+				playDestroyedEnemyMidSound();
+			}
 			this.destroyed = true;
 			this.dropLoot = true;
 		}
@@ -44,11 +50,11 @@ function satellites() {
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 			//console.log("ast loot rate:" + this.rn);
 			if (this.rn == 1) {
-				speedPU.active = true;
+			/*	speedPU.active = true;
 				speedPU.x = this.x;
 				speedPU.y = this.y;
 				speedPU.draw();
-				speedPU.move();
+				speedPU.move(); */
 			}
 		}
 	}
@@ -56,7 +62,7 @@ function satellites() {
 	this.respawn = function () {
 		this.destroyed = false;
 		this.dropLoot = false;
-		speedPU.pickedUP = false;
+		//speedPU.pickedUP = false;
 		this.y = -50;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
@@ -66,6 +72,12 @@ function satellites() {
 			p1.collisionCheck(false, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
 			this.destroyed = true;
 			p1.getHit();
+			this.hp--;
+			if (this.hp <= 0) {
+				this.lootDrop();
+				p1.playerScoring(25);
+				playDestroyedEnemyMidSound();
+			}
 			this.respawn();
 		}
 	}
