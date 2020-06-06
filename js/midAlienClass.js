@@ -38,7 +38,6 @@ function midAlienClass() {
 		if (this.shotActive == true) {
 			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
 		}
-		this.basicShot();
 
 		if (this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
@@ -50,12 +49,12 @@ function midAlienClass() {
 		this.x += this.sx;
 		this.y += this.sy;
 
+		this.basicShot();
+		this.playerCollisionDetection();
 
 		if (this.dropLoot == true) {
 			this.lootY += this.lootYDrift;
 		}
-
-		this.collitionDetection();
 
 		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -103,19 +102,6 @@ function midAlienClass() {
 		}
 	}
 
-	this.shotHitMeCheck = function (theShot) {
-		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 15, 48, 30) ||		//upper alien body
-			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
-			theShot.deactivate(theShot);
-			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0) {
-				this.lootDrop();
-				p1.addToScore(50);
-				playDestroyedEnemyMidSound();
-			}
-		}
-	}
-
 	this.basicShot = function () {
 		if (this.shotActive == false) {
 			this.rn = Math.round(Math.random() * (15 - 1) + 1);
@@ -138,12 +124,39 @@ function midAlienClass() {
 		}
 	}
 
-	this.collitionDetection = function () {
-		if (p1.collisionCheck(false, this.x + 24, this.y + 15, 48, 30) || 	//upper alien body
-			p1.collisionCheck(false, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
+	
+	this.shotHitMeCheck = function (theShot) {
+		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 15, 48, 30) ||		//upper alien body
+			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 24, this.y + 45, 32, 45)) {		//lower alien body
+				
+				theShot.deactivate();
+				this.hp -= theShot.removeAlienHp;
+				if (this.hp <= 0) {
+					this.onDestroyed();
+				}
 
-			p1.getHit();
 		}
+	}
+
+	this.playerCollisionDetection = function () {
+		if (p1.collisionCheck(false, this.x + 24, this.y + 15, 48, 30) || 	//upper alien body
+			p1.collisionCheck(false, this.x + 24, this.y + 45, 32, 45)) {	//lower alien body	
+				
+				p1.getHit();
+				this.hp--;
+				if (this.hp <= 0) {
+					this.onDestroyed();
+				}
+
+		}
+	}
+
+	this.onDestroyed = function(){
+		this.destroyed = true;
+		this.dropLoot = true;
+		this.lootDrop();
+		//p1.playerScoring(25); //needs to be fixed
+		playDestroyedEnemyMidSound();
 	}
 
 	this.lootDrop = function () {
@@ -157,7 +170,7 @@ function midAlienClass() {
 	}
 
 	this.readyToRemove = function () {
-		return (this.hp <= 0 || this.y > c.height);
+		return (this.destroyed || this.y > c.height);
 	}
 }
 
