@@ -11,6 +11,45 @@ const GAME_PAUSE = 6;
 var countAlpha = 0; // counting for Pause draw screen
 var mode = TITLE_SCREEN;
 
+function gameMode() {
+
+	if (backgroundMusic.playing == false) {
+		if (levelNum == 1)
+			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
+		else
+			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+	}
+		// scrolling bg image
+		backgroundDraw();
+		// awesome parallax starfield
+		starDraw();
+		starMove();
+		// space tech in front of stars but behind the game action
+		midgroundDraw();
+
+	//draws and moves enemies and space debris
+	for (var i = 0; i < enemyList.length; i++) {
+		enemyList[i].draw();
+		enemyList[i].move();
+	}
+	//looks to see if it needs to remove enemies and debris
+	for (var i = enemyList.length - 1; i >= 0; i--) {
+		if (enemyList[i].readyToRemove()) {
+			enemyList.splice(i, 1);
+		}
+	}
+
+	//draws loot items
+	for (var i = 0; i < lootList.length; i++) {
+		lootList[i].draw();
+	}
+
+	//player ship
+	p1.draw();
+
+	drawRails();
+}
+
 function gameOverScreen() {
 	colorRect(0, 0, c.width, c.height, 'blue');
 	colorText("Game Over", c.width / 2 - 80, c.height / 2, "30px arial", "white");

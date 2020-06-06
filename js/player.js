@@ -26,7 +26,7 @@ function playerClass() {
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0],["mid",20],["laser",0],["atom",0],["chris",0]];
+	this.weapons = [["basic", 0],["mid",1],["laser",1],["atom",1],["chris",0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 
@@ -42,7 +42,7 @@ function playerClass() {
 			}
 		}
 
-		var newShot = newShot = new playerShotClass(this.weaponCurrent, this);
+		var newShot = new playerShotClass(this.weaponCurrent, this);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
 		this.reloadFrames = newShot.shotReloadRate;
@@ -55,6 +55,7 @@ function playerClass() {
 		}else{
 			ctx.drawImage(imageArray["PlayerSpaceship_chris.png"], this.x, this.y);
 		}
+		console.log(this.myShot.length)
 		//ship shield
 		if (this.shieldActive) {
 			switch (this.playerShields) {
@@ -85,6 +86,8 @@ function playerClass() {
 					break;
 			}
 		}
+		//player score
+		this.drawPlayerScore();
 
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();

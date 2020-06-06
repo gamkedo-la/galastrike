@@ -7,7 +7,9 @@ var cheatList = [
 	"UUDDLRLRba",	// 2 - Konami code
 	"shield",		// 3 - get super shield
 	"chris",		// 4 - super secret chris weapon
-	"sss",			// 5 - shield active toggle
+	"atom",			// 5 - atomic weapon
+	"mid",			// 6 - mid weapon
+	"laser",		// 7 - laser weapon
 ];
 
 function cheats(key) {
@@ -60,8 +62,14 @@ function cheats(key) {
 								p1.weaponUpgrade("chris", 1)
 								p1.addShield(6);
 								break;
-							case 5: //cheat: shield toggle
-								p1.shieldActive = !p1.shieldActive;
+							case 5: //cheat: atom weapon
+								p1.weaponUpgrade("atom", 1)
+								break;
+							case 6: //cheat: mid weapon
+								p1.weaponUpgrade("mid", 1)
+								break;
+							case 7: //cheat: laser weapon
+								p1.weaponUpgrade("laser", 1)
 								break;
 						}
 						cheatBuffer = "";

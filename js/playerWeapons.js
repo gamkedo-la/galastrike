@@ -125,6 +125,7 @@ function playerShotClass(weaponType, ship) {
 	}
 
 	this.deactivate = function (shotToDeactivate){
+		//Lasers and atom will deactive themself after shotreloadRate time is over
 		if (shotToDeactivate.weaponType == 'basic' || shotToDeactivate.weaponType == 'mid'){
 		this.shotActive = false;
 		this.y = p1.y;
