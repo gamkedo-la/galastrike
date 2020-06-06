@@ -39,7 +39,7 @@ function levelOneBossClass() {
 			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
 		this.basicShot();
-		
+
 
 		if (this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
@@ -63,11 +63,11 @@ function levelOneBossClass() {
 		}
 
 		if (this.fullyOnScreen) {
-			if(this.y < c.height/2 - this.h) {
+			if (this.y < c.height / 2 - this.h) {
 				this.y += this.sy;
 			}
 		}
-	
+
 
 		if (this.dropLoot == true) {
 			this.lootY += this.lootYDrift;
@@ -85,8 +85,8 @@ function levelOneBossClass() {
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
 			theShot.deactivate(theShot);
-			this.hp --;
-			if(this.hp <= 10) {
+			this.hp--;
+			if (this.hp <= 10) {
 				this.fullyOnScreen = true;
 			}
 		}
@@ -99,7 +99,7 @@ function levelOneBossClass() {
 				this.shotActive = true;
 				this.shotY = this.y + this.h;
 				this.shotX = this.x + this.w / 2;
-				//playBossShootingSound();
+				playBossShootingSound();
 			}
 		}
 
