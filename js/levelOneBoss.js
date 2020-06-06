@@ -11,7 +11,6 @@ function levelOneBossClass() {
 	this.screenBuffer = 20;
 
 	this.hp = 15;
-	this.alienActive = true;
 	this.enteredScreen = false;
 
 	this.dropLoot = false;
@@ -31,16 +30,16 @@ function levelOneBossClass() {
 
 
 	this.draw = function () {
-		if (this.alienActive == true) {
-			//colorRect(this.x, this.y, this.w, this.h, 'green');
-			ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
-			colorText(this.hp, this.x + this.w, this.y + this.h + 20, "18px arial", "orange"); // hp indicator
 
-			if (this.shotActive == true) {
-				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
-			}
-			this.basicShot();
+		//colorRect(this.x, this.y, this.w, this.h, 'green');
+		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
+		colorText(this.hp, this.x + this.w, this.y + this.h + 20, "18px arial", "orange"); // hp indicator
+
+		if (this.shotActive == true) {
+			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
 		}
+		this.basicShot();
+		
 
 		if (this.dropLoot == true) {
 			colorRect(this.lootX, this.lootY, this.lootW, this.lootH, 'green');
@@ -49,21 +48,20 @@ function levelOneBossClass() {
 
 	this.move = function () {
 		//movement ai
-		if (this.alienActive == true) {
 
-			if (this.enteredScreen == false) {
-				this.x = c.width / 2 - this.w / 2;
-				this.y += this.sy;
-				if (this.y + this.h >= 200) {
-					this.enteredScreen = true;
-				}
-			}
-
-			if (this.enteredScreen == true) {
-				this.x = this.x;
-				this.y = this.y;
+		if (this.enteredScreen == false) {
+			this.x = c.width / 2 - this.w / 2;
+			this.y += this.sy;
+			if (this.y + this.h >= 200) {
+				this.enteredScreen = true;
 			}
 		}
+
+		if (this.enteredScreen == true) {
+			this.x = this.x;
+			this.y = this.y;
+		}
+	
 
 		if (this.dropLoot == true) {
 			this.lootY += this.lootYDrift;
@@ -111,7 +109,6 @@ function levelOneBossClass() {
 
 	this.collitionDetection = function () {
 		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
-			this.alienActive = false;
 			p1.getHit();
 		}
 	}

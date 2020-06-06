@@ -234,12 +234,12 @@ function turnEffectsVolumeDown() {
 }
 
 function playBasicShootingSound() {
-	var audio = new soundOverlapsClass('./shot.mp3');
+	var audio = new soundOverlapsClass('./audio/shot.mp3');
 	audio.play();
 }
 
 function playMidShootingSound() {
-	var audio = new soundOverlapsClass('./midShot.mp3');
+	var audio = new soundOverlapsClass('./audio/midShot.mp3');
 	audio.play();
 }
 
@@ -249,6 +249,6 @@ function playBossShootingSound() {
 }
 
 function playDestroyedEnemyMidSound() {
-	var audio = new soundOverlapsClass('./inSmokeTwo.mp3');
+	var audio = new soundOverlapsClass('./audio/inSmokeTwo.mp3');
 	audio.play();
 }
