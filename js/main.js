@@ -138,9 +138,9 @@ function gameMode() {
 
 	if (backgroundMusic.playing == false) {
 		if (levelNum == 1)
-			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
+			backgroundMusic.loopSong("./audio/moreMusic.mp3");
 		else
-			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+			backgroundMusic.loopSong("./audio/gameplayMusicV2.mp3");
 	}
 	// scrolling bg image
 	backgroundDraw();
