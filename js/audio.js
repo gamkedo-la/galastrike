@@ -244,7 +244,7 @@ function playMidShootingSound() {
 }
 
 function playBossShootingSound() {
-	var audio = new soundOverlapsClass('.audio/boosShootingLong.mp3');
+	var audio = new soundOverlapsClass('./audio/boosShootingLong.mp3');
 	audio.play();
 }
 
