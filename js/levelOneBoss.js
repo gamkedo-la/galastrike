@@ -10,9 +10,10 @@ function levelOneBossClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 15;
+	this.hp = 100;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
+	this.hpToChangeToFullyOnScreen = 90;
 
 	this.dropLoot = false;
 	this.lootX;
@@ -33,10 +34,10 @@ function levelOneBossClass() {
 	this.draw = function () {
 
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
-		colorText(this.hp, this.x + this.w, this.y + this.h + 20, "18px arial", "orange"); // hp indicator
+		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
 
 		if (this.shotActive == true) {
-			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'green');
+			colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
 		}
 		this.basicShot();
 		
@@ -86,7 +87,7 @@ function levelOneBossClass() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
 			theShot.deactivate(theShot);
 			this.hp --;
-			if(this.hp <= 10) {
+			if(this.hp <= this.hpToChangeToFullyOnScreen) {
 				this.fullyOnScreen = true;
 			}
 		}
@@ -94,11 +95,23 @@ function levelOneBossClass() {
 
 	this.basicShot = function () {
 		if (this.shotActive == false) {
-			this.rn = Math.round(Math.random() * (15 - 1) + 1);
-			if (this.rn == 1) {
+			this.rn = Math.round(Math.random() * (3 - 1) + 1);
+			if (this.rn == 2) { // fiering from middle orb
 				this.shotActive = true;
-				this.shotY = this.y + this.h;
+				this.shotY = this.y + this.h - 100;
 				this.shotX = this.x + this.w / 2;
+				//playBossShootingSound();
+			}
+			if (this.rn == 3) { //fiering from right orb
+				this.shotActive = true;
+				this.shotY = this.y + this.h - 40;
+				this.shotX = this.x + 375;
+				//playBossShootingSound();
+			}
+			if (this.rn == 1) { //fiering from left orb
+				this.shotActive = true;
+				this.shotY = this.y + this.h - 80;
+				this.shotX = this.x + this.w / 2 - 180;
 				//playBossShootingSound();
 			}
 		}
@@ -118,6 +131,8 @@ function levelOneBossClass() {
 	this.collitionDetection = function () {
 		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
 			p1.getHit();
+			console.log("add player collision bounce to player");
+		
 		}
 	}
 
