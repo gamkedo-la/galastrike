@@ -73,8 +73,8 @@ function levelOneBossClass() {
 		}
 	}
 
-	this.fireShot = function () {
-		var newShot = new levelOneBossShotClass();
+	this.fireShot = function (shotPosX, shotPosY) {
+		var newShot = new levelOneBossShotClass(shotPosX, shotPosY);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
 		this.reloadFrames = newShot.shotReloadRate;
@@ -91,29 +91,33 @@ function levelOneBossClass() {
 	}
 
 	this.basicShot = function () {
-			this.rn = Math.round(Math.random() * (60 - 1) + 1); 
+			this.rn = Math.round(Math.random() * (30 - 1) + 1); 
 			console.log(this.rn);
+
 			if (this.rn == 1) { // fiering from middle orb
-				console.log("FIRE!!!!");
-				//this.shotY = this.y + this.h - 100;
-				//this.shotX = this.x + this.w / 2;
-				this.fireShot();
+				console.log("shot1");
+				this.shotY = this.y + this.h - 100;
+				this.shotX = this.x + this.w / 2;
+				this.fireShot(this.shotX, this.shotY );
+			}
 				
-			/*
-			if (this.rn == 3) { //fiering from right orb
-				this.shotActive = true;
+			
+			if (this.rn == 2) { //fiering from right orb
+				console.log("shot2");				
 				this.shotY = this.y + this.h - 40;
 				this.shotX = this.x + 375;
+				this.fireShot(this.shotX, this.shotY );
 				//playBossShootingSound();
 			}
-			if (this.rn == 1) { //fiering from left orb
-				this.shotActive = true;
+			if (this.rn == 3) { //fiering from left orb
+				console.log("shot3");
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
+				this.fireShot(this.shotX, this.shotY );
 				//playBossShootingSound();
-			} */
+			} 
 		}
-	}
+	
 	
 
 	this.shotCheck = function () {
@@ -127,7 +131,6 @@ function levelOneBossClass() {
 		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
 			p1.getHit();
 			console.log("add player collision bounce to player");
-		
 		}
 	}
 

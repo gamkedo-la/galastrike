@@ -1,11 +1,11 @@
 
 // WeaponType, ship center X, Ship Y
-function levelOneBossShotClass() {
+function levelOneBossShotClass(shotPosX, shotPosY) {
 	this.weaponType = 'basic';
-	this.x = c.width/2;
-	this.y = c.height/2;
-	this.w;
-	this.h;
+	this.x = shotPosX;
+	this.y = shotPosY;
+	this.w = 10;
+	this.h = 30;
 	this.shotActive = false;
 	this.shotReloadRate;
 	this.shootSpeed;
@@ -14,7 +14,8 @@ function levelOneBossShotClass() {
 		switch (this.weaponType) {
 			case 'basic':
 				this.w = 4;
-				this.shotReloadRate = 10;
+				this.h = 20;
+				this.shotReloadRate = 500;
 				this.shootSpeed = 10;
 				//playBasicShootingSound();
 				break;
@@ -23,16 +24,13 @@ function levelOneBossShotClass() {
 	this.draw = function() {
 		
 		if(this.shotActive == true) {
-			console.log("draw shot");
-				colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');	
+				colorRect(this.x, this.y, this.w, this.h, 'white');	
 		}		
 	}
 		
 
 	this.move = function() {
-		
 		if(this.shotActive == true) {
-			console.log(this.y);
 			this.y += this.shootSpeed;
 
 		this.shotCheck();
