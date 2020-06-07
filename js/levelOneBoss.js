@@ -95,22 +95,19 @@ function levelOneBossClass() {
 			console.log(this.rn);
 
 			if (this.rn == 1) { // fiering from middle orb
-				console.log("shot1");
 				this.shotY = this.y + this.h - 100;
 				this.shotX = this.x + this.w / 2;
 				this.fireShot(this.shotX, this.shotY );
 			}
 				
 			
-			if (this.rn == 2) { //fiering from right orb
-				console.log("shot2");				
+			if (this.rn == 2) { //fiering from right orb			
 				this.shotY = this.y + this.h - 40;
 				this.shotX = this.x + 375;
 				this.fireShot(this.shotX, this.shotY );
 				//playBossShootingSound();
 			}
 			if (this.rn == 3) { //fiering from left orb
-				console.log("shot3");
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
 				this.fireShot(this.shotX, this.shotY );
