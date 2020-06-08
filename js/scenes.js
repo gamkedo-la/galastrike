@@ -76,7 +76,7 @@ function winScreen() {
 }
 
 function titleScreen() {
-	ctx.drawImage(imageArray["TitleScreen.png"], 0, 0, c.width, c.height);
+	ctx.drawImage(imageArray["TitleScreenTwo.png"], 0, 0, c.width, c.height);
 }
 
 function mainMenuScreen() {
