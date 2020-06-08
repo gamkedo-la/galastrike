@@ -19,13 +19,22 @@ function gameMode() {
 		else
 			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
 	}
-		// scrolling bg image
-		backgroundDraw();
-		// awesome parallax starfield
-		starDraw();
-		starMove();
-		// space tech in front of stars but behind the game action
-		midgroundDraw();
+	
+	// scrolling bg image
+	backgroundDraw();
+	// awesome parallax starfield
+	starDraw();
+	starMove();
+	// space tech in front of stars but behind the game action
+	midgroundDraw();
+
+	//player ship
+	p1.draw();
+	p1.move();
+	p1.drawPlayerScore();
+	
+	starMove();
+	drawRails();
 
 	//draws and moves enemies and space debris
 	for (var i = 0; i < enemyList.length; i++) {
@@ -42,12 +51,16 @@ function gameMode() {
 	//draws loot items
 	for (var i = 0; i < lootList.length; i++) {
 		lootList[i].draw();
+		lootList[i].move();
 	}
 
-	//player ship
-	p1.draw();
+	//looks to see if it needs to remove loot items
+	for (var i = enemyList.length - 1; i >= 0; i--) {
+		if (enemyList[i].readyToRemove()) {
+			enemyList.splice(i, 1);
+		}
+	}
 
-	drawRails();
 }
 
 function gameOverScreen() {
