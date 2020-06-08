@@ -1,8 +1,10 @@
 
-function spawnLoot(objX, objY, lootType){
-	var lootItem = new lootItemClass(objX, objY, lootType);
+function spawnLoot(objX, objY, ...lootType){
+	var randomItem = Math.round(Math.random() * ((lootType.length) - 1) + 1);
+	var lootItem = new lootItemClass(objX, objY, lootType[randomItem-1]);
 	lootItem.active = true;
 	this.lootList.push(lootItem);
+	
 }
 
 function lootItemClass(objX, objY,lootType){

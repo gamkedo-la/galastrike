@@ -14,8 +14,7 @@ function asteroids() {
 	this.explosionRadiusNow = this.explosionRadius;
 	this.explosionShrinkFactor = 7;
 	
-	this.dropLoot = false;
-	this.lootRate = 1;
+	this.lootDropRate = 1;
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
 
@@ -83,7 +82,7 @@ function asteroids() {
 				p1.getHit();
 				this.hp--;
 			}
-			if (this.hp <= 0) {
+			if (!this.destroyed && this.hp <= 0) {
 				this.onDestroyed();
 			}
 		}
@@ -91,30 +90,20 @@ function asteroids() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		this.dropLoot = true;
-		this.lootDrop();
+		if(Math.round(Math.random() * ((this.lootDropRate) - 1) + 1) == 1){
+		//	spawnLoot(this.x, this.y, "mid","atom");
+		}
 		//p1.playerScoring(25); //needs to be fixed
+		
 		playDestroyedEnemyMidSound();
 		// if (this.destroyedRemovalCountdownNow <= 0) {
 		// 	this.respawn();
 		// }
 	}
 
-	this.lootDrop = function () {
-		if (this.dropLoot == true) {
-			spawnLoot(this.x, this.y, "mid");
-			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-			//console.log("ast loot rate:" + this.rn);
-			if (this.rn == 1) {
-				
-			}
-		}
-	}
-
 	this.respawn = function () {
 		this.hp = 1;
 		this.destroyed = false;
-		this.dropLoot = false;
 		this.destroyedRemovalCountdownNow = this.destroyedRemovalCountdown;
 		this.explosionRadiusNow = this.explosionRadius;
 		//shieldPU.pickedUP = false;

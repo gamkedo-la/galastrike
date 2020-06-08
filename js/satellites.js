@@ -9,8 +9,7 @@ function satellites() {
 	this.sy = 3;
 	this.hp = 1;
 	this.destroyed = false; // also used in playerWeapon.js
-	this.dropLoot = false; // inserted in playerWeapon.js
-	this.lootRate = 1;
+	this.lootDropRate = 1;
 
 	this.draw = function () {
 			ctx.drawImage(imageArray["satellite_human.png"], this.x, this.y);
@@ -53,25 +52,14 @@ function satellites() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		this.dropLoot = true;
-		this.lootDrop();
+	
+		if(Math.round(Math.random() * ((this.lootDropRate) - 1) + 1) == 1){
+			spawnLoot(this.x, this.y, "mid","shield");
+		}
+
 		//p1.playerScoring(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
 		this.respawn();
-	}
-
-	this.lootDrop = function () {
-		if (this.dropLoot == true) {
-			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-			//console.log("ast loot rate:" + this.rn);
-			if (this.rn == 1) {
-			/*	speedPU.active = true;
-				speedPU.x = this.x;
-				speedPU.y = this.y;
-				speedPU.draw();
-				speedPU.move(); */
-			}
-		}
 	}
 
 	this.respawn = function () {

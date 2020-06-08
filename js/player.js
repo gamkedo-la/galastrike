@@ -51,7 +51,6 @@ function playerClass() {
 	}
 
 	this.draw = function () {
-		console.log(this.weapons[1][1]);
 		//space ship
 		if(this.chrisCode == false){
 			ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
