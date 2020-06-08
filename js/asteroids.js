@@ -70,7 +70,7 @@ function asteroids() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.r)) {
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0) {
+			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
 		}

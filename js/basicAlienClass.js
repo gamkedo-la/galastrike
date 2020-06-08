@@ -89,7 +89,7 @@ function basicAlienClass() {
 			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0) {
+			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
 		}
@@ -100,7 +100,7 @@ function basicAlienClass() {
 			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {	//alien round plate on front
 			p1.getHit();
 			this.hp--;
-			if (this.hp <= 0) {
+			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
 		}

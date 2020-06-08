@@ -66,7 +66,7 @@ function diverAlienClass() {
 			
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0) {
+			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
 
@@ -78,7 +78,7 @@ function diverAlienClass() {
 			
 			p1.getHit();
 			this.hp--;
-			if (this.hp <= 0) {
+			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
 
