@@ -23,13 +23,15 @@ var imageNames = ["PlayerSpaceship.png",
 	"weapon_basic.png",
 	"weapon_mid.png",
 	"satellite_human.png",
-    "LV1_Boss.png",
+	"LV1_Boss.png",
 	"star.png",
 	"pickupItem_atom.png",
 	"pickupItem_mid.png",
 	"pickupItem_laser.png",
 	"pickupItem_shield.png",
-	"pickupItem_speed.png",	
+	"pickupItem_speed.png",
+	"MainScreen.png",
+	"TitleScreen.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];

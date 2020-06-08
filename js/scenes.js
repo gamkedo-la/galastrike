@@ -32,7 +32,7 @@ function gameMode() {
 	p1.draw();
 	p1.move();
 	p1.drawPlayerScore();
-	
+
 	starMove();
 	drawRails();
 
@@ -76,21 +76,11 @@ function winScreen() {
 }
 
 function titleScreen() {
-	colorRect(0, 0, c.width, c.height, 'red');
-	colorText("Title Screen", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("New Game: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+	ctx.drawImage(imageArray["TitleScreen.png"], 0, 0, c.width, c.height);
 }
 
 function mainMenuScreen() {
-	colorRect(0, 0, c.width, c.height, 'orange');
-	colorText("Main Menu", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("New Game: [ENTER]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
-	colorText("Fullscreen: [F]", c.width / 2 - 70, c.height / 2 + 80, "15px arial", "white");
-	colorText("Credits: [SHIFT]", c.width / 2 - 70, c.height / 2 + 120, "15px arial", "white");
-	colorText("LV 01 [1]", c.width / 2 - 70, c.height / 2 + 160, "15px arial", "white");
-	colorText("LV 02 [2]", c.width / 2 - 70, c.height / 2 + 200, "15px arial", "white");
-	colorText("LV 03 [3]", c.width / 2 - 70, c.height / 2 + 240, "15px arial", "white");
-	colorText("LV 04 [4]", c.width / 2 - 70, c.height / 2 + 280, "15px arial", "white");
+	ctx.drawImage(imageArray["MainScreen.png"], 0, 0, c.width, c.height);
 }
 
 function creditScreen() {
