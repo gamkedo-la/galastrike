@@ -252,3 +252,8 @@ function playDestroyedEnemyMidSound() {
 	var audio = new soundOverlapsClass('./audio/inSmokeTwo.mp3');
 	audio.play();
 }
+
+function playPickUpSound() {
+	var audio = new soundOverlapsClass('./audio/pickup.mp3');
+	audio.play();
+}
