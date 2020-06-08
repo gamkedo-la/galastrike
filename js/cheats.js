@@ -59,17 +59,17 @@ function cheats(key) {
 								break;
 							case 4: //cheat: Chris
 								p1.chrisCode = true;
-								p1.weaponUpgrade("chris", 1)
+								p1.addWeapon("chris", 1)
 								p1.addShield(6);
 								break;
 							case 5: //cheat: atom weapon
-								p1.weaponUpgrade("atom", 1)
+								p1.addWeapon("atom", 1)
 								break;
 							case 6: //cheat: mid weapon
-								p1.weaponUpgrade("mid", 1)
+								p1.addWeapon("mid", 1)
 								break;
 							case 7: //cheat: laser weapon
-								p1.weaponUpgrade("laser", 1)
+								p1.addWeapon("laser", 1)
 								break;
 						}
 						cheatBuffer = "";

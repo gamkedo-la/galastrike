@@ -19,7 +19,7 @@ function gameMode() {
 		else
 			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
 	}
-	
+
 	// scrolling bg image
 	backgroundDraw();
 	// awesome parallax starfield
@@ -55,9 +55,9 @@ function gameMode() {
 	}
 
 	//looks to see if it needs to remove loot items
-	for (var i = enemyList.length - 1; i >= 0; i--) {
-		if (enemyList[i].readyToRemove()) {
-			enemyList.splice(i, 1);
+	for (var i = lootList.length - 1; i >= 0; i--) {
+		if (lootList[i].readyToRemove()) {
+			lootList.splice(i, 1);
 		}
 	}
 

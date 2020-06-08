@@ -14,7 +14,7 @@ function asteroids() {
 	this.explosionRadiusNow = this.explosionRadius;
 	this.explosionShrinkFactor = 7;
 	
-	this.dropLoot = false; // inserted in playerWeapon.js
+	this.dropLoot = false;
 	this.lootRate = 1;
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
@@ -102,14 +102,11 @@ function asteroids() {
 
 	this.lootDrop = function () {
 		if (this.dropLoot == true) {
+			spawnLoot(this.x, this.y, "mid");
 			this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
 			//console.log("ast loot rate:" + this.rn);
 			if (this.rn == 1) {
-			/*	shieldPU.active = true;
-				shieldPU.x = this.x;
-				shieldPU.y = this.y;
-				shieldPU.draw();
-				shieldPU.move(); */
+				
 			}
 		}
 	}

@@ -36,7 +36,7 @@ function weaponPowerUp() {
 					this.active = false;
 				}
 				this.reset();
-				p1.weaponUpgrade();
+				p1.addWeapon();
 			}
 		}
 	}
