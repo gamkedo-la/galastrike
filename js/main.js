@@ -28,9 +28,6 @@ function gameInit() {
 	p1 = new playerClass();
 	gamepad = new GamepadManager();
 	starList = []; //parallax 
-	shieldPU = new shieldPowerUp();
-	speedPU = new speedPowerUp();
-	weaponPU = new weaponPowerUp();
 	loadLevel(levelNum);
 }
 
