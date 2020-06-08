@@ -17,9 +17,7 @@ function basicAlienClass() {
 	this.respawnTimer = 60;
 	this.destroyed = false;
 
-	this.dropLoot = false;
-	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
-	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
+	this.lootDropRate = 2;
 
 	this.shotX;
 	this.shotY;
@@ -108,21 +106,12 @@ function basicAlienClass() {
 		}
 	}
 
-	this.lootDrop = function () {
-		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("a1 loot rate:" + this.rn);
-
-		if (this.rn == 1) {
-			this.dropLoot = true;
-			// Assign the position of the alien to the weapon upgrade power up and set it to active
-			weaponPU.setup(this.x, this.y);
-		}
-	}
-
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		this.dropLoot = true;
-		this.lootDrop();
+
+		if(Math.round(Math.random() * this.lootDropRate) == 1){
+			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
+		}
 		//p1.playerScoring(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
 	}

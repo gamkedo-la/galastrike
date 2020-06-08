@@ -4,8 +4,8 @@ function midAlienClass() {
 
 	this.x = 200;
 	this.y = 100;
-	this.h = 50;
-	this.w = 50;
+	this.h = 98;
+	this.w = 88;
 	this.sx = 6;
 	this.sy = 6;
 	this.bottomLine = 300; // distance from bottom of screen
@@ -14,9 +14,7 @@ function midAlienClass() {
 	this.hp = MID_ALIEN_HP;
 	this.respawnTimer = 60;
 
-	this.dropLoot = false;
-	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
-	this.lootYDrift = 1; // spped at which loot drifts to bottom of screen
+	this.lootDropRate = 2;
 
 	this.shotX;
 	this.shotY;
@@ -153,20 +151,13 @@ function midAlienClass() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		this.dropLoot = true;
-		this.lootDrop();
+
+		if(Math.round(Math.random() * this.lootDropRate) == 1){
+			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
+		}
+
 		//p1.playerScoring(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
-	}
-
-	this.lootDrop = function () {
-		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("a2 loot rate:" + this.rn);
-		if (this.rn == 1) {
-			this.dropLoot = true;
-			this.lootX = this.x;
-			this.lootY = this.y;
-		}
 	}
 
 	this.readyToRemove = function () {

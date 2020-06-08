@@ -19,9 +19,7 @@ function diverAlienClass() {
 	this.enteredScreen = false;
 	this.dive = false;
 
-	this.dropLoot = false;
-	this.lootRate = 1; // = 1/5 of the time loot drops when enemy dies
-
+	this.lootDropRate = 1;
 
 	this.draw = function () {
 
@@ -92,18 +90,13 @@ function diverAlienClass() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		this.dropLoot = true;
-		this.lootDrop();
+
+		if(Math.round(Math.random() * this.lootDropRate) == 1){
+			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
+		}
+
 		//p1.playerScoring(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
-	}
-
-	this.lootDrop = function () {
-		this.rn = Math.round(Math.random() * ((this.lootRate) - 1) + 1);
-		console.log("a3 loot rate:" + this.rn);
-		if (this.rn == 1) {
-			this.dropLoot = true;
-		}
 	}
 
 	this.readyToRemove = function () {

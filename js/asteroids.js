@@ -14,9 +14,9 @@ function asteroids() {
 	this.explosionRadiusNow = this.explosionRadius;
 	this.explosionShrinkFactor = 7;
 	
-	this.lootDropRate = 1;
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
+	this.lootDropRate = 2;
 
 	this.draw = function () {
 		let graphic = imageArray["asteroid_3.png"];
@@ -90,8 +90,8 @@ function asteroids() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-		if(Math.round(Math.random() * ((this.lootDropRate) - 1) + 1) == 1){
-		//	spawnLoot(this.x, this.y, "mid","atom");
+		if(Math.round(Math.random() * this.lootDropRate) == 1){
+			spawnLoot(this.x, this.y, "mid","laser","atom","speed","shield");
 		}
 		//p1.playerScoring(25); //needs to be fixed
 		

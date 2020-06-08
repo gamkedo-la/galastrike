@@ -1,7 +1,6 @@
 
 function spawnLoot(objX, objY, ...lootType){
-	var randomItem = Math.round(Math.random() * ((lootType.length) - 1) + 1);
-	var lootItem = new lootItemClass(objX, objY, lootType[randomItem-1]);
+	var lootItem = new lootItemClass(objX, objY, lootType[Math.round(Math.random() * lootType.length)]);
 	lootItem.active = true;
 	this.lootList.push(lootItem);
 	
@@ -12,7 +11,7 @@ function lootItemClass(objX, objY,lootType){
 	this.x = objX;
 	this.y = objY;
 	this.r = 20;
-	this.ySpeed = 2;
+	this.ySpeed = 4;
 
 	this.active = false;
 	
@@ -70,7 +69,7 @@ function lootItemClass(objX, objY,lootType){
 						p1.addWeapon("atom",this.wpAtom);
 						break;
 					case 'speed':
-						p1.addShield(this.puShield);
+						p1.addSpeed(this.puSpeed);
 						break;
 					case 'shield':
 						p1.addShield(this.puShield);
