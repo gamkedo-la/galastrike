@@ -23,11 +23,15 @@ function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
-function colorText(text='', posX=0, posY=0, font='16px Courier', color='white', alignment='left') {
+function colorText(text='', posX=0, posY=0, font='16px Courier', color='white', alignment='left',shadow=true) {
     ctx.textAlign = alignment;
-    ctx.fillStyle = color;
 	ctx.font = font;
-	ctx.fillText (text, posX, posY);
+    if (shadow) {
+        ctx.fillStyle = 'black';
+        ctx.fillText (text, posX+1, posY+1);    
+    }
+    ctx.fillStyle = color;
+    ctx.fillText (text, posX, posY);
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
