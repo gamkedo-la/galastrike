@@ -26,23 +26,23 @@ function playerClass() {
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0],["mid",0],["laser",0],["atom",0],["chris",0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
+	this.weapons = [["basic", 0], ["mid", 0], ["laser", 0], ["atom", 0], ["chris", 0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 
 	this.fireShot = function () {
 
-		
+
 		//set the current weapon
-		for (var i = this.weapons.length-1; i >= 0; i--){
-			if(this.weaponCurrent == this.weapons[i][0]){
+		for (var i = this.weapons.length - 1; i >= 0; i--) {
+			if (this.weaponCurrent == this.weapons[i][0]) {
 				this.weapons[i][1]--;
 				break;
 			}
 		}
-		
+
 		//this.weaponCurrent = this.weapons[0][0];
-		
+
 		console.log(this.weaponCurrent);
 		var newShot = new playerShotClass(this.weaponCurrent, this);
 		newShot.shotActive = true;
@@ -52,9 +52,9 @@ function playerClass() {
 
 	this.draw = function () {
 		//space ship
-		if(this.chrisCode == false){
+		if (this.chrisCode == false) {
 			ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
-		}else{
+		} else {
 			ctx.drawImage(imageArray["PlayerSpaceship_chris.png"], this.x, this.y);
 		}
 		//ship shield
@@ -79,9 +79,9 @@ function playerClass() {
 					break;
 				case 6:
 					if (this.playerShields == 6) this.playerShieldRadius = 190 / 2;
-					if (this.invincibleTimer > 100 ){
+					if (this.invincibleTimer > 100) {
 						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
-					}else if (this.invincibleTimer % 5 != 0){
+					} else if (this.invincibleTimer % 5 != 0) {
 						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
 					}
 					break;
@@ -98,7 +98,7 @@ function playerClass() {
 	this.move = function () {
 		this.handleInput();
 		//invinvible timer for the shield
-		if(this.invincible){
+		if (this.invincible) {
 			this.reduceInvincibleTimer();
 		}
 
@@ -112,11 +112,11 @@ function playerClass() {
 		}
 
 		//set the current weapon
-		for (var i = this.weapons.length-1; i >= 0; i--){
-			if(this.weapons[i][1] > 0){
+		for (var i = this.weapons.length - 1; i >= 0; i--) {
+			if (this.weapons[i][1] > 0) {
 				this.weaponCurrent = this.weapons[i][0];
 				break;
-			}else if (i == 0){
+			} else if (i == 0) {
 				this.weaponCurrent = this.weapons[0][0];
 			}
 		}
@@ -124,30 +124,30 @@ function playerClass() {
 		this.moveShield();
 		this.spaceshipAutoReverse();
 		this.speedBurst();
-	
+
 	}
 
 	this.moveShield = function () { // called by this.move
 		this.shieldRotationSpeed += .02;
 	}
 
-	this.getHit = function (amount){
-		if(!this.invincible || !this.shieldActive){
-			if (!this.shieldActive){
+	this.getHit = function (amount) {
+		if (!this.invincible || !this.shieldActive) {
+			if (!this.shieldActive) {
 				this.playerLose();
 				return;
 			}
 
-			if (amount === undefined){
+			if (amount === undefined) {
 				this.playerShields--;
-			}else{
+			} else {
 				this.playerShields -= amount;
 			}
 
-			if(this.playerShields == 0){
+			if (this.playerShields == 0) {
 				this.shieldActive = false;
 				return;
-			}else if(this.playerShields < 0){
+			} else if (this.playerShields < 0) {
 				this.playerLose();
 			}
 		}
@@ -171,6 +171,7 @@ function playerClass() {
 	}
 
 	this.playerLose = function () {
+		playDyingSound();
 		mode = GAME_OVER;
 	}
 
@@ -184,7 +185,7 @@ function playerClass() {
 			this.y = c.height - PLAYER_SHIP_HEIGHT; // maybe use autoreverse Y instead?
 	}
 
-	this.addToScore = function (howMany=1) {
+	this.addToScore = function (howMany = 1) {
 		playerScore += howMany;
 		if (playerScore >= WIN_SCORE) {
 			mode = WIN_SCREEN;
@@ -201,14 +202,14 @@ function playerClass() {
 	}
 
 	this.addShield = function (amount) {
-		
-		if (amount === undefined){
+
+		if (amount === undefined) {
 			this.playerShields++;
-		}else{
+		} else {
 			this.playerShields += amount;
 		}
 
-		if(this.playerShields >= 6){
+		if (this.playerShields >= 6) {
 			this.playerShields = 6;
 			this.invincible = true;
 			//set invincible duration time here
@@ -218,11 +219,11 @@ function playerClass() {
 		this.shieldActive = true;
 	}
 
-	this.reduceInvincibleTimer = function(){
+	this.reduceInvincibleTimer = function () {
 		this.invincibleTimer--;
-		if (this.invincibleTimer <= 0){
+		if (this.invincibleTimer <= 0) {
 			this.playerShields = 5;
-			this.invincible = false;			
+			this.invincible = false;
 		}
 
 	}
@@ -247,14 +248,14 @@ function playerClass() {
 	}
 
 	this.addWeapon = function (weaponType, amountToAdd) {
-		
-		if (weaponType == 'mid'){
+
+		if (weaponType == 'mid') {
 			this.weapons[1][1] += amountToAdd;
-		}else if(weaponType == 'laser'){
+		} else if (weaponType == 'laser') {
 			this.weapons[2][1] += amountToAdd;
-		}else if(weaponType == 'atom'){
+		} else if (weaponType == 'atom') {
 			this.weapons[3][1] += amountToAdd;
-		}else if(weaponType == 'chris'){
+		} else if (weaponType == 'chris') {
 			this.weapons[4][1] += amountToAdd;
 		}
 	}

@@ -8,10 +8,10 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 
 // WARNING: this function is extremely slow, use drawImage instead!!
 function colorCircle(centerX, centerY, radius, fillColor) {
-    ctx.fillStyle = fillColor;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI*2, true);
-    ctx.fill();
+	ctx.fillStyle = fillColor;
+	ctx.beginPath();
+	ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+	ctx.fill();
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
@@ -23,15 +23,15 @@ function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
-function colorText(text='', posX=0, posY=0, font='16px Courier', color='white', alignment='left',shadow=true) {
-    ctx.textAlign = alignment;
+function colorText(text = '', posX = 0, posY = 0, font = '16px Courier', color = 'white', alignment = 'left', shadow = true) {
+	ctx.textAlign = alignment;
 	ctx.font = font;
-    if (shadow) {
-        ctx.fillStyle = 'black';
-        ctx.fillText (text, posX+1, posY+1);    
-    }
-    ctx.fillStyle = color;
-    ctx.fillText (text, posX, posY);
+	if (shadow) {
+		ctx.fillStyle = 'black';
+		ctx.fillText(text, posX + 1, posY + 1);
+	}
+	ctx.fillStyle = color;
+	ctx.fillText(text, posX, posY);
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
@@ -46,18 +46,17 @@ function colorLine(startX, startY, endX, endY, lineWidth, fillColor) {
 
 function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY, withAngle) {
 	ctx.save(); // allows us to undo translate movement and rotate spin
-	ctx.translate(atX,atY); // sets the point where our graphic will go
+	ctx.translate(atX, atY); // sets the point where our graphic will go
 	ctx.rotate(withAngle); // sets the rotation
-	ctx.drawImage(graphic,-graphic.width/2,-graphic.height/2); // center, draw
+	ctx.drawImage(graphic, -graphic.width / 2, -graphic.height / 2); // center, draw
 	ctx.restore(); // undo the translation movement and rotation since save()
 }
 
 function drawLaserBeamLine(graphic, atX, atY) {
-	for (var i = 0; i < (c.height) / graphic.height+5; i++){
+	for (var i = 0; i < (c.height) / graphic.height + 5; i++) {
 		ctx.save(); // allows us to undo translate movement and rotate spin
-		ctx.translate(atX,atY + Math.sin(180)* graphic.height * i); // sets the point where our graphic will go
-		ctx.drawImage(graphic,-graphic.width/2,-graphic.height/2); //
+		ctx.translate(atX, atY + Math.sin(180) * graphic.height * i); // sets the point where our graphic will go
+		ctx.drawImage(graphic, -graphic.width / 2, -graphic.height / 2); //
 		ctx.restore(); // undo the translation movement and rotation since save()
 	}
-	
 }
