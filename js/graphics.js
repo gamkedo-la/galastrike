@@ -23,8 +23,9 @@ function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 }
 
 // WARNING: this function is extremely slow, use drawImage instead!!
-function colorText(text, posX, posY, font, color) {
-	ctx.fillStyle = color;
+function colorText(text='', posX=0, posY=0, font='16px Courier', color='white', alignment='left') {
+    ctx.textAlign = alignment;
+    ctx.fillStyle = color;
 	ctx.font = font;
 	ctx.fillText (text, posX, posY);
 }
