@@ -31,19 +31,19 @@ function playerClass() {
 	this.reloadFrames = 0;
 
 	this.fireShot = function () {
+
+		
 		//set the current weapon
 		for (var i = this.weapons.length-1; i >= 0; i--){
-			if(this.weapons[i][1] > 0){
-				this.weaponCurrent = this.weapons[i][0];
-				this.weapons [i][1]--;
+			if(this.weaponCurrent == this.weapons[i][0]){
+				this.weapons[i][1]--;
 				break;
-			}else if (i == 0){
-				this.weaponCurrent = this.weapons[0][0];
 			}
 		}
-
+		
 		//this.weaponCurrent = this.weapons[0][0];
 		
+		console.log(this.weaponCurrent);
 		var newShot = new playerShotClass(this.weaponCurrent, this);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
@@ -51,7 +51,6 @@ function playerClass() {
 	}
 
 	this.draw = function () {
-	
 		//space ship
 		if(this.chrisCode == false){
 			ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
@@ -112,9 +111,20 @@ function playerClass() {
 			}
 		}
 
+		//set the current weapon
+		for (var i = this.weapons.length-1; i >= 0; i--){
+			if(this.weapons[i][1] > 0){
+				this.weaponCurrent = this.weapons[i][0];
+				break;
+			}else if (i == 0){
+				this.weaponCurrent = this.weapons[0][0];
+			}
+		}
+
 		this.moveShield();
 		this.spaceshipAutoReverse();
 		this.speedBurst();
+	
 	}
 
 	this.moveShield = function () { // called by this.move
