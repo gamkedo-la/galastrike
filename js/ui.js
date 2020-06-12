@@ -1,3 +1,17 @@
+function uiOverlay() {
+    this.leftPosX = 0;
+    this.leftPosY = c.height - 220;
+    this.rightPosX = c.width - 460;
+    this.rightPosY = c.height - 220;
+
+
+    this.draw = function() {
+        ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
+        ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
+    }
+
+}
+
 function uiScore(){
     let currentScore = 0;
     let highScore = 0;

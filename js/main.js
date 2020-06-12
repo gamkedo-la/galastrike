@@ -12,6 +12,7 @@ var shieldPU; //shield Power Up
 var speedPU; // speed Power Up
 var weaponPU; // weapon Power Up
 var activeLevel;
+var uiOverlay;
 
 window.onload = function () {
 	c = document.getElementById('gameCanvas');
@@ -29,6 +30,7 @@ function gameInit() {
 	gamepad = new GamepadManager();
 	starList = []; //parallax 
 	loadLevel(levelNum);
+	ui = new uiOverlay;
 }
 
 function resize() {

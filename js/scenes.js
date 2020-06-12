@@ -61,6 +61,8 @@ function gameMode() {
 		}
 	}
 
+	ui.draw();
+
 }
 
 function gameOverScreen() {
