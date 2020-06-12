@@ -257,3 +257,13 @@ function playPickUpSound() {
 	var audio = new soundOverlapsClass('./audio/pickup.mp3');
 	audio.play();
 }
+
+function playDyingSound() {
+	var audio = new soundOverlapsClass('./audio/downUgoTwo.mp3');
+	audio.play();
+}
+
+function playLaserSound() {
+	var audio = new soundOverlapsClass('./audio/laser1point4sec.mp3');
+	audio.play();
+}
