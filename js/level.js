@@ -31,12 +31,16 @@ var levelFourData = [
 
 var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
 var levelNum = 3; //determines what level is active
+var levelRails = [railListA, railListB, railListC, railListA];
+
+
 
 function loadLevel(whichLevel) {
 	enemyList = [];
 	lootList = [];
 	levelNum = whichLevel;
 	levelCurrent = levelList[levelNum];
+	railList = levelRails[levelNum];
 	spawnClock = 0;
 }
 

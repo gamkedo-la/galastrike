@@ -190,12 +190,10 @@ function playerClass() {
 	}
 
 	this.drawPlayerScore = function () {
-		colorText("W Type: " + this.weaponCurrent, c.width - 120, c.height - 110, "15px arial", "orange"); // debug output - remove
 		colorText("Speed: " + this.sy, c.width - 120, c.height - 90, "15px arial", "orange"); // debug output - remove
 		colorText("Speed Timer: " + this.speedBurstCountdown, c.width - 120, c.height - 70, "15px arial", "orange"); // debug output - remove
 		colorText("ShotCount: " + this.myShot.length, c.width - 120, c.height - 50, "15px arial", "orange"); // debug output - remove
 		colorText("Score: " + playerScore, c.width - 120, c.height - 30, "15px arial", "white");
-		colorText("Shields: " + this.playerShields, c.width - 120, c.height - 10, "15px arial", "white");
 	}
 
 	this.addShield = function (amount) {

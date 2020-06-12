@@ -7,6 +7,10 @@ function uiOverlay() {
 
     this.draw = function() {
         ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
+        colorText("Shields: " + p1.playerShields, 15, c.height - 10, "15px arial", "white");
+        colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "orange"); 
+
+
         ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
     }
 
