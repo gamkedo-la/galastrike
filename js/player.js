@@ -32,9 +32,7 @@ function playerClass() {
 	this.tempControlEnabled = false;
 
 	this.fireShot = function () {
-
-
-		//set the current weapon
+		//Pick the weapon to use from the array
 		for (var i = this.weapons.length - 1; i >= 0; i--) {
 			if (this.weaponCurrent == this.weapons[i][0]) {
 				this.weapons[i][1]--;
@@ -42,9 +40,7 @@ function playerClass() {
 			}
 		}
 
-		//this.weaponCurrent = this.weapons[0][0];
-
-		console.log(this.weaponCurrent);
+		//Generate and activate the bullet
 		var newShot = new playerShotClass(this.weaponCurrent, this);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
