@@ -124,29 +124,32 @@ function levelOneBossClass() {
 		}
 	}
 
-	var playerPushBack = false;
-	var playerPushBackTimer = 0;
+	this.playerBackPush = false;
+	this.playerPushBackTimer = 0;
 	this.collitionDetection = function () {
 		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
 			p1.getHit();
-			playerPushBack = true;
+			this.playerBackPush = true;
 		}
 	}
 
+	this.pushbackVariable = 20;
 	this.playerPushBack = function() {
-		if(playerPushBack) {
+		if(this.playerBackPush) {
+			uiMessage.draw(stabilizing);
 			//p1.y += 10;
-			playerPushBackTimer ++;
-			if(playerPushBackTimer <= 30) {
+			this.playerPushBackTimer ++;
+			this.pushbackVariable --;
+			if(this.playerPushBackTimer <= 10) {
 				p1.tempControlEnabled = true;
-				p1.y +=10;
+				p1.y += this.pushbackVariable;
 			}
-			if(playerPushBackTimer > 31) {
-				playerPushBack = false;
+			if(this.playerPushBackTimer > 60) {
+				this.playerBackPush = false;
 				p1.tempControlEnabled = false;
-				playerPushBackTimer = 0;
+				this.playerPushBackTimer = 0;
+				this.pushbackVariable = 20;
 			}
-
 		}
 	}
 

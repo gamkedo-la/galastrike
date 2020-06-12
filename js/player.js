@@ -1,7 +1,7 @@
 const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
-const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 160;
-const MIN_DIST_FROM_SCREEN_BOTTOM = 160;
+const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 200;
+const MIN_DIST_FROM_SCREEN_BOTTOM = 200;
 const WIN_SCORE = 10000000000;
 
 var playerScore = 0;

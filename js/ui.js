@@ -12,6 +12,40 @@ function uiOverlay() {
 
 }
 
+const stabilizing = 0;
+const shield = 1;
+const ammo = 2;
+const speedBurst = 3;
+
+function uiMessages() {
+    this.x = c.width/2;
+    this.y = c.height - 20;
+
+
+    this.draw = function(mode) {
+
+        switch(mode) {
+            case stabilizing:
+            colorText('stabilizing', this.x, this.y,'30px Courier', 'white','center');
+            break;
+
+            case shield:
+            colorText('shield', this.x, this.y,'30px Courier', 'white','center');
+            break;
+
+            case ammo:
+            colorText('ammo', this.x, this.y,'30px Courier', 'white','center');
+            break;
+
+            case speedBurst:
+            colorText('speed burst', this.x, this.y,'30px Courier', 'white','center');
+            break;
+        }
+
+
+    }
+}
+
 function uiScore(){
     let currentScore = 0;
     let highScore = 0;
