@@ -33,7 +33,8 @@ var imageNames = ["PlayerSpaceship.png",
 	"MainScreen.png",
 	"TitleScreenTwo.png",
 	"leftUiSegment.png",
-	"rightUiSegment.png"
+	"rightUiSegment.png",
+	"bossBasicWeapon.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];

@@ -29,6 +29,7 @@ function playerClass() {
 	this.weapons = [["basic", 0], ["mid", 0], ["laser", 0], ["atom", 0], ["chris", 0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
 	this.weaponCurrent;
 	this.reloadFrames = 0;
+	this.tempControlEnabled = false;
 
 	this.fireShot = function () {
 
@@ -271,7 +272,7 @@ function playerClass() {
 			this.moveRight();
 		}
 
-		if (holdUp) {
+		if (holdUp && this.tempControlEnabled == false) {
 			this.moveUp();
 		}
 

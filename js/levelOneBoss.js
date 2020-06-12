@@ -13,7 +13,7 @@ function levelOneBossClass() {
 	this.hp = 100;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
-	this.hpToChangeToFullyOnScreen = 90;
+	this.hpToChangeToFullyOnScreen = 99;
 
 	this.shotX;
 	this.shotY;
@@ -62,6 +62,7 @@ function levelOneBossClass() {
 		}
 	
 		this.collitionDetection();
+		this.playerPushBack();
 
 		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -92,7 +93,6 @@ function levelOneBossClass() {
 
 	this.basicShot = function () {
 			this.rn = Math.round(Math.random() * (30 - 1) + 1); 
-			console.log(this.rn);
 
 			if (this.rn == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h - 100;
@@ -124,10 +124,29 @@ function levelOneBossClass() {
 		}
 	}
 
+	var playerPushBack = false;
+	var playerPushBackTimer = 0;
 	this.collitionDetection = function () {
 		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
 			p1.getHit();
-			console.log("add player collision bounce to player");
+			playerPushBack = true;
+		}
+	}
+
+	this.playerPushBack = function() {
+		if(playerPushBack) {
+			//p1.y += 10;
+			playerPushBackTimer ++;
+			if(playerPushBackTimer <= 30) {
+				p1.tempControlEnabled = true;
+				p1.y +=10;
+			}
+			if(playerPushBackTimer > 31) {
+				playerPushBack = false;
+				p1.tempControlEnabled = false;
+				playerPushBackTimer = 0;
+			}
+
 		}
 	}
 
