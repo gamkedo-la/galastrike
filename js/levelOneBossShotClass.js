@@ -4,8 +4,7 @@ function levelOneBossShotClass(shotPosX, shotPosY) {
 	this.weaponType = 'basic';
 	this.x = shotPosX;
 	this.y = shotPosY;
-	this.w = 10;
-	this.h = 30;
+	this.shotR = 10;
 	this.shotActive = false;
 	this.shotReloadRate;
 	this.shootSpeed;
@@ -24,7 +23,8 @@ function levelOneBossShotClass(shotPosX, shotPosY) {
 	this.draw = function() {
 		
 		if(this.shotActive == true) {
-				colorRect(this.x, this.y, this.w, this.h, 'white');	
+			ctx.drawImage(imageArray["bossBasicWeapon.png"], this.x, this.y);
+			//colorRect(this.x, this.y, this.w, this.h, 'white');
 		}		
 	}
 		
@@ -38,7 +38,7 @@ function levelOneBossShotClass(shotPosX, shotPosY) {
 	}
 
 	this.shotCheck = function() { //called by this.move
-		if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
+		if (p1.collisionCheck(false, this.x, this.y, this.shotR)) {
 			this.shotActive = false;
 			p1.getHit();
 		}
