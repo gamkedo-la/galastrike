@@ -7,30 +7,34 @@ const ENEMY_KIND_LONE_BOSS = 3;
 const ENEMY_KIND_AST = 4;
 const ENEMY_KIND_SAT = 5;
 
+const WAVE_WAIT_UNTIL_CLEAR = -1;
+const WAVE_FINSIHED = -2;
+
 var levelOneData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:5, countSpacing: 50},
-	{kind:ENEMY_KIND_AST, when:100, atX:0.2, count:5, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, when:100, atX:0.8, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_AST, delayBefore:1, atX:0.2, count:5, countSpacing: 50}, 
+	{kind:ENEMY_KIND_SAT, delayBefore:200, atX:0.8, count:5, countSpacing: 50},
 ];
 
 var levelTwoData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, when:100, atX:0.5, count:5, countSpacing: 50},
-	{kind:ENEMY_KIND_MID_ALIEN, when:100, atX:0.2, count:5, countSpacing: 50, onRail:0},
-	{kind:ENEMY_KIND_MID_ALIEN, when:200, atX:0.2, count:3, countSpacing: 50, onRail:1},
-	{kind:ENEMY_KIND_DIVER_ALIEN, when:100, atX:0.8, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:2, countSpacing: 50},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:3, countSpacing: 50, onRail:0},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:2, countSpacing: 50, onRail:1},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:100, atX:0.8, count:3, countSpacing: 50},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:110, atX:0.5, count:2, countSpacing: 50},
 ];
 
 var levelThreeData = [
-	{kind:ENEMY_KIND_LONE_BOSS, when:0},
+	{kind:ENEMY_KIND_LONE_BOSS, delayBefore:0},
 ];
 
 var levelFourData = [
-	{kind:ENEMY_KIND_AST, when:0, count:20, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, when:0, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_AST, delayBefore:0, count:20, countSpacing: 50}, 
+	{kind:ENEMY_KIND_SAT, delayBefore:0, count:5, countSpacing: 50},
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
-var levelNum = 3; //determines what level is active
+var levelNum = 1; //determines what level is active
 var levelRails = [railListA, railListB, railListC, railListA];
 
 
@@ -42,13 +46,30 @@ function loadLevel(whichLevel) {
 	levelCurrent = levelList[levelNum];
 	railList = levelRails[levelNum];
 	spawnClock = 0;
+	upToSpawnIdx = 1;
+	lastSpawnTime = 0;
 }
-
+var upToSpawnIdx = 0;
 var levelCurrent;
 var spawnClock = 0;
+var lastSpawnTime = 0;
+
+function checkIfSpawnBlocked() {
+	if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore == WAVE_WAIT_UNTIL_CLEAR) {
+		if(enemyList.length == 0) {
+			levelCurrent[upToSpawnIdx].delayBefore = 1;
+			lastSpawnTime = spawnClock;
+			upToSpawnIdx ++;
+		}
+	}
+}
 function handelLevelSpawn() {
-	for(var i=0; i<levelCurrent.length; i++){
-		if(spawnClock == levelCurrent[i].when) {
+	if(upToSpawnIdx > levelCurrent.length) {
+		console.log("out of bad guys, handle level end");
+		return;
+	}
+	for(var i=0; i < upToSpawnIdx; i++){
+		if(spawnClock == levelCurrent[i].delayBefore + lastSpawnTime) {
 			var spawnObj;
 			switch(levelCurrent[i].kind) {
 				case ENEMY_KIND_BASIC_ALIEN:
@@ -82,10 +103,20 @@ function handelLevelSpawn() {
 			if(levelCurrent[i].count != undefined) { 
 				levelCurrent[i].count --; //the one spawns now
 				if(levelCurrent[i].count > 0) {
-					levelCurrent[i].when += levelCurrent[i].countSpacing;
+					levelCurrent[i].delayBefore = levelCurrent[i].countSpacing;
+				} 
+				else {
+					levelCurrent[i].delayBefore = WAVE_FINSIHED;
+					if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
+						upToSpawnIdx ++;
+					}
 				}
+			} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
+				upToSpawnIdx ++;
 			}
 			enemyList.push(spawnObj);
+			
+			lastSpawnTime = spawnClock;
 		}
 	}
 	spawnClock ++;
