@@ -6,6 +6,12 @@ function uiOverlay() {
     this.speedMeterY = 100;
     this.speedMeterUp = true;
     this.speedMeterDown = false;
+    this.messageTimer = 0;
+    this.messageToShow = undefined;
+    this.stabilizing = 0;
+    this.shield = 1;
+    this.ammo = 2;
+    this.speedBurst = 3;
 
 
 
@@ -22,6 +28,9 @@ function uiOverlay() {
 
         colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
         this.speedMeter();
+
+        //center messages
+        this.showUiCenterMessages();
 
         //debugs - to be removed for release
         colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 200, c.height - 70, "15px arial", "orange"); // debug output - remove
@@ -92,45 +101,46 @@ function uiOverlay() {
         }
     }
 
-}
 
+   
+    this.messagesPosX = c.width/2;
+    this.messagesPosY = c.height - 20;
 
-
-
-
-const stabilizing = 0;
-const shield = 1;
-const ammo = 2;
-const speedBurst = 3;
-
-function uiMessages() {
-    this.x = c.width/2;
-    this.y = c.height - 20;
-
-
-    this.draw = function(text) {
+    this.uiMessages = function(text) {
 
         switch(text) {
-            case stabilizing:
-            colorText('stabilizing', this.x, this.y,'30px Courier', 'white','center');
+            case this.stabilizing:
+            colorText('stabilizing', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
-            case shield:
-            colorText('shield', this.x, this.y,'30px Courier', 'white','center');
+            case this.shield:
+            colorText('shield', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
-            case ammo:
-            colorText('ammo', this.x, this.y,'30px Courier', 'white','center');
+            case this.ammo:
+            colorText('ammo', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
-            case speedBurst:
-            colorText('speed burst', this.x, this.y,'30px Courier', 'white','center');
+            case this.speedBurst:
+            colorText('speed burst', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
         }
-
-
     }
+
+    this.showUiCenterMessages = function() {
+       if(this.messageToShow != undefined) {
+            this.messageTimer++
+            this.uiMessages(this.messageToShow);
+            if(this.messageTimer >= 60) {
+                this.messageToShow = undefined;
+                this.messageTimer = 0;
+            }
+       }
+    }
+
 }
+
+
 
 function uiScore(){
     let currentScore = 0;

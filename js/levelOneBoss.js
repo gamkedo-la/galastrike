@@ -136,7 +136,7 @@ function levelOneBossClass() {
 	this.pushbackVariable = 20;
 	this.playerPushBack = function() {
 		if(this.playerBackPush) {
-			uiMessage.draw(stabilizing);
+			ui.messageToShow = ui.stabilizing;
 			//p1.y += 10;
 			this.playerPushBackTimer ++;
 			this.pushbackVariable --;
