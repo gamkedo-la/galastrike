@@ -11,9 +11,9 @@ const WAVE_WAIT_UNTIL_CLEAR = -1;
 const WAVE_FINSIHED = -2;
 
 var levelOneData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50},
-	{kind:ENEMY_KIND_AST, delayBefore:1, atX:0.2, count:5, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, delayBefore:200, atX:0.8, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:3, countSpacing: 50, onRail:0},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:1, atX:0.2, count:1, countSpacing: 50, onRail:1}, 
+	//{kind:ENEMY_KIND_SAT, delayBefore:200, atX:0.8, count:5, countSpacing: 50},
 ];
 
 var levelTwoData = [
@@ -34,7 +34,7 @@ var levelFourData = [
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
-var levelNum = 1; //determines what level is active
+var levelNum = 0; //determines what level is active
 var levelRails = [railListA, railListB, railListC, railListA];
 
 
@@ -54,9 +54,18 @@ var levelCurrent;
 var spawnClock = 0;
 var lastSpawnTime = 0;
 
-function checkIfSpawnBlocked() {
-	if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore == WAVE_WAIT_UNTIL_CLEAR) {
-		if(enemyList.length == 0) {
+function checkIfSpawnBlockedOrLevelOver() {
+	if(enemyList.length == 0) {
+		if(upToSpawnIdx >= levelCurrent.length) {
+			console.log("nothing else to spawn, and all enemies dead, go to next level");
+			levelNum++;
+			if(levelNum >= levelList.length) {
+				console.log("you won the whole game. Still not handled");
+			} else {
+				loadLevel(levelNum);
+			}
+		}
+		if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore == WAVE_WAIT_UNTIL_CLEAR) {
 			levelCurrent[upToSpawnIdx].delayBefore = 1;
 			lastSpawnTime = spawnClock;
 			upToSpawnIdx ++;
@@ -65,7 +74,6 @@ function checkIfSpawnBlocked() {
 }
 function handelLevelSpawn() {
 	if(upToSpawnIdx > levelCurrent.length) {
-		console.log("out of bad guys, handle level end");
 		return;
 	}
 	for(var i=0; i < upToSpawnIdx; i++){

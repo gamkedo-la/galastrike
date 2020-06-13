@@ -8,10 +8,16 @@ function uiOverlay() {
     this.draw = function() {
         ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
         colorText("Shields: " + p1.playerShields, 15, c.height - 10, "15px arial", "white");
-        colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "orange"); 
-
+        colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "white"); 
+        
 
         ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
+        colorText("Score: " + playerScore, c.width - 400, c.height - 10, "15px arial", "white");
+        colorText("Speed: " + p1.sy, c.width - 80, c.height - 10, "15px arial", "white"); 
+
+        //debugs - to be removed for release
+        colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 200, c.height - 70, "15px arial", "orange"); // debug output - remove
+        colorText("ShotCount: " + p1.myShot.length, c.width - 200, c.height - 50, "15px arial", "orange"); // debug output - remove
     }
 
 }
@@ -26,9 +32,9 @@ function uiMessages() {
     this.y = c.height - 20;
 
 
-    this.draw = function(mode) {
+    this.draw = function(text) {
 
-        switch(mode) {
+        switch(text) {
             case stabilizing:
             colorText('stabilizing', this.x, this.y,'30px Courier', 'white','center');
             break;

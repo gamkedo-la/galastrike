@@ -31,7 +31,6 @@ function gameMode() {
 	//player ship
 	p1.draw();
 	p1.move();
-	p1.drawPlayerScore();
 
 	starMove();
 	drawRails();
@@ -45,7 +44,7 @@ function gameMode() {
 	for (var i = enemyList.length - 1; i >= 0; i--) {
 		if (enemyList[i].readyToRemove()) {
 			enemyList.splice(i, 1);
-			checkIfSpawnBlocked();
+			checkIfSpawnBlockedOrLevelOver();
 		}
 	}
 

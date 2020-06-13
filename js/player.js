@@ -84,9 +84,7 @@ function playerClass() {
 					break;
 			}
 		}
-		//player score
-		this.drawPlayerScore();
-
+	
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();
 		}
@@ -187,13 +185,6 @@ function playerClass() {
 		if (playerScore >= WIN_SCORE) {
 			mode = WIN_SCREEN;
 		}
-	}
-
-	this.drawPlayerScore = function () {
-		colorText("Speed: " + this.sy, c.width - 120, c.height - 90, "15px arial", "orange"); // debug output - remove
-		colorText("Speed Timer: " + this.speedBurstCountdown, c.width - 120, c.height - 70, "15px arial", "orange"); // debug output - remove
-		colorText("ShotCount: " + this.myShot.length, c.width - 120, c.height - 50, "15px arial", "orange"); // debug output - remove
-		colorText("Score: " + playerScore, c.width - 120, c.height - 30, "15px arial", "white");
 	}
 
 	this.addShield = function (amount) {
