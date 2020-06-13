@@ -22,7 +22,7 @@ function lootItemClass(objX, objY, lootType) {
 
 	//default item amount PowerUps:
 	this.puSpeed = 120;
-	this.puShield = 3;
+	this.puShield = 1;
 
 	this.draw = function () {
 		if (this.active) {
@@ -78,7 +78,9 @@ function lootItemClass(objX, objY, lootType) {
 						break;
 					case 'shield':
 						p1.addShield(this.puShield);
-						ui.messageToShow = ui.shield;
+						if(p1.playerShields <= 5) {
+							ui.messageToShow = ui.shield;
+						}
 						break;
 				}
 				this.active = false;

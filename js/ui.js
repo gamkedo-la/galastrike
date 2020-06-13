@@ -12,6 +12,7 @@ function uiOverlay() {
     this.shield = 1;
     this.ammo = 2;
     this.speedBurst = 3;
+    this.invincible = 4;
 
 
 
@@ -33,8 +34,9 @@ function uiOverlay() {
         this.showUiCenterMessages();
 
         //debugs - to be removed for release
-        colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 200, c.height - 70, "15px arial", "orange"); // debug output - remove
-        colorText("ShotCount: " + p1.myShot.length, c.width - 200, c.height - 50, "15px arial", "orange"); // debug output - remove
+        colorText("invincibleTimer: " + p1.invincibleTimer, c.width - 220, c.height - 90, "15px arial", "orange"); // debug output - remove
+        colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 220, c.height - 70, "15px arial", "orange"); // debug output - remove
+        colorText("ShotCount: " + p1.myShot.length, c.width - 220, c.height - 50, "15px arial", "orange"); // debug output - remove
     }
 
     this.move = function() {
@@ -122,7 +124,11 @@ function uiOverlay() {
             break;
 
             case this.speedBurst:
-            colorText('speed burst', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
+            colorText('MAX SPEED', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
+            break;
+
+            case this.invincible:
+            colorText('INVINCIBLE', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
         }
     }
@@ -131,7 +137,14 @@ function uiOverlay() {
        if(this.messageToShow != undefined) {
             this.messageTimer++
             this.uiMessages(this.messageToShow);
-            if(this.messageTimer >= 60) {
+
+            if(this.messageToShow != this.invincible) {
+                if(this.messageTimer >= 60) {
+                    this.messageToShow = undefined;
+                    this.messageTimer = 0;
+                }
+            }
+            if(this.messageToShow == this.invincible) {
                 this.messageToShow = undefined;
                 this.messageTimer = 0;
             }

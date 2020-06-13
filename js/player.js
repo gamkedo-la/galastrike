@@ -76,6 +76,7 @@ function playerClass() {
 				case 0:
 					break;
 				case 6:
+					ui.messageToShow = ui.invincible;
 					if (this.playerShields == 6) this.playerShieldRadius = 190 / 2;
 					if (this.invincibleTimer > 100) {
 						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
