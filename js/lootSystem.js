@@ -62,18 +62,23 @@ function lootItemClass(objX, objY, lootType) {
 				switch (lootType) {
 					case 'mid':
 						p1.addWeapon("mid", this.wpMid);
+						ui.messageToShow = ui.ammo;
 						break;
 					case 'laser':
 						p1.addWeapon("laser", this.wpLaser);
+						ui.messageToShow = ui.ammo;
 						break;
 					case 'atom':
 						p1.addWeapon("atom", this.wpAtom);
+						ui.messageToShow = ui.ammo;
 						break;
 					case 'speed':
 						p1.addSpeed(this.puSpeed);
+						ui.messageToShow = ui.speedBurst;
 						break;
 					case 'shield':
 						p1.addShield(this.puShield);
+						ui.messageToShow = ui.shield;
 						break;
 				}
 				this.active = false;
