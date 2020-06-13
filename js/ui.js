@@ -3,57 +3,100 @@ function uiOverlay() {
     this.leftPosY = c.height - 220;
     this.rightPosX = c.width - 460;
     this.rightPosY = c.height - 220;
+    this.speedMeterY = 100;
+    this.speedMeterUp = true;
+    this.speedMeterDown = false;
+
+
 
 
     this.draw = function() {
         ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
         colorText("Shields: ", 15, c.height - 10, "15px arial", "white");
-        shieldUiBars();
+        this.shieldUiBars();
         colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "white"); 
         
 
         ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
         colorText("Score: " + playerScore, c.width - 400, c.height - 10, "15px arial", "white");
 
-        colorText("Speed: " + p1.sy, c.width - 80, c.height - 10, "15px arial", "white"); 
-        speedMeter();
+        colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
+        this.speedMeter();
 
         //debugs - to be removed for release
         colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 200, c.height - 70, "15px arial", "orange"); // debug output - remove
         colorText("ShotCount: " + p1.myShot.length, c.width - 200, c.height - 50, "15px arial", "orange"); // debug output - remove
     }
 
+    this.move = function() {
+        this.moveSpeedMeter();
+    }
+
+
+
+    this.shieldUiBars = function() {
+        if(p1.playerShields >= 5) {
+            colorRect(15, c.height - 160, 50, 20, "white");
+        }
+         if(p1.playerShields >= 4) {
+            colorRect(15, c.height - 135, 50, 20, "white");
+        }
+         if(p1.playerShields >= 3) {
+            colorRect(15, c.height - 110, 50, 20, "white");
+        }
+         if(p1.playerShields >= 2) {
+            colorRect(15, c.height - 85, 50, 20, "white");
+        }
+         if(p1.playerShields >= 1) {
+            colorRect(15, c.height - 60, 50, 20, "white");
+        }
+        if(p1.playerShields == 6) {
+            colorRect(15, c.height - 160, 50, 120, "green");
+        }
+    }
+
+    this.speedMeterBottom = 0;
+
+    this.speedMeter = function() {
+         if(p1.speedBurstCountdown <= 0) {
+            colorRect(c.width - 70, c.height - this.speedMeterY, 20, 65 + this.speedMeterBottom, "white");
+        }
+        if(p1.speedBurstCountdown <= 0) {
+            colorRect(c.width - 40, c.height - this.speedMeterY, 20, 65 + this.speedMeterBottom, "white");
+        }
+
+        if(p1.speedBurstCountdown >= 1) {
+            colorRect(c.width - 70, c.height - 160, 20, 125, "red");
+            colorRect(c.width - 40, c.height - 160, 20, 125, "red");
+        }
+    }
+
+
+    this.moveSpeedMeter = function() {
+        if(this.speedMeterY <= 60) {
+            this.speedMeterUp = true;
+            this.speedMeterDown = false;
+        }
+        if(this.speedMeterY >= 110 ) {
+            this.speedMeterUp = false;
+            this.speedMeterDown = true;
+        }
+
+        if(this.speedMeterUp) {
+            this.speedMeterY ++;
+            this.speedMeterBottom ++;
+        }
+        if(this.speedMeterDown) {
+            this.speedMeterY --;
+            this.speedMeterBottom --;
+        }
+    }
+
 }
 
-function shieldUiBars() {
-    if(p1.playerShields >= 5) {
-        colorRect(15, c.height - 160, 50, 20, "white");
-    }
-     if(p1.playerShields >= 4) {
-        colorRect(15, c.height - 135, 50, 20, "white");
-    }
-     if(p1.playerShields >= 3) {
-        colorRect(15, c.height - 110, 50, 20, "white");
-    }
-     if(p1.playerShields >= 2) {
-        colorRect(15, c.height - 85, 50, 20, "white");
-    }
-     if(p1.playerShields >= 1) {
-        colorRect(15, c.height - 60, 50, 20, "white");
-    }
-    if(p1.playerShields == 6) {
-        colorRect(15, c.height - 160, 50, 100, "white");
-    }
-}
 
-function speedMeter() {
-     if(p1.speedBurstCountdown <= 0) {
-        colorRect(c.width - 70, c.height - 100, 50, 65, "white");
-    }
-    if(p1.speedBurstCountdown >= 1) {
-        colorRect(c.width - 70, c.height - 160, 50, 125, "white");
-    }
-}
+
+
 
 const stabilizing = 0;
 const shield = 1;

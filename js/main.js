@@ -115,6 +115,7 @@ function moveEverything() {
 	gamepad.update();
 	//audio
 	backgroundMusic.updateMusic();
+	ui.move();
 }
 
 function resetGame() {
