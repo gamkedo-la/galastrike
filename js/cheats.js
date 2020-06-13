@@ -3,7 +3,7 @@ var cheatBuffer = "";
 // Note: single character cheats dont work, must be atleast 2 characters and all lowercase
 var cheatList = [
 	"kill", 		// 0 - opens the gameover screen
-	"speed",		// 1 - gives the palyer speedburst for 600s
+	"fast",		// 1 - gives the palyer speedburst for 600s
 	"UUDDLRLRba",	// 2 - Konami code
 	"shield",		// 3 - get super shield
 	"chris",		// 4 - super secret chris weapon

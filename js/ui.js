@@ -7,19 +7,52 @@ function uiOverlay() {
 
     this.draw = function() {
         ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
-        colorText("Shields: " + p1.playerShields, 15, c.height - 10, "15px arial", "white");
+        colorText("Shields: ", 15, c.height - 10, "15px arial", "white");
+        shieldUiBars();
         colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "white"); 
         
 
         ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
         colorText("Score: " + playerScore, c.width - 400, c.height - 10, "15px arial", "white");
+
         colorText("Speed: " + p1.sy, c.width - 80, c.height - 10, "15px arial", "white"); 
+        speedMeter();
 
         //debugs - to be removed for release
         colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 200, c.height - 70, "15px arial", "orange"); // debug output - remove
         colorText("ShotCount: " + p1.myShot.length, c.width - 200, c.height - 50, "15px arial", "orange"); // debug output - remove
     }
 
+}
+
+function shieldUiBars() {
+    if(p1.playerShields >= 5) {
+        colorRect(15, c.height - 160, 50, 20, "white");
+    }
+     if(p1.playerShields >= 4) {
+        colorRect(15, c.height - 135, 50, 20, "white");
+    }
+     if(p1.playerShields >= 3) {
+        colorRect(15, c.height - 110, 50, 20, "white");
+    }
+     if(p1.playerShields >= 2) {
+        colorRect(15, c.height - 85, 50, 20, "white");
+    }
+     if(p1.playerShields >= 1) {
+        colorRect(15, c.height - 60, 50, 20, "white");
+    }
+    if(p1.playerShields == 6) {
+        colorRect(15, c.height - 160, 50, 100, "white");
+    }
+}
+
+function speedMeter() {
+     if(p1.speedBurstCountdown <= 0) {
+        colorRect(c.width - 70, c.height - 100, 50, 65, "white");
+    }
+    if(p1.speedBurstCountdown >= 1) {
+        colorRect(c.width - 70, c.height - 160, 50, 125, "white");
+    }
 }
 
 const stabilizing = 0;
