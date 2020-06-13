@@ -2,6 +2,7 @@ const PLAYER_SHIP_WIDTH = 144; //current width of pixel art
 const PLAYER_SHIP_HEIGHT = 110; //current height of pixel art 
 const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 200;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 200;
+const SIDE_SCREEN_BUFFER = 120;
 const WIN_SCORE = 10000000000;
 
 var playerScore = 0;
@@ -293,13 +294,13 @@ function playerClass() {
 	}
 
 	this.moveLeft = function () {
-		if (this.x >= 20) {
+		if (this.x >= SIDE_SCREEN_BUFFER) {
 			this.x -= this.sx;
 		}
 	}
 
 	this.moveRight = function () {
-		if (this.x <= c.width - PLAYER_SHIP_WIDTH - 20) {
+		if (this.x <= c.width - PLAYER_SHIP_WIDTH - SIDE_SCREEN_BUFFER) {
 			this.x += this.sx;
 		}
 	}
