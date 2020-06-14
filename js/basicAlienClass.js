@@ -16,6 +16,7 @@ function basicAlienClass() {
 	this.hp = BASIC_ALIEN_HP;
 	this.respawnTimer = 60;
 	this.destroyed = false;
+	this.explosion = new explosion(20, 20, 18, 'yellow', 'red', 'blue');
 
 	this.lootDropRate = 2;
 
@@ -27,13 +28,16 @@ function basicAlienClass() {
 
 
 	this.draw = function () {
-		ctx.drawImage(imageArray["enemyAalt.png"], this.x, this.y);
-		colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
+		if (!this.destroyed) {
+			ctx.drawImage(imageArray["enemyAalt.png"], this.x, this.y);
+			colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
 
-		if (this.shotActive == true) {
-			drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
+			if (this.shotActive == true) {
+				drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
+			}
+			this.basicShot();
 		}
-		this.basicShot();
+		this.explosion.draw();
 	}
 
 	this.move = function () {
@@ -50,6 +54,7 @@ function basicAlienClass() {
 		}
 
 		this.playerCollitionDetection();
+		this.explosion.move(this.x + this.w * 0.5, this.y + this.h * 0.5);
 
 		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
@@ -97,12 +102,14 @@ function basicAlienClass() {
 
 	this.playerCollitionDetection = function () {
 		if (p1.collisionCheck(false, this.x + 5, this.y, this.w, this.h) ||	//alien body
-			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {	//alien round plate on front
-			p1.getHit();
-			this.hp--;
-			if (this.hp <= 0 && !this.destroyed) {
-				this.onDestroyed();
-			}
+			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {	//alien round plate on front			
+				if (!this.destroyed) {
+					p1.getHit();
+					this.hp--;
+				}
+				if (!this.destroyed && this.hp <= 0) {
+					this.onDestroyed();
+				}
 		}
 	}
 
@@ -114,9 +121,10 @@ function basicAlienClass() {
 		}
 		p1.addToScore(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
+		this.explosion.explode();
 	}
 
 	this.readyToRemove = function () {
-		return (this.destroyed || this.y > c.height);
+		return ((this.destroyed && this.explosion.done()) || this.y > c.height);
 	}
 }
