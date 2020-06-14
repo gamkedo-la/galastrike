@@ -63,7 +63,7 @@ function satellites() {
 
 		//p1.playerScoring(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
-		this.explosion.explode();		
+		this.explosion.explode();
 	}
 
 	this.respawn = function () {	
@@ -73,7 +73,7 @@ function satellites() {
 		//shieldPU.pickedUP = false;
 		this.y = -50;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
-		this.explosion = this.explosion ? new explosion() : this.explosion;			
+		this.explosion = this.explosion ? new explosion() : this.explosion;
 	}
 
 	this.readyToRemove = function () {
