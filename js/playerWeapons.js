@@ -108,7 +108,9 @@ function playerShotClass(weaponType, ship) {
 
 	this.shotCheck = function () { //note called by this.move
 		for (var i = 0; i < enemyList.length; i++) {
-			enemyList[i].shotHitMeCheck(this);
+			if (!enemyList[i].destroyed) {
+				enemyList[i].shotHitMeCheck(this);
+			}
 		}
 
 		if (this.weaponType == 'basic' || this.weaponType == 'mid') {
