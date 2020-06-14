@@ -95,7 +95,7 @@ function diverAlienClass() {
 			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
 		}
 
-		p1.addTOScore(25); //needs to be fixed
+		p1.addToScore(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
 	}
 
