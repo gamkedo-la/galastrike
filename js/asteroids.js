@@ -21,7 +21,7 @@ function asteroids() {
 			drawBitmapCenteredAtLocationWithRotation(graphic, this.x, this.y, this.rotation);
 		}
 		
-		this.explosion.draw();		
+		this.explosion.draw();
 	}
 
 	this.move = function () {
@@ -64,19 +64,18 @@ function asteroids() {
 		}
 		//p1.playerScoring(25); //needs to be fixed
 		
-		playDestroyedEnemyMidSound();
-		
-		this.explosion.explode();		
+		playDestroyedEnemyMidSound();		
+		this.explosion.explode();
 	}
 
 	this.respawn = function () {
 		this.hp = 1;
 		this.destroyed = false;
-		this.explosion = this.explosion ? new explosion() : this.explosion;
 		
 		//shieldPU.pickedUP = false;
 		this.y = -100;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
+		this.explosion = this.explosion ? new explosion() : this.explosion;
 	}
 
 	this.readyToRemove = function() {

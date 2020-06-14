@@ -1,7 +1,8 @@
 
-function explosion(radius = 5, duration = 10, shrinkFactor = 7) {	
-	this.x = 0;
-    this.y = 0;    
+function explosion(radius = 5, duration = 10, shrinkFactor = 7, 
+                   color1 = 'red', color2 = 'orange', color3 = 'yellow', color4 = 'white') {	
+	this.x = -5000;
+    this.y = -5000;    
     
     this.explode = false;
 	this.explosionRemovalCountdown = duration;
@@ -10,7 +11,7 @@ function explosion(radius = 5, duration = 10, shrinkFactor = 7) {
 	this.explosionRadiusNow = this.explosionRadius;
 	this.explosionShrinkFactor = shrinkFactor;
 
-	this.draw = function () {    
+	this.draw = function () {
         if (this.explode == true) {
             if (this.explosionRemovalCountdownNow > 0) {
                 let color;
@@ -21,9 +22,9 @@ function explosion(radius = 5, duration = 10, shrinkFactor = 7) {
                     this.explosionRadiusNow -= this.explosionShrinkFactor;					
                 }
 
-                color = 'red';
-                color = Math.random() > 0.5 ? 'orange' : 'yellow';
-                color = Math.random() > 0.25 ? 'white' : color;					
+                color = color1;
+                color = Math.random() > 0.5 ? color2 : color3;
+                color = Math.random() > 0.25 ? color4 : color;					
                                 
                 colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
                 colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
