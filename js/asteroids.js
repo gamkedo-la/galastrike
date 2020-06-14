@@ -8,12 +8,8 @@ function asteroids() {
 	this.sy = 5;
 
 	this.destroyed = false;
-	this.destroyedRemovalCountdown = 10;
-	this.destroyedRemovalCountdownNow = this.destroyedRemovalCountdown;
-	this.explosionRadius = 5;
-	this.explosionRadiusNow = this.explosionRadius;
-	this.explosionShrinkFactor = 7;
-	
+	this.explosion = new explosion();
+
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
 	this.lootDropRate = 2;
@@ -21,47 +17,20 @@ function asteroids() {
 	this.draw = function () {
 		let graphic = imageArray["asteroid_3.png"];
 
-		if (this.destroyed == false) {
+		if (!this.destroyed) {
 			drawBitmapCenteredAtLocationWithRotation(graphic, this.x, this.y, this.rotation);
 		}
-		else if (this.destroyed == true) {
-			if (this.destroyedRemovalCountdownNow > 0) {	
-				let color;
-				if (this.explosionRadiusNow <= 50 * 1.05) {
-					this.explosionRadiusNow += this.explosionShrinkFactor;					
-				}
-				else {
-					this.explosionRadiusNow -= this.explosionShrinkFactor;					
-				}
-
-				color = 'red';
-				color = Math.random() > 0.5 ? 'orange' : 'yellow';
-				color = Math.random() > 0.25 ? 'white' : color;					
-								
-				colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 5, this.y - Math.random() * 5, this.explosionRadiusNow, color);
-				colorCircle(this.x - Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 15, this.y + Math.random() * 15, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 15, this.y + Math.random() * 15, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 15, this.y - Math.random() * 15, this.explosionRadiusNow, color);
-				colorCircle(this.x - Math.random() * 15, this.y + Math.random() * 15, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
-				colorCircle(this.x + Math.random() * 20, this.y - Math.random() * 20, this.explosionRadiusNow, color);
-				colorCircle(this.x - Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
-							
-				this.destroyedRemovalCountdownNow--;
-			}
-		}
+		
+		this.explosion.draw();		
 	}
 
 	this.move = function () {
 		this.y += this.sy;
 		this.rotation += this.rotationSpeed;
 		this.playerCollisionDetection();
+		this.explosion.move(this.x, this.y);
 
-		if (this.y >= c.height || this.destroyedRemovalCountdownNow <= 0) {
+		if (this.y >= c.height) {
 			this.respawn();
 		}
 	}
@@ -96,22 +65,21 @@ function asteroids() {
 		//p1.playerScoring(25); //needs to be fixed
 		
 		playDestroyedEnemyMidSound();
-		// if (this.destroyedRemovalCountdownNow <= 0) {
-		// 	this.respawn();
-		// }
+		
+		this.explosion.explode();		
 	}
 
 	this.respawn = function () {
 		this.hp = 1;
 		this.destroyed = false;
-		this.destroyedRemovalCountdownNow = this.destroyedRemovalCountdown;
-		this.explosionRadiusNow = this.explosionRadius;
+		this.explosion = this.explosion ? new explosion() : this.explosion;
+		
 		//shieldPU.pickedUP = false;
 		this.y = -100;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 	}
 
 	this.readyToRemove = function() {
-		return ((this.destroyed && this.destroyedRemovalCountdownNow <= 0) || this.y > c.height);
+		return ((this.destroyed && this.explosion.done()) || this.y > c.height);
 	}
 }
