@@ -112,7 +112,7 @@ function basicAlienClass() {
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
 			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
 		}
-		//p1.playerScoring(25); //needs to be fixed
+		p1.addToScore(25); //needs to be fixed
 		playDestroyedEnemyMidSound();
 	}
 
