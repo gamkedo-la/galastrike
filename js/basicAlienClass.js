@@ -31,31 +31,36 @@ function basicAlienClass() {
 		if (!this.destroyed) {
 			ctx.drawImage(imageArray["enemyAalt.png"], this.x, this.y);
 			colorText(this.hp, this.x + 70, this.y, "18px arial", "orange"); // hp indicator
-
-			if (this.shotActive == true) {
-				drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
-			}
-			this.basicShot();
 		}
+
+		if (this.shotActive == true) {
+			drawBitmapCenteredAtLocationWithRotation(imageArray["enemyAalt_shot.png"], this.shotX, this.shotY, 0);
+		}
+		
 		this.explosion.draw();
 	}
 
 	this.move = function () {
-		//movement ai
-		this.x += this.sx;
-		this.y += this.sy;
+		if (!this.destroyed) {
+			//movement ai
+			this.x += this.sx;
+			this.y += this.sy;
 
-		if (this.x >= c.width - this.w - this.screenBuffer) {
-			this.sx = -this.sx;
+			if (this.x >= c.width - this.w - this.screenBuffer) {
+				this.sx = -this.sx;
+			}
+
+			if (this.x <= 0 + this.screenBuffer) {
+				this.sx = -this.sx;
+			}
+
+			this.playerCollitionDetection();
+			this.basicShot();
 		}
 
-		if (this.x <= 0 + this.screenBuffer) {
-			this.sx = -this.sx;
+		if(!this.explosion.done()){
+			this.explosion.move(this.x + this.w * 0.5, this.y + this.h * 0.5);
 		}
-
-		this.playerCollitionDetection();
-		this.explosion.move(this.x + this.w * 0.5, this.y + this.h * 0.5);
-
 		if (this.shotActive == true) {
 			this.shotY += this.shotSpeed;
 			this.shotCheck();
@@ -76,26 +81,26 @@ function basicAlienClass() {
 				}
 			}
 		}
-
-		if (this.shotY >= c.height) {
-			this.shotActive = false;
-		}
 	}
 
 	this.shotCheck = function () {
 		if (p1.collisionCheck(false, this.shotX, this.shotY, this.shotR)) {
 			this.shotActive = false;
 			p1.getHit();
+		}else if(this.shotY >= c.height) {
+			this.shotActive = false;
 		}
 	}
 
 	this.shotHitMeCheck = function (theShot) {
-		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
-			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
-			theShot.deactivate();
-			this.hp -= theShot.removeAlienHp;
-			if (this.hp <= 0 && !this.destroyed) {
-				this.onDestroyed();
+		if(!this.destroyed){
+			if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 5, this.y, this.w, this.h) ||	//alien body
+				collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 40, this.y + 64, this.r)) {		//alien round plate on front
+				theShot.deactivate();
+				this.hp -= theShot.removeAlienHp;
+				if (this.hp <= 0) {
+					this.onDestroyed();
+				}
 			}
 		}
 	}
@@ -103,11 +108,10 @@ function basicAlienClass() {
 	this.playerCollitionDetection = function () {
 		if (p1.collisionCheck(false, this.x + 5, this.y, this.w, this.h) ||	//alien body
 			p1.collisionCheck(false, this.x + 40, this.y + 64, this.r)) {	//alien round plate on front			
-				if (!this.destroyed) {
 					p1.getHit();
 					this.hp--;
-				}
-				if (!this.destroyed && this.hp <= 0) {
+	
+				if (this.hp <= 0) {
 					this.onDestroyed();
 				}
 		}
@@ -115,7 +119,6 @@ function basicAlienClass() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
 			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
 		}
@@ -125,6 +128,6 @@ function basicAlienClass() {
 	}
 
 	this.readyToRemove = function () {
-		return ((this.destroyed && this.explosion.done()) || this.y > c.height);
+		return ((this.destroyed && this.explosion.done() && !this.shotActive) || this.y > c.height);
 	}
 }
