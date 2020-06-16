@@ -15,7 +15,7 @@ function playerClass() {
 
 	this.sy = 5;
 	this.sx = 10;
-	this.playerShields = 2; //Not more then 5!
+	this.playerShields = 5; //Not more then 5!
 	this.shieldRotationSpeed = 0;
 	this.playerShieldRadius;
 	this.shieldActive = true;

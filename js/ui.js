@@ -41,6 +41,10 @@ function uiOverlay() {
 
     this.move = function() {
         this.moveSpeedMeter();
+        this.leftPosX = 0;
+        this.leftPosY = c.height - 220;
+        this.rightPosX = c.width - 460;
+        this.rightPosY = c.height - 220;
     }
 
 
