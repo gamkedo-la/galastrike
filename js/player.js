@@ -15,7 +15,7 @@ function playerClass() {
 
 	this.sy = 5;
 	this.sx = 10;
-	this.playerShields = 1; //Not more then 5!
+	this.playerShields = 2; //Not more then 5!
 	this.shieldRotationSpeed = 0;
 	this.playerShieldRadius;
 	this.shieldActive = true;
@@ -74,9 +74,7 @@ function playerClass() {
 				case 1:
 					drawBitmapCenteredAtLocationWithRotation(imageArray["shield_1.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
 					if (this.playerShields == 1) this.playerShieldRadius = 150 / 2;
-					break;
 				case 0:
-					this.noShieldOutline();
 					break;
 				case 6:
 					ui.messageToShow = ui.invincible;
@@ -93,6 +91,7 @@ function playerClass() {
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();
 		}
+		this.noShieldOutline();
 	}
 
 	this.move = function () {
@@ -128,16 +127,16 @@ function playerClass() {
 	}
 
 	this.noShieldOutline = function() {
-		console.log("working?");
-		//if(this.playerShields == 0) {
+		
+		if(!this.shieldActive) {
 			this.outlineTimer ++;
 			if(this.outlineTimer <= 10) {
 				ctx.drawImage(imageArray["PlayerSpaceship_Outline.png"], this.x, this.y);
 			} 
-			if(this.outlineTimer >= 11) {
+			if(this.outlineTimer >= 20) {
 				this.outlineTimer = 0;
 			}
-		//}
+		}
 	}
 
 	this.moveShield = function () { // called by this.move
