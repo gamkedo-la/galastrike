@@ -36,7 +36,8 @@ var imageNames = [
 	"TitleScreenTwo.png",
 	"leftUiSegment.png",
 	"rightUiSegment.png",
-	"bossBasicWeapon.png"
+	"bossBasicWeapon.png",
+	"GameOverScreen.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];

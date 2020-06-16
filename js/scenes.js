@@ -65,9 +65,7 @@ function gameMode() {
 }
 
 function gameOverScreen() {
-	colorRect(0, 0, c.width, c.height, 'blue');
-	colorText("Game Over", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("New Game: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+	ctx.drawImage(imageArray["GameOverScreen.png"], 0, 0, c.width, c.height);
 }
 
 function winScreen() {
