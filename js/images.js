@@ -1,5 +1,7 @@
 //image loading
-var imageNames = ["PlayerSpaceship.png",
+var imageNames = [
+	"PlayerSpaceship.png",
+	"PlayerSpaceship_Outline.png",
 	"shield_1.png",
 	"shield_2.png",
 	"shield_3.png",
