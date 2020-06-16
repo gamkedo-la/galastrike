@@ -43,7 +43,6 @@ function gameMode() {
 	//looks to see if it needs to remove enemies and debris
 	for (var i = enemyList.length - 1; i >= 0; i--) {
 		if (enemyList[i].readyToRemove()) {
-			console.log("ded")
 			enemyList.splice(i, 1);
 			checkIfSpawnBlockedOrLevelOver();
 		}
