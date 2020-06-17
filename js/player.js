@@ -31,7 +31,9 @@ function playerClass() {
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 	this.tempControlEnabled = false;
-	this.outlineTimer = 0;
+    this.outlineTimer = 0;
+    
+    this.trails = new trailsFX(); // plasma from the engines
 
 	this.fireShot = function () {
 		//Pick the weapon to use from the array
@@ -49,14 +51,17 @@ function playerClass() {
 		this.reloadFrames = newShot.shotReloadRate;
 	}
 
-	this.draw = function () {
-		//space ship
+    this.draw = function () {
+        
+        this.trails.draw(this.x,this.y); // plasma from the engines
+
+        // space ship
 		if (this.chrisCode == false) {
 			ctx.drawImage(imageArray["PlayerSpaceship.png"], this.x, this.y);
 		} else {
 			ctx.drawImage(imageArray["PlayerSpaceship_chris.png"], this.x, this.y);
 		}
-		//ship shield
+		// ship shield
 		if (this.shieldActive) {
 			switch (this.playerShields) {
 				case 5:
