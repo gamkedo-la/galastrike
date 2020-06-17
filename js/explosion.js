@@ -40,10 +40,8 @@ function explosion(radius = 5, duration = 10, shrinkFactor = 7,
                 colorCircle(this.x - Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
                             
                 this.explosionRemovalCountdownNow--;
-            }
-            if (this.explosionRemovalCountdownNow <= 0) {                
+            }else if(this.explosionRemovalCountdownNow <= 0) {                
                 this.explode = false;
-                this.explosionRemovalCountdownNow = this.explosionRemovalCountdown;
             }
         }
     }
