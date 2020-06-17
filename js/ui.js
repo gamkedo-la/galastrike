@@ -18,10 +18,10 @@ function uiOverlay() {
 
 
     this.draw = function() {
-        ctx.drawImage(imageArray["leftUiSegment.png"], this.leftPosX, this.leftPosY);
-        colorText("Shields: ", 15, c.height - 10, "15px arial", "white");
+        ctx.drawImage(imageArray["uiLeftSegment.png"], this.leftPosX, this.leftPosY);
         this.shieldUiBars();
-        colorText("Weapon: " + p1.weaponCurrent, 260, c.height - 10, "15px arial", "white"); 
+        colorText(p1.weaponCurrent, 205, c.height - 13, "15px arial", "black", false); 
+        colorText("XXX", 318, c.height - 13, "15px arial", "black", false); 
         
 
         ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
@@ -51,22 +51,22 @@ function uiOverlay() {
 
     this.shieldUiBars = function() {
         if(p1.playerShields >= 5) {
-            colorRect(15, c.height - 160, 50, 20, "white");
+             ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 167);
         }
          if(p1.playerShields >= 4) {
-            colorRect(15, c.height - 135, 50, 20, "white");
+            ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 139);
         }
          if(p1.playerShields >= 3) {
-            colorRect(15, c.height - 110, 50, 20, "white");
+            ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 111);
         }
          if(p1.playerShields >= 2) {
-            colorRect(15, c.height - 85, 50, 20, "white");
+            ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 83);
         }
          if(p1.playerShields >= 1) {
-            colorRect(15, c.height - 60, 50, 20, "white");
+            ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 55);
         }
         if(p1.playerShields == 6) {
-            colorRect(15, c.height - 160, 50, 120, "green");
+            ctx.drawImage(imageArray["uiShieldBarsInvincible.png"], 16, c.height - 167);
         }
     }
 
