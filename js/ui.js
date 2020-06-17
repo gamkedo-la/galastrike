@@ -1,9 +1,9 @@
 function uiOverlay() {
     this.leftPosX = 0;
-    this.leftPosY = c.height - 220;
+    this.leftPosY = c.height - 203;
     this.rightPosX = c.width - 460;
     this.rightPosY = c.height - 220;
-    this.speedMeterY = 100;
+    this.speedMeterY = 102;
     this.speedMeterUp = true;
     this.speedMeterDown = false;
     this.messageTimer = 0;
@@ -20,14 +20,18 @@ function uiOverlay() {
     this.draw = function() {
         ctx.drawImage(imageArray["uiLeftSegment.png"], this.leftPosX, this.leftPosY);
         this.shieldUiBars();
-        colorText(p1.weaponCurrent, 205, c.height - 13, "15px arial", "black", false); 
-        colorText("XXX", 318, c.height - 13, "15px arial", "black", false); 
+        //colorText("SHIELDS", 10, c.height - 10, "15px arial", "white", false); 
+        //colorText("WEAPON:", 100, c.height - 10, "15px arial", "white", false); 
+        //ctx.drawImage(imageArray["uiSmallBracket_Left.png"], 180, c.height - 30);        
+        //ctx.drawImage(imageArray["uiSmallBracket_Right.png"], 250, c.height - 30);
+        colorText(p1.weaponCurrent, 233, c.height - 10, "15px arial", "white", false); 
+        colorText("XXX", 330, c.height - 10, "15px arial", "black", false); 
         
 
-        ctx.drawImage(imageArray["rightUiSegment.png"], this.rightPosX, this.rightPosY);
-        colorText("Score: " + playerScore, c.width - 400, c.height - 10, "15px arial", "white");
+        ctx.drawImage(imageArray["uiRightSegment.png"], this.rightPosX, this.rightPosY);
+        colorText(playerScore, c.width - 230, c.height - 10, "20px arial", "white");
 
-        colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
+        //colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
         this.speedMeter();
 
         //center messages
@@ -42,7 +46,7 @@ function uiOverlay() {
     this.move = function() {
         this.moveSpeedMeter();
         this.leftPosX = 0;
-        this.leftPosY = c.height - 220;
+        this.leftPosY = c.height - 204;
         this.rightPosX = c.width - 460;
         this.rightPosY = c.height - 220;
     }
@@ -74,10 +78,10 @@ function uiOverlay() {
 
     this.speedMeter = function() {
          if(p1.speedBurstCountdown <= 0) {
-            colorRect(c.width - 70, c.height - this.speedMeterY, 20, 65 + this.speedMeterBottom, "white");
+            colorRect(c.width - 67, c.height - this.speedMeterY, 25, 65 + this.speedMeterBottom, "white");
         }
         if(p1.speedBurstCountdown <= 0) {
-            colorRect(c.width - 40, c.height - this.speedMeterY, 20, 65 + this.speedMeterBottom, "white");
+            colorRect(c.width - 40, c.height - this.speedMeterY, 25, 65 + this.speedMeterBottom, "white");
         }
 
         if(p1.speedBurstCountdown >= 1) {

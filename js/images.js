@@ -39,8 +39,11 @@ var imageNames = [
 	"bossBasicWeapon.png",
 	"GameOverScreen.png",
 	"uiLeftSegment.png",
+	"uiRightSegment.png",
 	"uiShieldBar.png",
-	"uiShieldBarsInvincible.png"
+	"uiShieldBarsInvincible.png",
+	"uiSmallBracket_Left.png",
+	"uiSmallBracket_Right.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];
