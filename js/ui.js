@@ -13,6 +13,8 @@ function uiOverlay() {
     this.ammo = 2;
     this.speedBurst = 3;
     this.invincible = 4;
+    this.showCenterBrackets = false;
+    
 
 
 
@@ -36,7 +38,11 @@ function uiOverlay() {
 
         //center messages
         this.showUiCenterMessages();
-
+        if(this.showCenterBrackets) {
+            ctx.drawImage(imageArray["uiSmallBracket_Left.png"], this.uiCenterLeftBracketPosX, c.height - 30);
+            ctx.drawImage(imageArray["uiSmallBracket_Right.png"], this.uiCenterRightBracketPosX, c.height - 30);
+        }
+        
         //debugs - to be removed for release
         colorText("invincibleTimer: " + p1.invincibleTimer, c.width - 220, c.height - 90, "15px arial", "orange"); // debug output - remove
         colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 220, c.height - 70, "15px arial", "orange"); // debug output - remove
@@ -44,6 +50,7 @@ function uiOverlay() {
     }
 
     this.move = function() {
+        this.handleCenterBrackets();
         this.moveSpeedMeter();
         this.leftPosX = 0;
         this.leftPosY = c.height - 204;
@@ -141,23 +148,82 @@ function uiOverlay() {
         }
     }
 
+
+    this.uiCenterRightBracketPosX = c.width/2 + 10;
+    this.uiCenterLeftBracketPosX = c.width/2 - 10;
+    this.centerBracketPauseTimer = 0;
+    this.moveCenterBrackets = false;
+    this.openBracketsTimer = 0;
+    this.openBrackets = false;
+    this.closeBrackets = false;
+    this.startOpeningBrackets = 0;
+    this.startClosingBrackets = false;
+    this.closingBracketTimer = 0;
+
     this.showUiCenterMessages = function() {
+       
        if(this.messageToShow != undefined) {
-            this.messageTimer++
-            this.uiMessages(this.messageToShow);
+            this.showCenterBrackets = true; // drawing brackets in center of UI
+            this.centerBracketPauseTimer ++;
+            if(this.centerBracketPauseTimer >= 30) {
+                this.openBrackets = true; // start to open brackets
+                this.startOpeningBrackets ++;
+                if(this.startOpeningBrackets >= 60) {
+                    this.openBrackets = false; // stop opening brackets
+                    this.messageTimer++
+                    this.uiMessages(this.messageToShow);
+                }  
+            }
 
             if(this.messageToShow != this.invincible) {
                 if(this.messageTimer >= 60) {
-                    this.messageToShow = undefined;
+                    this.messageToShow = undefined; // shuts down first if statement in this.showUiCenterMessages function
                     this.messageTimer = 0;
+                    this.startClosingBrackets = true;
+                    this.centerBracketPauseTimer = 0;
+                    this.startOpeningBrackets = 0;
+                    
                 }
             }
             if(this.messageToShow == this.invincible) {
                 this.messageToShow = undefined;
                 this.messageTimer = 0;
+                this.showCenterBrackets = false;
+                this.centerBracketPauseTimer = 0;
             }
+            
        }
+         if(this.startClosingBrackets) {
+                this.closingBracketTimer ++;
+                this.closeBrackets = true;
+                console.log(this.closingBracketTimer);
+                if(this.closingBracketTimer >= 60) {
+                    this.uiCenterRightBracketPosX = c.width/2 + 10; //reseting bracket starting position
+                    this.uiCenterLeftBracketPosX = c.width/2 - 10;  //reseting bracket starting position
+                    this.closeBrackets = false;
+                    this.showCenterBrackets = false;
+                    this.startClosingBrackets = false;
+                }
+            }
+        
+
     }
+
+    this.handleCenterBrackets = function() {
+        if(this.openBrackets) {
+            this.uiCenterRightBracketPosX += 2;
+            this.uiCenterLeftBracketPosX -= 2;
+         }
+        
+        if(this.closeBrackets) {
+            this.uiCenterRightBracketPosX -= 2;
+            this.uiCenterLeftBracketPosX += 2;
+            }
+        }
+
+        this.uiCenterMessageReset = function() {
+
+        }
 
 }
 
