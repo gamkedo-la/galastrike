@@ -63,12 +63,11 @@ function levelOneBossClass() {
 			}
 		}
 	}
-
+	
 	this.fireShot = function (shotPosX, shotPosY, shotWeaponType) {
 		var newShot = new levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
-	//	this.reloadFrames = newShot.shotReloadRate;
 	}
 
 	this.shotHitMeCheck = function (theShot) {

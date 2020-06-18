@@ -1,5 +1,6 @@
 //image loading
 var imageNames = [
+	"boss_laser.png",
 	"PlayerSpaceship.png",
 	"PlayerSpaceship_Outline.png",
 	"shield_1.png",
