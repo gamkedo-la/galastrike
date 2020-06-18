@@ -42,6 +42,7 @@ var imageNames = [
 	"uiRightSegment.png",
 	"uiShieldBar.png",
 	"uiShieldBarsInvincible.png",
+	"uiShieldBarNoShields.png",
 	"uiSmallBracket_Left.png",
 	"uiSmallBracket_Right.png",
 	"uiCenterBracket_Left.png",

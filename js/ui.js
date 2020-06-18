@@ -16,6 +16,8 @@ function uiOverlay() {
     this.invincible = 4;
     this.messagesPosX = c.width/2;
     this.messagesPosY = c.height - 20;
+    this.speedMeterBottom = 0;
+    this.uiNoShieldTimer = 0;
     
     //center brackets
     this.showCenterBrackets = false;
@@ -36,8 +38,6 @@ function uiOverlay() {
     this.draw = function() {
         ctx.drawImage(imageArray["uiLeftSegment.png"], this.leftPosX, this.leftPosY);
         this.shieldUiBars();
-        //colorText("SHIELDS", 10, c.height - 10, "15px arial", "white", false); 
-        //colorText("WEAPON:", 100, c.height - 10, "15px arial", "white", false); 
         //ctx.drawImage(imageArray["uiSmallBracket_Left.png"], 180, c.height - 30);        
         //ctx.drawImage(imageArray["uiSmallBracket_Right.png"], 250, c.height - 30);
         colorText(p1.weaponCurrent, 233, c.height - 10, "15px arial", "white", false); 
@@ -47,7 +47,6 @@ function uiOverlay() {
         ctx.drawImage(imageArray["uiRightSegment.png"], this.rightPosX, this.rightPosY);
         colorText(playerScore, c.width - 220, c.height - 10, "20px arial", "white", 'right');
 
-        //colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
         this.speedMeter();
 
         //center messages
@@ -73,7 +72,6 @@ function uiOverlay() {
     }
 
 
-
     this.shieldUiBars = function() {
         if(p1.playerShields >= 5) {
              ctx.drawImage(imageArray["uiShieldBar.png"], 16, c.height - 167);
@@ -93,9 +91,24 @@ function uiOverlay() {
         if(p1.playerShields == 6) {
             ctx.drawImage(imageArray["uiShieldBarsInvincible.png"], 16, c.height - 167);
         }
+        if(p1.playerShields <= 0) {
+            this.flashNoShieldBars();
+        }
     }
 
-    this.speedMeterBottom = 0;
+    this.flashNoShieldBars = function() {
+        
+        if(!this.shieldActive) {
+            this.uiNoShieldTimer ++;
+            if(this.uiNoShieldTimer <= 10) {
+                ctx.drawImage(imageArray["uiShieldBarNoShields.png"], 16, c.height - 167);
+            } 
+            if(this.uiNoShieldTimer >= 20) {
+                this.uiNoShieldTimer = 0;
+            }
+        }
+    }
+    
 
     this.speedMeter = function() {
          if(p1.speedBurstCountdown <= 0) {
@@ -106,8 +119,8 @@ function uiOverlay() {
         }
 
         if(p1.speedBurstCountdown >= 1) {
-            colorRect(c.width - 70, c.height - 160, 20, 125, "red");
-            colorRect(c.width - 40, c.height - 160, 20, 125, "red");
+            colorRect(c.width - 66, c.height - 163, 25, 126, "red");
+            colorRect(c.width - 40, c.height - 163, 25, 126, "red");
         }
     }
 
