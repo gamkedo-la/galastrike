@@ -33,7 +33,6 @@ function playerShotClass(weaponType, ship) {
 			this.removeAlienHp = 5;
 			this.shotReloadRate = 200;
 			this.shootSpeed = 0;
-			playMidShootingSound();
 			break;
 		case 'atom':
 			this.w = 10;

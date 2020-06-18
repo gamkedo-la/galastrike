@@ -9,11 +9,12 @@ function backgroundDraw() {
     if (!BG_ENABLED) return;
     // TODO: use a different image depending on the level
     backgroundScrollY++;
+    var img = imageArray["Level_1_Background.png"];
     // tile multiple - FIXME: chop
-    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX,backgroundScrollY % imageArray["Level_1_Background.jpg"].height);
-    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX,(backgroundScrollY % imageArray["Level_1_Background.jpg"].height)-imageArray["Level_1_Background.jpg"].height);
-    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX + 2000,backgroundScrollY % imageArray["Level_1_Background.jpg"].height);
-    ctx.drawImage(imageArray["Level_1_Background.jpg"],backgroundScrollX + 2000,(backgroundScrollY % imageArray["Level_1_Background.jpg"].height)-imageArray["Level_1_Background.jpg"].height);
+    ctx.drawImage(img,backgroundScrollX,backgroundScrollY % img.height);
+    ctx.drawImage(img,backgroundScrollX,(backgroundScrollY % img.height)-img.height);
+    ctx.drawImage(img,backgroundScrollX + 2000,backgroundScrollY % img.height);
+    ctx.drawImage(img,backgroundScrollX + 2000,(backgroundScrollY % img.height)-img.height);
 }
 
 function midgroundDraw() {

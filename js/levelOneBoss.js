@@ -17,10 +17,7 @@ function levelOneBossClass() {
 
 	this.shotX;
 	this.shotY;
-	this.shotW = 5;
-	this.shotH = 10;
 	this.shotActive = false;
-	this.shotSpeed = 9;
 	this.myShot = [];
 
 
@@ -29,17 +26,12 @@ function levelOneBossClass() {
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
 
-		if (this.shotActive == true) {
-			//colorRect(this.shotX, this.shotY, this.shotW, this.shotH, 'white');
-		}
-
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();
 		}
 	}
 
 	this.move = function () {
-		this.basicShot();
 		//movement ai
 
 		if (this.enteredScreen == false) {
@@ -60,25 +52,23 @@ function levelOneBossClass() {
 				this.y += this.sy;
 			}
 		}
-	
+		this.basicShot();
 		this.collitionDetection();
 		this.playerPushBack();
 
-		if (this.shotActive == true) {
-			this.shotY += this.shotSpeed;
-			this.shotCheck();
-		}
-
-		for (var i = 0; i < this.myShot.length; i++) {
+		for (var i = this.myShot.length - 1; i >= 0; i--) { //for loop goes backwards to not skip cause of the splice
 			this.myShot[i].move();
+			if (this.myShot[i].shotActive == false) {
+				this.myShot.splice(i, 1);
+			}
 		}
 	}
 
-	this.fireShot = function (shotPosX, shotPosY) {
-		var newShot = new levelOneBossShotClass(shotPosX, shotPosY);
+	this.fireShot = function (shotPosX, shotPosY, shotWeaponType) {
+		var newShot = new levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType);
 		newShot.shotActive = true;
 		this.myShot.push(newShot);
-		this.reloadFrames = newShot.shotReloadRate;
+	//	this.reloadFrames = newShot.shotReloadRate;
 	}
 
 	this.shotHitMeCheck = function (theShot) {
@@ -97,32 +87,23 @@ function levelOneBossClass() {
 			if (this.rn == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h - 100;
 				this.shotX = this.x + this.w / 2;
-				this.fireShot(this.shotX, this.shotY );
+				this.fireShot(this.shotX, this.shotY, 'laser');
 			}
 				
 			
 			if (this.rn == 2) { //fiering from right orb			
 				this.shotY = this.y + this.h - 40;
 				this.shotX = this.x + 375;
-				this.fireShot(this.shotX, this.shotY );
+				this.fireShot(this.shotX, this.shotY, 'basic');
 				//playBossShootingSound();
 			}
 			if (this.rn == 3) { //fiering from left orb
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
-				this.fireShot(this.shotX, this.shotY );
+				this.fireShot(this.shotX, this.shotY, 'laser');
 				//playBossShootingSound();
 			} 
 		}
-	
-	
-
-	this.shotCheck = function () {
-		if (p1.collisionCheck(false, this.shotX, this.shotY, this.shotW, this.shotH)) {
-			this.shotActive = false;
-			p1.getHit();
-		}
-	}
 
 	this.playerBackPush = false;
 	this.playerPushBackTimer = 0;
