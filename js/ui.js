@@ -1,4 +1,5 @@
 function uiOverlay() {
+
     this.leftPosX = 0;
     this.leftPosY = c.height - 203;
     this.rightPosX = c.width - 460;
@@ -13,11 +14,24 @@ function uiOverlay() {
     this.ammo = 2;
     this.speedBurst = 3;
     this.invincible = 4;
-    this.showCenterBrackets = false;
+    this.messagesPosX = c.width/2;
+    this.messagesPosY = c.height - 20;
     
-
-
-
+    //center brackets
+    this.showCenterBrackets = false;
+    this.uiCenterRightBracketPosX = c.width/2 + 10;
+    this.uiCenterLeftBracketPosX = c.width/2 - 10;
+    this.centerBracketPauseTimer = 0;
+    this.moveCenterBrackets = false;
+    this.openBracketsTimer = 0;
+    this.openBrackets = false;
+    this.closeBrackets = false;
+    this.startOpeningBrackets = 0;
+    this.startClosingBrackets = false;
+    this.closingBracketTimer = 0;
+    this.uiBracketMovingTime = 30; //fps, define this variable to adapt to message length. Defined in this.uiMessages();
+    this.centerBracketSpeed = 3; // determining how fast brackets move, need to balance with this.uiBracketMovingTime
+    
 
     this.draw = function() {
         ctx.drawImage(imageArray["uiLeftSegment.png"], this.leftPosX, this.leftPosY);
@@ -39,8 +53,8 @@ function uiOverlay() {
         //center messages
         this.showUiCenterMessages();
         if(this.showCenterBrackets) {
-            ctx.drawImage(imageArray["uiSmallBracket_Left.png"], this.uiCenterLeftBracketPosX, c.height - 30);
-            ctx.drawImage(imageArray["uiSmallBracket_Right.png"], this.uiCenterRightBracketPosX, c.height - 30);
+            ctx.drawImage(imageArray["uiCenterBracket_Left.png"], this.uiCenterLeftBracketPosX, c.height - 45);
+            ctx.drawImage(imageArray["uiCenterBracket_Right.png"], this.uiCenterRightBracketPosX, c.height - 45);
         }
         
         //debugs - to be removed for release
@@ -119,48 +133,38 @@ function uiOverlay() {
     }
 
 
-   
-    this.messagesPosX = c.width/2;
-    this.messagesPosY = c.height - 20;
-
     this.uiMessages = function(text) {
 
         switch(text) {
             case this.stabilizing:
+            this.uiBracketMovingTime = 30;
             colorText('stabilizing', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
             case this.shield:
+            this.uiBracketMovingTime = 20;
             colorText('shield', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
             case this.ammo:
+            this.uiBracketMovingTime = 5;
             colorText('ammo', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
             case this.speedBurst:
+            this.uiBracketMovingTime = 30;
             colorText('MAX SPEED', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
             case this.invincible:
+            this.uiBracketMovingTime = 30;
             colorText('INVINCIBLE', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
         }
     }
 
-
-    this.uiCenterRightBracketPosX = c.width/2 + 10;
-    this.uiCenterLeftBracketPosX = c.width/2 - 10;
-    this.centerBracketPauseTimer = 0;
-    this.moveCenterBrackets = false;
-    this.openBracketsTimer = 0;
-    this.openBrackets = false;
-    this.closeBrackets = false;
-    this.startOpeningBrackets = 0;
-    this.startClosingBrackets = false;
-    this.closingBracketTimer = 0;
-
     this.showUiCenterMessages = function() {
+         console.log(this.uiBracketMovingTime);
        
        if(this.messageToShow != undefined) {
             this.showCenterBrackets = true; // drawing brackets in center of UI
@@ -168,7 +172,7 @@ function uiOverlay() {
             if(this.centerBracketPauseTimer >= 30) {
                 this.openBrackets = true; // start to open brackets
                 this.startOpeningBrackets ++;
-                if(this.startOpeningBrackets >= 60) {
+                if(this.startOpeningBrackets >= this.uiBracketMovingTime) {
                     this.openBrackets = false; // stop opening brackets
                     this.messageTimer++
                     this.uiMessages(this.messageToShow);
@@ -182,52 +186,47 @@ function uiOverlay() {
                     this.startClosingBrackets = true;
                     this.centerBracketPauseTimer = 0;
                     this.startOpeningBrackets = 0;
-                    
                 }
             }
+
             if(this.messageToShow == this.invincible) {
                 this.messageToShow = undefined;
                 this.messageTimer = 0;
                 this.showCenterBrackets = false;
                 this.centerBracketPauseTimer = 0;
-            }
-            
+            }     
        }
-         if(this.startClosingBrackets) {
-                this.closingBracketTimer ++;
-                this.closeBrackets = true;
-                console.log(this.closingBracketTimer);
-                if(this.closingBracketTimer >= 60) {
-                    this.uiCenterRightBracketPosX = c.width/2 + 10; //reseting bracket starting position
-                    this.uiCenterLeftBracketPosX = c.width/2 - 10;  //reseting bracket starting position
-                    this.closeBrackets = false;
+
+     if(this.startClosingBrackets) {
+            this.closingBracketTimer ++;
+            this.closeBrackets = true;
+            if(this.uiCenterRightBracketPosX <= c.width/2 + 10 && this.uiCenterLeftBracketPosX >= c.width/2 - 10) {               //(this.closingBracketTimer >= this.uiBracketMovingTime) {
+                this.uiCenterRightBracketPosX = c.width/2 + 10; //reseting bracket starting position
+                this.uiCenterLeftBracketPosX = c.width/2 - 10;  //reseting bracket starting position
+                this.closeBrackets = false;
+                this.centerBracketPauseTimer ++;
+                if(this.centerBracketPauseTimer >= 30) {
+                    this.centerBracketPauseTimer = 0;
+                    this.closingBracketTimer = 0;
                     this.showCenterBrackets = false;
                     this.startClosingBrackets = false;
                 }
             }
-        
-
+        }
     }
 
     this.handleCenterBrackets = function() {
         if(this.openBrackets) {
-            this.uiCenterRightBracketPosX += 2;
-            this.uiCenterLeftBracketPosX -= 2;
+            this.uiCenterRightBracketPosX += this.centerBracketSpeed;
+            this.uiCenterLeftBracketPosX -= this.centerBracketSpeed;
          }
         
         if(this.closeBrackets) {
-            this.uiCenterRightBracketPosX -= 2;
-            this.uiCenterLeftBracketPosX += 2;
+            this.uiCenterRightBracketPosX -= this.centerBracketSpeed;
+            this.uiCenterLeftBracketPosX += this.centerBracketSpeed;
             }
         }
-
-        this.uiCenterMessageReset = function() {
-
-        }
-
 }
-
-
 
 function uiScore(){
     let currentScore = 0;

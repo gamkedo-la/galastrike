@@ -43,7 +43,9 @@ var imageNames = [
 	"uiShieldBar.png",
 	"uiShieldBarsInvincible.png",
 	"uiSmallBracket_Left.png",
-	"uiSmallBracket_Right.png"
+	"uiSmallBracket_Right.png",
+	"uiCenterBracket_Left.png",
+	"uiCenterBracket_Right.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];
