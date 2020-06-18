@@ -11,6 +11,9 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.shotReloadRate;
 	this.shootSpeed;
 
+	this.shotAngle;
+	this.laserHitTime
+
 
 		switch (this.weaponType) {
 			case 'basic':
@@ -22,7 +25,9 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 			case 'laser':
 				this.w = 30;
 				this.h = c.height;
-				this.shotReloadRate = 60; // sets the duration of the laser
+				this.shotAngle = 180;
+				this.shotReloadRate = 120; // sets the duration of the laser
+				this.laserHitTime = 20; //frametime for collision check
 				this.shootSpeed = 0;
 				playMidShootingSound();
 			break;
@@ -37,7 +42,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 					break;
 				case 'laser':
 					playLaserSound();
-					drawLaserBeamLine(imageArray["shot_laser1.png"], this.x + this.w/2, this.y + c.height);
+					drawAngledLaserBeamLine(imageArray["boss_laser.png"], this.x, this.y, this.shotAngle);
 					break;
 			}
 			
@@ -50,14 +55,16 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 		if (this.shotActive == true) {
 
 			if (this.weaponType == 'basic') {
+				this.shotCheck();
 				this.y += this.shootSpeed;
 
 			} else if (this.weaponType == 'laser') {
+				this.shotCheck();
 				this.x = this.x;
 				this.y = this.y;
+				this.shotAngle++;
 				this.shotReloadRate--;
 			}
-		this.shotCheck();
 		}
 	}
 
@@ -72,11 +79,19 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.shotActive = false;
 				this.y = p1.y;
 			}
+
 		}else if(this.shotReloadRate > 0){
-			if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
-				if(this.shotReloadRate % 15 == 0){
-					p1.getHit();
-				}
+			//collision check for the laser
+			if(this.shotReloadRate % this.laserHitTime == 0){
+				for (var i = 0; i < (c.height * 2) / this.w; i++) {
+					var theX = (this.x) - Math.cos(this.shotAngle * Math.PI / 180) * (this.w) * i;
+					var theY = (this.y) - Math.sin(this.shotAngle * Math.PI / 180) * (this.w) * i;
+					//colorCircle(theX,theY,15,'red');
+					if (p1.collisionCheck(false, theX, theY, this.w/2)) {
+							p1.getHit();
+							break;
+					}
+				}			
 			}
 		} else if (!(this.shotReloadRate > 0)) {
 			this.shotActive = false;

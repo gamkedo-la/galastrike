@@ -60,3 +60,12 @@ function drawLaserBeamLine(graphic, atX, atY) {
 		ctx.restore(); // undo the translation movement and rotation since save()
 	}
 }
+
+function drawAngledLaserBeamLine(graphic, atX, atY, theAngle) {
+	ctx.save(); // allows us to undo translate movement and rotate spin
+	//ctx.translate(atX + Math.cos(theAngle * Math.PI / 180) * graphic.width , atY + Math.sin(theAngle * Math.PI / 180) * graphic.height );
+	ctx.translate(atX, atY);
+	ctx.rotate(theAngle * Math.PI / 180); // sets the rotation
+	ctx.drawImage(graphic, -graphic.width, -graphic.height / 2); //
+	ctx.restore(); // undo the translation movement and rotation since save()
+}
