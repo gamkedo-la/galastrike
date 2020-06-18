@@ -45,7 +45,7 @@ function uiOverlay() {
         
 
         ctx.drawImage(imageArray["uiRightSegment.png"], this.rightPosX, this.rightPosY);
-        colorText(playerScore, c.width - 230, c.height - 10, "20px arial", "white");
+        colorText(playerScore, c.width - 220, c.height - 10, "20px arial", "white", 'right');
 
         //colorText("Speed", c.width - 70, c.height - 10, "15px arial", "white"); 
         this.speedMeter();
