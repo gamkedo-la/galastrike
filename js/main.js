@@ -105,6 +105,10 @@ function drawEverything() {
 		case CREDIT_SCREEN:
 			creditScreen();
 			break;
+
+		case LEVEL_TRANSITION:
+			levelTransitionScreen();
+			break;
 	}
 }
 

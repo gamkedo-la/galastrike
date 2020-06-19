@@ -102,6 +102,12 @@ function keyPressed(evt) {
 				mode = MAIN_MENU;
 			}
 			break;
+
+		case LEVEL_TRANSITION:
+			if (evt.keyCode == KEY_SPACE) {
+				mode = GAME_SCREEN;
+			}
+			break;
 	}
 
 	evt.preventDefault(); // this is to prevent arrow keys from scrolling the page.

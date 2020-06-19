@@ -58,6 +58,7 @@ function checkIfSpawnBlockedOrLevelOver() {
 	if(enemyList.length == 0) {
 		if(upToSpawnIdx >= levelCurrent.length) {
 			console.log("nothing else to spawn, and all enemies dead, go to next level");
+			mode = LEVEL_TRANSITION;
 			levelNum++;
 			if(levelNum >= levelList.length) {
 				console.log("you won the whole game. Still not handled");

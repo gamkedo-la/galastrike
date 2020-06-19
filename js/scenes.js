@@ -7,6 +7,7 @@ const TITLE_SCREEN = 3;
 const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
+const LEVEL_TRANSITION = 7;
 
 var countAlpha = 0; // counting for Pause draw screen
 var mode = TITLE_SCREEN;
@@ -62,6 +63,11 @@ function gameMode() {
 	}
 
 	ui.draw();
+}
+
+function levelTransitionScreen() {
+	colorRect(0, 0, c.width, c.height, 'green');
+	colorText("Next Level?", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 }
 
 function gameOverScreen() {
