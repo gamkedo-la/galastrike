@@ -39,8 +39,22 @@ function uiOverlay() {
         this.shieldUiBars();
         //ctx.drawImage(imageArray["uiSmallBracket_Left.png"], 180, c.height - 30);        
         //ctx.drawImage(imageArray["uiSmallBracket_Right.png"], 250, c.height - 30);
-        colorText(p1.weaponCurrent, 225, c.height - 10, "20px arial", "white", false, 'center'); 
-        colorText(p1.ammoAmount, 330, c.height - 10, "20px arial", "white", false, 'center'); 
+        
+        colorText(
+            p1.weaponCurrent,       // string
+            225, c.height - 10,     // x and y
+            "20px arial",           // font
+            "white",                // color
+            "center",               // alignment
+            false);                 // black 1x shadow?
+        
+        colorText(
+            p1.ammoAmount,          // string
+            330, c.height - 10,     // x and y
+            "20px arial",           // font
+            "white",                // color
+            "center",               // alignment
+            false);                 // black 1x shadow?
         
 
         ctx.drawImage(imageArray["uiRightSegment.png"], this.rightPosX, this.rightPosY);
