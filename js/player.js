@@ -32,6 +32,7 @@ function playerClass() {
 	this.reloadFrames = 0;
 	this.tempControlEnabled = false;
     this.outlineTimer = 0;
+    this.ammoAmount;
     
     this.trails = new trailsFX(); // plasma from the engines
 
@@ -82,7 +83,7 @@ function playerClass() {
 				case 0:
 					break;
 				case 6:
-					ui.messageToShow = ui.invincible;
+					//ui.messageToShow = ui.invincible;
 					if (this.playerShields == 6) this.playerShieldRadius = 190 / 2;
 					if (this.invincibleTimer > 100) {
 						drawBitmapCenteredAtLocationWithRotation(imageArray["shield_5-super.png"], this.x + PLAYER_SHIP_WIDTH / 2, this.y + PLAYER_SHIP_HEIGHT / 2, this.shieldRotationSpeed);
@@ -119,6 +120,7 @@ function playerClass() {
 		for (var i = this.weapons.length - 1; i >= 0; i--) {
 			if (this.weapons[i][1] > 0) {
 				this.weaponCurrent = this.weapons[i][0];
+				this.ammoAmount = this.weapons[i][1];
 				break;
 			} else if (i == 0) {
 				this.weaponCurrent = this.weapons[0][0];

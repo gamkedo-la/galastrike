@@ -78,9 +78,7 @@ function lootItemClass(objX, objY, lootType) {
 						break;
 					case 'shield':
 						p1.addShield(this.puShield);
-						if(p1.playerShields <= 5) {
-							ui.messageToShow = ui.shield;
-						}
+						ui.messageToShow = ui.shield;
 						break;
 				}
 				this.active = false;

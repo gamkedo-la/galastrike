@@ -60,7 +60,7 @@ function asteroids() {
 	this.onDestroyed = function(){
 		this.destroyed = true;
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
-			spawnLoot(this.x, this.y, "mid","laser","atom","speed","shield");
+			spawnLoot(this.x, this.y, "shield"); //"mid","laser","atom","speed",
 		}
 		p1.addToScore(10); //needs to be fixed
 		

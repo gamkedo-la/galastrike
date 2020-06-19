@@ -4,9 +4,8 @@ function uiOverlay() {
     this.leftPosY = c.height - 203;
     this.rightPosX = c.width - 460;
     this.rightPosY = c.height - 220;
-    this.speedMeterY = 102;
-    this.speedMeterUp = true;
-    this.speedMeterDown = false;
+   
+    
     this.messageTimer = 0;
     this.messageToShow = undefined;
     this.stabilizing = 0;
@@ -16,7 +15,7 @@ function uiOverlay() {
     this.invincible = 4;
     this.messagesPosX = c.width/2;
     this.messagesPosY = c.height - 20;
-    this.speedMeterBottom = 0;
+    
     this.uiNoShieldTimer = 0;
     
     //center brackets
@@ -32,7 +31,7 @@ function uiOverlay() {
     this.startClosingBrackets = false;
     this.closingBracketTimer = 0;
     this.uiBracketMovingTime = 30; //fps, define this variable to adapt to message length. Defined in this.uiMessages();
-    this.centerBracketSpeed = 3; // determining how fast brackets move, need to balance with this.uiBracketMovingTime
+    this.centerBracketSpeed = 5; // determining how fast brackets move, need to balance with this.uiBracketMovingTime
     
 
     this.draw = function() {
@@ -40,14 +39,15 @@ function uiOverlay() {
         this.shieldUiBars();
         //ctx.drawImage(imageArray["uiSmallBracket_Left.png"], 180, c.height - 30);        
         //ctx.drawImage(imageArray["uiSmallBracket_Right.png"], 250, c.height - 30);
-        colorText(p1.weaponCurrent, 233, c.height - 10, "15px arial", "white", false); 
-        colorText("XXX", 330, c.height - 10, "15px arial", "black", false); 
+        colorText(p1.weaponCurrent, 225, c.height - 10, "20px arial", "white", false, 'center'); 
+        colorText(p1.ammoAmount, 330, c.height - 10, "20px arial", "white", false, 'center'); 
         
 
         ctx.drawImage(imageArray["uiRightSegment.png"], this.rightPosX, this.rightPosY);
         colorText(playerScore, c.width - 220, c.height - 10, "20px arial", "white", 'right');
 
         this.speedMeter();
+        this.showModeInUi();
 
         //center messages
         this.showUiCenterMessages();
@@ -56,10 +56,10 @@ function uiOverlay() {
             ctx.drawImage(imageArray["uiCenterBracket_Right.png"], this.uiCenterRightBracketPosX, c.height - 45);
         }
         
-        //debugs - to be removed for release
-        colorText("invincibleTimer: " + p1.invincibleTimer, c.width - 220, c.height - 90, "15px arial", "orange"); // debug output - remove
-        colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 220, c.height - 70, "15px arial", "orange"); // debug output - remove
-        colorText("ShotCount: " + p1.myShot.length, c.width - 220, c.height - 50, "15px arial", "orange"); // debug output - remove
+        //debugs - to be removed for release - DON'T DELETE
+        //colorText("invincibleTimer: " + p1.invincibleTimer, c.width - 220, c.height - 90, "15px arial", "orange"); // debug output - remove
+        //colorText("Speed Timer: " + p1.speedBurstCountdown, c.width - 220, c.height - 70, "15px arial", "orange"); // debug output - remove
+        //colorText("ShotCount: " + p1.myShot.length, c.width - 220, c.height - 50, "15px arial", "orange"); // debug output - remove
     }
 
     this.move = function() {
@@ -97,7 +97,6 @@ function uiOverlay() {
     }
 
     this.flashNoShieldBars = function() {
-        
         if(!this.shieldActive) {
             this.uiNoShieldTimer ++;
             if(this.uiNoShieldTimer <= 10) {
@@ -109,39 +108,64 @@ function uiOverlay() {
         }
     }
     
+    this.speedMeter1Y = 102;
+    this.speedMeter2Y = 102;
+    this.speedMeterUp = true;
+    this.speedMeterDown = false;
+    this.speedMeterUp2 = false;
+    this.speedMeterDown2 = true;
+    this.speedMeterBottom1 = 0;
+    this.speedMeterBottom2 = 0;
+    this.maxSpeedMeter1 = 163;
+    this.maxSpeedMeter2 = 163;
 
     this.speedMeter = function() {
-         if(p1.speedBurstCountdown <= 0) {
-            colorRect(c.width - 67, c.height - this.speedMeterY, 25, 65 + this.speedMeterBottom, "white");
-        }
-        if(p1.speedBurstCountdown <= 0) {
-            colorRect(c.width - 40, c.height - this.speedMeterY, 25, 65 + this.speedMeterBottom, "white");
+         if(p1.speedBurstCountdown <= 0) { 
+            colorRect(c.width - 67, c.height - this.speedMeter1Y, 25, 65 + this.speedMeterBottom1, "white"); // left meter
+            colorRect(c.width - 40, c.height - this.speedMeter2Y, 25, 65 + this.speedMeterBottom2, "white"); // right meter
         }
 
         if(p1.speedBurstCountdown >= 1) {
-            colorRect(c.width - 66, c.height - 163, 25, 126, "red");
-            colorRect(c.width - 40, c.height - 163, 25, 126, "red");
+            colorRect(c.width - 67, c.height - this.maxSpeedMeter1, 25, 126, "red"); //left meter
+            colorRect(c.width - 40, c.height - this.maxSpeedMeter2, 25, 126, "red"); //right meter
         }
-    }
-
+    } 
 
     this.moveSpeedMeter = function() {
-        if(this.speedMeterY <= 60) {
+        if(this.speedMeter1Y <= 100) {
             this.speedMeterUp = true;
             this.speedMeterDown = false;
         }
-        if(this.speedMeterY >= 110 ) {
+        if(this.speedMeter1Y >= 110 ) {
             this.speedMeterUp = false;
             this.speedMeterDown = true;
         }
 
+        if(this.speedMeter2Y <= 100) {
+            this.speedMeterUp2 = true;
+            this.speedMeterDown2 = false;
+        }
+        if(this.speedMeter2Y >= 110 ) {
+            this.speedMeterUp2 = false;
+            this.speedMeterDown2 = true;
+        }
+
         if(this.speedMeterUp) {
-            this.speedMeterY ++;
-            this.speedMeterBottom ++;
+            this.speedMeter1Y ++;
+            this.speedMeterBottom1 ++;
         }
         if(this.speedMeterDown) {
-            this.speedMeterY --;
-            this.speedMeterBottom --;
+            this.speedMeter1Y --;
+            this.speedMeterBottom1 --;
+        }
+
+        if(this.speedMeterUp2) {
+            this.speedMeter2Y ++;
+            this.speedMeterBottom2 ++;
+        }
+        if(this.speedMeterDown2) {
+            this.speedMeter2Y --;
+            this.speedMeterBottom2 --;
         }
     }
 
@@ -160,7 +184,7 @@ function uiOverlay() {
             break;
 
             case this.ammo:
-            this.uiBracketMovingTime = 5;
+            this.uiBracketMovingTime = 20;
             colorText('ammo', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
 
@@ -177,12 +201,11 @@ function uiOverlay() {
     }
 
     this.showUiCenterMessages = function() {
-         console.log(this.uiBracketMovingTime);
        
        if(this.messageToShow != undefined) {
             this.showCenterBrackets = true; // drawing brackets in center of UI
             this.centerBracketPauseTimer ++;
-            if(this.centerBracketPauseTimer >= 30) {
+            if(this.centerBracketPauseTimer >= 20) {
                 this.openBrackets = true; // start to open brackets
                 this.startOpeningBrackets ++;
                 if(this.startOpeningBrackets >= this.uiBracketMovingTime) {
@@ -192,41 +215,34 @@ function uiOverlay() {
                 }  
             }
 
-            if(this.messageToShow != this.invincible) {
-                if(this.messageTimer >= 60) {
+            if(this.messageToShow) {
+                if(this.messageTimer >= 40) {
                     this.messageToShow = undefined; // shuts down first if statement in this.showUiCenterMessages function
                     this.messageTimer = 0;
                     this.startClosingBrackets = true;
                     this.centerBracketPauseTimer = 0;
                     this.startOpeningBrackets = 0;
                 }
-            }
-
-            if(this.messageToShow == this.invincible) {
-                this.messageToShow = undefined;
-                this.messageTimer = 0;
-                this.showCenterBrackets = false;
-                this.centerBracketPauseTimer = 0;
-            }     
+            }   
        }
 
      if(this.startClosingBrackets) {
-            this.closingBracketTimer ++;
-            this.closeBrackets = true;
-            if(this.uiCenterRightBracketPosX <= c.width/2 + 10 && this.uiCenterLeftBracketPosX >= c.width/2 - 10) {               //(this.closingBracketTimer >= this.uiBracketMovingTime) {
-                this.uiCenterRightBracketPosX = c.width/2 + 10; //reseting bracket starting position
-                this.uiCenterLeftBracketPosX = c.width/2 - 10;  //reseting bracket starting position
-                this.closeBrackets = false;
-                this.centerBracketPauseTimer ++;
-                if(this.centerBracketPauseTimer >= 30) {
-                    this.centerBracketPauseTimer = 0;
-                    this.closingBracketTimer = 0;
-                    this.showCenterBrackets = false;
-                    this.startClosingBrackets = false;
-                }
+        this.closingBracketTimer ++;
+        this.closeBrackets = true;
+       if (this.closingBracketTimer >= this.uiBracketMovingTime) {  
+            this.closeBrackets = false;
+            this.centerBracketPauseTimer ++;
+            if(this.centerBracketPauseTimer >= 20) {
+                this.centerBracketPauseTimer = 0;
+                this.closingBracketTimer = 0;
+                this.showCenterBrackets = false;
+                this.startClosingBrackets = false;
+                this.uiCenterRightBracketPosX = c.width/2 + 10;
+                this.uiCenterLeftBracketPosX = c.width/2 - 10;
             }
-        }
+        } 
     }
+}
 
     this.handleCenterBrackets = function() {
         if(this.openBrackets) {
@@ -239,6 +255,19 @@ function uiOverlay() {
             this.uiCenterLeftBracketPosX += this.centerBracketSpeed;
             }
         }
+
+    this.showModeInUi = function() {
+        if(p1.playerShields >= 6) {
+            ctx.drawImage(imageArray["uiCenterBracket_Left.png"], 90, c.height - 85);
+            colorText('INVINCIBLE MODE', 100, c.height - 55,'30px Courier', 'white','left');
+            ctx.drawImage(imageArray["uiCenterBracket_Right.png"], 375, c.height - 85);
+        }
+        if(p1.speedBurstCountdown > 0) {
+            ctx.drawImage(imageArray["uiCenterBracket_Left.png"], c.width - 280, c.height - 85);
+            colorText('MAX SPEED', c.width - 107, c.height - 55,'30px Courier', 'white','right');
+            ctx.drawImage(imageArray["uiCenterBracket_Right.png"], c.width - 110, c.height - 85);
+        }
+    }
 }
 
 function uiScore(){
