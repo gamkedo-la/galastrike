@@ -51,6 +51,11 @@ function keyPressed(evt) {
 			break;
 
 		case WIN_SCREEN:
+			if (evt.keyCode == KEY_SPACE) {
+				mode = MAIN_MENU;
+			}
+			break;
+
 		case GAME_OVER:
 			if (evt.keyCode == KEY_SPACE) {
 				resetGame();

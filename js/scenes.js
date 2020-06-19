@@ -77,7 +77,7 @@ function gameOverScreen() {
 function winScreen() {
 	colorRect(0, 0, c.width, c.height, 'green');
 	colorText("Player Wins", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("New Game: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+	colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
 }
 
 function titleScreen() {

@@ -29,8 +29,8 @@ var levelThreeData = [
 ];
 
 var levelFourData = [
-	{kind:ENEMY_KIND_AST, delayBefore:0, count:20, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, delayBefore:0, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_AST, delayBefore:0, count:1, countSpacing: 50}, 
+	{kind:ENEMY_KIND_SAT, delayBefore:0, count:1, countSpacing: 50},
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
@@ -57,11 +57,10 @@ var lastSpawnTime = 0;
 function checkIfSpawnBlockedOrLevelOver() {
 	if(enemyList.length == 0) {
 		if(upToSpawnIdx >= levelCurrent.length) {
-			console.log("nothing else to spawn, and all enemies dead, go to next level");
 			mode = LEVEL_TRANSITION;
 			levelNum++;
 			if(levelNum >= levelList.length) {
-				console.log("you won the whole game. Still not handled");
+				mode = WIN_SCREEN;
 			} else {
 				loadLevel(levelNum);
 			}
