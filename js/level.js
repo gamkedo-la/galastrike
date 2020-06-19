@@ -11,7 +11,7 @@ const WAVE_WAIT_UNTIL_CLEAR = -1;
 const WAVE_FINSIHED = -2;
 
 var levelOneData = [
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:3, countSpacing: 50, onRail:0},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:3, countSpacing: 50, onRail:0},
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:1, atX:0.2, count:1, countSpacing: 50, onRail:1}, 
 	//{kind:ENEMY_KIND_SAT, delayBefore:200, atX:0.8, count:5, countSpacing: 50},
 ];
@@ -82,9 +82,11 @@ function handelLevelSpawn() {
 			switch(levelCurrent[i].kind) {
 				case ENEMY_KIND_BASIC_ALIEN:
 					spawnObj = new basicAlienClass();
+					spawnObj.init(); //not yet on all objects
 					break;
 				case ENEMY_KIND_MID_ALIEN:
 					spawnObj = new midAlienClass();
+					spawnObj.init(); //not yet on all objects
 					break;
 				case ENEMY_KIND_DIVER_ALIEN:
 					spawnObj = new diverAlienClass();
