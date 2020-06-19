@@ -48,8 +48,12 @@ function baseEnemy() {
 			this.basicShot();
 			this.playerCollisionDetection();
 
-			if (this.fallowRail != -1 && this.railPt < railList[this.followRail].length) {
-				var goalX = railList[this.followRail][this.railPt].x * c.width;
+            if ((this.fallowRail != -1) 
+                && railList[this.followRail] != undefined // can sometimes be null here
+                && (this.railPt < railList[this.followRail].length)
+                ) {
+                
+                    var goalX = railList[this.followRail][this.railPt].x * c.width;
 				var goalY = railList[this.followRail][this.railPt].y * c.height;
 
 				this.ang = Math.atan2(goalY - this.y, goalX - this.x);
