@@ -122,6 +122,7 @@ function handelLevelSpawn() {
 			} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
 				upToSpawnIdx ++;
 			}
+			spawnObj.move();// giving a free cycle to start on rail point 1 will give it a super class with an init function
 			enemyList.push(spawnObj);
 			
 			lastSpawnTime = spawnClock;

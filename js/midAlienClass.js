@@ -30,6 +30,7 @@ function midAlienClass() {
 
 	this.draw = function () {
 		if (!this.destroyed) {
+			//this.ang = Math.PI;
 			drawBitmapCenteredAtLocationWithRotation(imageArray["enemyB.png"], this.x, this.y, this.ang);
 			//ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
 			//colorRect(this.x, this.y, this.w, this.h, 'white');
@@ -62,6 +63,11 @@ function midAlienClass() {
 				this.ang = Math.atan2(goalY - this.y, goalX - this.x);
 				this.sx = Math.cos(this.ang) * 4;
 				this.sy = Math.sin(this.ang) * 4;
+
+				if(this.railPt == 0) {
+					this.x = goalX;
+					this.y = goalY;
+				}
 
 				if (roundShapeCollisionWithRoundShape(this.x, this.y, 10, goalX, goalY, 10)) {
 					this.railPt++;
