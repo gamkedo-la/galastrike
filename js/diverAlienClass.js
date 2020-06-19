@@ -23,7 +23,8 @@ function diverAlienClass() {
 
 	this.draw = function () {
 
-		colorRect(this.x, this.y, this.w, this.h, 'red');
+		//colorRect(this.x, this.y, this.w, this.h, 'red');
+		ctx.drawImage(imageArray["enemyC.png"], this.x, this.y);
 		colorText(this.hp, this.x + 60, this.y, "18px arial", "orange"); // hp indicator
 
 	}

@@ -12,7 +12,6 @@ function uiOverlay() {
     this.shield = 1;
     this.ammo = 2;
     this.speedBurst = 3;
-    this.invincible = 4;
     this.messagesPosX = c.width/2;
     this.messagesPosY = c.height - 20;
     
@@ -191,11 +190,6 @@ function uiOverlay() {
             case this.speedBurst:
             this.uiBracketMovingTime = 30;
             colorText('MAX SPEED', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
-            break;
-
-            case this.invincible:
-            this.uiBracketMovingTime = 30;
-            colorText('INVINCIBLE', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
         }
     }
