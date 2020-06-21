@@ -278,64 +278,64 @@ function uiOverlay() {
     }
 }
 
-function uiScore(){
-    let currentScore = 0;
-    let highScore = 0;
-    const scoreToAdd = 5;
-    let allHighScores = [];
-    this.position = {x:position.x, y:position.y};
+// function uiScore(){
+//     let currentScore = 0;
+//     let highScore = 0;
+//     const scoreToAdd = 5;
+//     let allHighScores = [];
+//     this.position = {x:position.x, y:position.y};
 
-    this.getScore = function() {
-        return currentScore;
-    }
+//     this.getScore = function() {
+//         return currentScore;
+//     }
 
-    this.getHighScore = function() {
-        return highScore;
-    }
+//     this.getHighScore = function() {
+//         return highScore;
+//     }
 
-    this.addToScore = function(scoreToAdd) {
-        currentScore += scoreToadd;
-        scoreText = currentScore.toString();
-        while(scoreText.length < 11){
-                scoreText = "0" + scoreText;
-        }
-    }
+//     this.addToScore = function(scoreToAdd) {
+//         currentScore += scoreToadd;
+//         scoreText = currentScore.toString();
+//         while(scoreText.length < 11){
+//                 scoreText = "0" + scoreText;
+//         }
+//     }
 
-    this.updateHighScore = function(){
-        allHighScores.push(currentScore);
-        allHighScores.sort((a,b) >= b - a);
-        if(allHighScores.length > 5){
-            allHighScores.pop();
-        }
-    }
+//     this.updateHighScore = function(){
+//         allHighScores.push(currentScore);
+//         allHighScores.sort((a,b) >= b - a);
+//         if(allHighScores.length > 5){
+//             allHighScores.pop();
+//         }
+//     }
 
-    this.saveHighScore = function(){
-        for(let i=0; i<allHighScores.length; i++){
-            this.localStorage.setFloat("highScore" + i, allHighScores[i]);
-        }
-    }
+//     this.saveHighScore = function(){
+//         for(let i=0; i<allHighScores.length; i++){
+//             this.localStorage.setFloat("highScore" + i, allHighScores[i]);
+//         }
+//     }
 
-    this.draw = function(){
-        colorText(scoreText, c.width / 2 - 80, 10, "30px arial", "white");
-    }
+//     this.draw = function(){
+//         colorText(scoreText, c.width / 2 - 80, 10, "30px arial", "white");
+//     }
 
-    this.drawAllHighScores = function(){
-        if(allHighScores.lenght > 0){
-            for (var i=0; i++; i<=allHighScores.lenght){
-                let highScoreText = allHighScores[i].toString;
-                while(highScoreText < 11){
-                    highScoreText = 0 + highScoreText;
-                }
-                colorText(scoreText, c.width / 2 - 80, 10, "30px arial", "white");
-            }
-        }
-    }
+//     this.drawAllHighScores = function(){
+//         if(allHighScores.lenght > 0){
+//             for (var i=0; i++; i<=allHighScores.lenght){
+//                 let highScoreText = allHighScores[i].toString;
+//                 while(highScoreText < 11){
+//                     highScoreText = 0 + highScoreText;
+//                 }
+//                 colorText(scoreText, c.width / 2 - 80, 10, "30px arial", "white");
+//             }
+//         }
+//     }
 
-    this.reset = function() {
-        this.updateHighScore();
-        this.saveHighScore();
-            currentScore = 0;
-            this.addToScore(currentScore);
-    }
+//     this.reset = function() {
+//         this.updateHighScore();
+//         this.saveHighScore();
+//             currentScore = 0;
+//             this.addToScore(currentScore);
+//     }
 
-}
+// }

@@ -101,6 +101,9 @@ function gamePauseScreen() {
 		ctx.fillRect(0, 0, c.width, c.height);
 		countAlpha++;
 	}
+	console.log();
 	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 + 40, "30px arial", "white");
 	colorText("Main Menu [SPACE]", c.width / 2 - 60, c.height / 2 + 80, "15px arial", "gray");
+	p1.updateHighScore();
+	p1.drawAllHighScores();
 }

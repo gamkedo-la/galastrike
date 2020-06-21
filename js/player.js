@@ -4,6 +4,9 @@ const AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM = 200;
 const MIN_DIST_FROM_SCREEN_BOTTOM = 200;
 const SIDE_SCREEN_BUFFER = 120;
 const WIN_SCORE = 10000000000;
+let a,b;
+let currentScore = 0;
+let allHighScores = [];
 
 var playerScore = 0;
 
@@ -210,7 +213,28 @@ function playerClass() {
 			mode = WIN_SCREEN;
 		}
 	}
-
+ 
+	this.updateHighScore = function(){
+        allHighScores.push(currentScore);
+        allHighScores.sort(function(a,b) { 
+			return a - b; });
+        if(allHighScores.length > 10){
+            allHighScores.pop();
+        }
+	}
+	
+	this.drawAllHighScores = function(){
+        if(allHighScores.lenght > 0){
+            for (var i=0; i++; i<=allHighScores.lenght){
+                let highScoreText = allHighScores[i].toString;
+                while(highScoreText < 11){
+                    highScoreText = 0 + highScoreText;
+				}
+				colorText(highScoreText, c.width / 2 - 80,  c.height / 2 + 80, "30px arial", "white");
+            }
+        }
+	}
+	
 	this.addShield = function (amount) {
 
 		if (amount === undefined) {
