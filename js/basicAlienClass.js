@@ -11,7 +11,7 @@ function basicAlienClass() {
 		this.hp = BASIC_ALIEN_HP;
 		this.imgName = "enemyAalt.png";
 		this.scoreValue = 20;
-		this.shotSpeed = 5;
+		this.shotSpeed = 10;
 	}
 
 	this.collisionShape = function(theShot) {

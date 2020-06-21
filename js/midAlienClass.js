@@ -9,6 +9,8 @@ function midAlienClass() {
 		this.hp = MID_ALIEN_HP;
 		this.imgName = "enemyB.png";
 		this.scoreValue = 30;
+		this.sx = 12;
+		this.sy = 12;
 	}
 
 }

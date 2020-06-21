@@ -1,14 +1,34 @@
 var railList;
 
 var railListA = [
-	[{x:0.1, y: 0.2},
-	{x:0.15, y: 0.30},
-	{x:0.5, y: 0.1}],
+	[
+	{x:-0.1, y: -0.1},
+	{x:0.05, y: 0.1}, // top horizontal straight line
+	{x:0.9, y: 0.1},
+	],
 
-	[{x:0.2, y: 0.3},
-	{x:0.18, y: 0.5},
-	{x:0.35, y: 0.40},
-	{x:0.8, y: 0.2}],
+	[
+	{x:-0.1, y: -0.2},
+	{x:0.05, y: 0.2}, // mid horizontal straight line
+	{x:0.9, y: 0.2},
+	],
+
+	[
+	{x:-0.1, y: -0.3},
+	{x:0.05, y: 0.3}, // bot horizontal straight line
+	{x:0.9, y: 0.3},
+	],
+
+	[
+	{x:0.0, y: 0.2}, // horizontal stepped line
+	{x:0.95, y: 0.2},
+	{x:0.95, y: 0.3},
+	{x:0.05, y: 0.3},
+	{x:0.05, y: 0.4},
+	{x:0.95, y: 0.4},
+	{x:0.95, y: 0.5},
+	{x:0.05, y: 0.5}
+	],
 ];
 
 var railListB = [
