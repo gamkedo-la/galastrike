@@ -109,12 +109,15 @@ function drawEverything() {
 		case LEVEL_TRANSITION:
 			levelTransitionScreen();
 			break;
-	}
+    }
+    
+    boom.draw(); // particles are drawn in all states
 }
 
 function moveEverything() {
 	handelLevelSpawn();
-	gamepad.update();
+    gamepad.update();
+    boom.update();
 	//audio
 	backgroundMusic.updateMusic();
 	ui.move();
