@@ -5,10 +5,8 @@ const MIN_DIST_FROM_SCREEN_BOTTOM = 200;
 const SIDE_SCREEN_BUFFER = 120;
 const WIN_SCORE = 10000000000;
 let a,b;
-let currentScore = 0;
+let playerScore = 0;
 let allHighScores = [];
-
-var playerScore = 0;
 
 function playerClass() {
 
@@ -209,13 +207,16 @@ function playerClass() {
 
 	this.addToScore = function (howMany = 1) {
 		playerScore += howMany;
+		scoreText = playerScore.toString();
+		while(scoreText.length < 11){
+			scoreText = "0" + scoreText;}
 		if (playerScore >= WIN_SCORE) {
 			mode = WIN_SCREEN;
 		}
 	}
  
 	this.updateHighScore = function(){
-        allHighScores.push(currentScore);
+        allHighScores.push(playerScore);
         allHighScores.sort(function(a,b) { 
 			return a - b; });
         if(allHighScores.length > 10){
