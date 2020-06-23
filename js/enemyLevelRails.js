@@ -29,6 +29,26 @@ var railListA = [
 	{x:0.95, y: 0.5},
 	{x:0.05, y: 0.5}
 	],
+
+	[
+	{x:0.1, y: -0.02}, // horizontal stepped line
+	{x:0.1, y: 0.8},
+	{x:0.2, y: 0.8},
+	{x:0.2, y: 0.2},
+	{x:0.6, y: 0.2}, //5
+	{x:0.6, y: 0.3},
+	{x:0.1, y: 0.3},
+	],
+
+	[
+	{x:0.9, y: -0.02}, // horizontal stepped line
+	{x:0.9, y: 0.8},
+	{x:0.8, y: 0.8},
+	{x:0.8, y: 0.5},
+	{x:0.2, y: 0.5}, //5
+	{x:0.2, y: 0.6},
+	{x:0.9, y: 0.6},
+	],
 ];
 
 var railListB = [
@@ -51,7 +71,7 @@ var railListC = [
 ];
 
 var railColor = [
-	"red", "green", "orange", "blue"
+	"red", "green", "orange", "blue", "white", "cyan"
 ];
 
 function drawRails() {
