@@ -117,6 +117,7 @@ function drawEverything() {
 function moveEverything() {
 	handelLevelSpawn();
     gamepad.update();
+    //boom.explosion(Math.random()*800,Math.random()*600); // debug spam
     boom.update();
 	//audio
 	backgroundMusic.updateMusic();

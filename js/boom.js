@@ -14,39 +14,40 @@
 
 var boom = new function() {
 
-    // data
-    var x=[],y=[],life=[],alpha=[],fade=[],size=[],grow=[],
-        rot=[],rotspd=[],xspd=[],yspd=[],friction=[],sprnum=[],
-        max=0,i=0;
+    var xpos=[],ypos=[],life=[],alpha=[],fade=[],
+        size=[],grow=[],rot=[],rotspd=[],
+        xspd=[],yspd=[],friction=[],
+        sprnum=[],sprx=[],spry=[],max=0,i=0;
 
-    // functions
     this.update = function() {
 
         for (i=0; i<max; i++) {
             if (!life[i]) continue;
             life[i]--;
-            x[i] += xspd[i];
-            y[i] += yspd[i];
+            xpos[i] += xspd[i];
+            ypos[i] += yspd[i];
             rot[i] += rotspd[i];
             alpha[i] -= fade[i];
             size[i] += grow[i];
             xspd[i] *= friction[i];
             yspd[i] *= friction[i];
             rotspd[i] *= friction[i];
+            if (size[i] < 1) size = 1;
+            if (alpha[i] < 0) alpha[i] = 0;
+            if (alpha[i] > 1) alpha[i] = 1;
         }
     };
 
     this.draw = function() {
         for (i=0; i<max; i++) {
             ctx.save();
-            ctx.translate(size[i]/2,size[i]/2);//place imaginary hand at pivot point
-            ctx.rotate(rot[i]);// + Math.PI/2);//rotate with hand at pivot based in radians
-            ctx.translate(-size[i]/2,-size[i]/2);//move imaginary hand back to original spot
-            ctx.translate(x[i],y[i]);
+            //ctx.translate(size[i]/2,size[i]/2);
+            //ctx.rotate(rot[i]);
+            ctx.translate(-size[i]/2,-size[i]/2);
+            ctx.translate(xpos[i],ypos[i]);
             ctx.globalAlpha = alpha[i];
             ctx.drawImage(imageArray["boom.png"],
-                u[i],v[i],256,256, // u,v,sw,sh
-                0,0,size[i],size[i]);
+                sprx[i],spry[i],256,256,0,0,size[i],size[i]);
             ctx.restore();
         }
     };
@@ -57,21 +58,24 @@ var boom = new function() {
         for (i=0; i<max+1; i++) {
             if (!life[i]) break;
         }
-        // fill in the new data
-        x[i] = x;
-        y[i] = y;
-        u[i] = 0; // fixme: sprnum
-        v[i] = 0;
-        life[i] = 1000;
+        if (i==max) { // new one?
+            max++; 
+            console.log("boom at "+x+","+y+" - max: " + max)
+        } 
+        xpos[i] = x;
+        ypos[i] = y;
+        sprx[i] = 768;
+        spry[i] = 0;
+        life[i] = 30;
         alpha[i] = 1;
-        fade[i] = 0.1;
-        scale[i] = 0;
-        grow[i] = 0.1;
+        fade[i] = 1/30;
+        size[i] = 1;
+        grow[i] = 16;
         rot[i] = 0;
-        rotspd[i] = (Math.random()*2-1) * (Math.PI*2)
-        xspd[i] = Math.random()*10-5;
-        yspd[i] = Math.random()*10-5;
-        friction[i] = 0.95;
+        rotspd[i] = (Math.random()*2-1)*0.5;
+        xspd[i] = 0;//Math.random()*50-25;
+        yspd[i] = 0;//Math.random()*50-25;
+        friction[i] = 0.8;
         sprnum[i] = 1;
     };
 
