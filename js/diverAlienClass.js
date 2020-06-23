@@ -18,6 +18,7 @@ function diverAlienClass() {
 	this.respawnTimer = 60;
 	this.enteredScreen = false;
 	this.dive = false;
+	this.hitImg = false;
 
 	this.lootDropRate = 1;
 
@@ -26,6 +27,11 @@ function diverAlienClass() {
 		//colorRect(this.x, this.y, this.w, this.h, 'red');
 		ctx.drawImage(imageArray["enemyC.png"], this.x, this.y);
 		colorText(this.hp, this.x + 60, this.y, "18px arial", "orange"); // hp indicator
+
+		if(this.hitImg == true) {
+			ctx.drawImage(imageArray["enemyCFlash.png"], this.x, this.y);
+			this.hitImg = false;
+		}
 
 	}
 
@@ -67,6 +73,7 @@ function diverAlienClass() {
 			
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
+			this.hitImg = true;
 			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}

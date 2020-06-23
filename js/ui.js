@@ -41,7 +41,7 @@ function uiOverlay() {
         
         colorText(
             p1.weaponCurrent,       // string
-            225, c.height - 10,     // x and y
+            250, c.height - 10,     // x and y
             "20px arial",           // font
             "white",                // color
             "center",               // alignment

@@ -6,14 +6,20 @@ function satellites() {
 	this.h = 33;
 	this.r = 13;
 	this.sy = 3;
-	this.hp = 1;
+	this.hp = 3;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.explosion = new explosion(15, 17, 12, 'yellow', 'red', 'green');
 	this.lootDropRate = 5;
+	this.hitImg = false;
 
 	this.draw = function () {
 		if (!this.destroyed) {
 			ctx.drawImage(imageArray["satellite_human.png"], this.x, this.y);
+
+			if(this.hitImg == true) {
+				ctx.drawImage(imageArray["satellite_humanFlash.png"], this.x, this.y);
+				this.hitImg = false;
+			}
 		}
 		this.explosion.draw();
 	}
@@ -34,6 +40,7 @@ function satellites() {
 		
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
+			this.hitImg = true;
 			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}

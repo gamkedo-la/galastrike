@@ -19,12 +19,18 @@ function levelOneBossClass() {
 	this.shotY;
 	this.shotActive = false;
 	this.myShot = [];
+	this.hitImg = false;
 
 
 	this.draw = function () {
 
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
+
+		if(this.hitImg == true) {
+				ctx.drawImage(imageArray["LV1_BossFlash.png"], this.x, this.y);
+				this.hitImg = false;
+			}
 
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();
@@ -74,6 +80,7 @@ function levelOneBossClass() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
 			theShot.deactivate(theShot);
 			this.hp --;
+			this.hitImg = true;
 			if(this.hp <= this.hpToChangeToFullyOnScreen) {
 				this.fullyOnScreen = true;
 			}
@@ -86,7 +93,7 @@ function levelOneBossClass() {
 			if (this.rn == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h - 100;
 				this.shotX = this.x + this.w / 2;
-				this.fireShot(this.shotX, this.shotY, 'laser');
+				this.fireShot(this.shotX, this.shotY, 'basic');
 			}
 				
 			
@@ -99,7 +106,7 @@ function levelOneBossClass() {
 			if (this.rn == 3) { //fiering from left orb
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
-				this.fireShot(this.shotX, this.shotY, 'laser');
+				this.fireShot(this.shotX, this.shotY, 'basic');
 				//playBossShootingSound();
 			} 
 		}

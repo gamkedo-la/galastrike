@@ -8,6 +8,7 @@ function midAlienClass() {
 		this.superInit();
 		this.hp = MID_ALIEN_HP;
 		this.imgName = "enemyB.png";
+		this.imgFlashName = "enemyBFlash.png";
 		this.scoreValue = 30;
 		this.sx = 12;
 		this.sy = 12;

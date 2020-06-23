@@ -9,7 +9,8 @@ function basicAlienClass() {
 	this.init = function() {
 		this.superInit();
 		this.hp = BASIC_ALIEN_HP;
-		this.imgName = "enemyAalt.png";
+		this.imgName = "enemyA.png";
+		this.imgFlashName = "enemyAFlash.png";
 		this.scoreValue = 20;
 		this.shotSpeed = 10;
 	}

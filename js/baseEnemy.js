@@ -20,6 +20,8 @@ function baseEnemy() {
 	this.explosion = null;
 	this.imgName = "pickupItem_shield.png";
 	this.imgShotName = "enemyAalt_shot.png";
+	this.imgFlashName = "enemyAFlash.png";
+	this.hitImg = false;
 	this.scoreValue = 10;
 	this.h = 70; // related to explosion need to look into it
 	this.w = 60; 
@@ -53,7 +55,7 @@ function baseEnemy() {
                 && (this.railPt < railList[this.followRail].length)
                 ) {
                 
-                    var goalX = railList[this.followRail][this.railPt].x * c.width;
+                var goalX = railList[this.followRail][this.railPt].x * c.width;
 				var goalY = railList[this.followRail][this.railPt].y * c.height;
 
 				this.ang = Math.atan2(goalY - this.y, goalX - this.x);
@@ -102,11 +104,13 @@ function baseEnemy() {
 
 	this.draw = function() {
 		if (!this.destroyed) {
-			//this.ang = Math.PI;
 			drawBitmapCenteredAtLocationWithRotation(imageArray[this.imgName], this.x, this.y, this.ang);
-			//ctx.drawImage(imageArray["enemyB.png"], this.x, this.y);
-			//colorRect(this.x, this.y, this.w, this.h, 'white');
 			colorText(this.hp, this.x + 90, this.y, "18px arial", "orange"); // hp indicator
+
+			if(this.hitImg == true) {
+				drawBitmapCenteredAtLocationWithRotation(imageArray[this.imgFlashName], this.x, this.y, this.ang);
+				this.hitImg = false;
+			}
 		}
 
 		if (this.shotActive == true) {
@@ -149,6 +153,7 @@ function baseEnemy() {
 			if (this.collisionShape(theShot)) {		
 					theShot.deactivate();
 					this.hp -= theShot.removeAlienHp;
+					this.hitImg = true;
 					if (this.hp <= 0) {
 						this.onDestroyed();
 					}

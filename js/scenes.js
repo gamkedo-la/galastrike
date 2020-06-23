@@ -34,7 +34,7 @@ function gameMode() {
 	p1.move();
 
 	starMove();
-	drawRails();
+	//drawRails();
 
 	//draws and moves enemies and space debris
 	for (var i = 0; i < enemyList.length; i++) {
