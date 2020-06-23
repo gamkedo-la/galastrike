@@ -16,7 +16,7 @@ function playerShotClass(weaponType, ship) {
 		case 'basic':
 			this.w = 4;
 			this.removeAlienHp = 1;
-			this.shotReloadRate = 5;
+			this.shotReloadRate = Math.max(5, Math.abs(ship.weapons[0][1] - 100) / 2);
 			this.shootSpeed = 20;
 			playBasicShootingSound();
 			break;
