@@ -17,6 +17,23 @@ var boom = new function() {
     const SPR_SIZE = 256; // pixel size of one sprite in the spritesheet
     const SPR_RAD = 128; // half that size, used for centering
     
+    // hardcoded spritesheet coordinates (4x4 sprites of 256x256 pixels each)
+    const UVSMOKE = [0*SPR_SIZE,0*SPR_SIZE]; 
+    const UVIMPACT = [1*SPR_SIZE,0*SPR_SIZE]; 
+    const UVMOON = [2*SPR_SIZE,0*SPR_SIZE]; 
+    const UVFIRE = [3*SPR_SIZE,0*SPR_SIZE]; 
+    const UVPLASMA = [0*SPR_SIZE,1*SPR_SIZE]; 
+    const UVSPARKS = [1*SPR_SIZE,1*SPR_SIZE]; 
+    const UVFLASH = [2*SPR_SIZE,1*SPR_SIZE]; 
+    const UVRING = [3*SPR_SIZE,1*SPR_SIZE]; 
+    const UVENEMYA = [0*SPR_SIZE,2*SPR_SIZE]; 
+    const UVENEMYB = [1*SPR_SIZE,2*SPR_SIZE]; 
+    const UVENEMYC = [2*SPR_SIZE,2*SPR_SIZE]; 
+    const UVBOSSBITS = [3*SPR_SIZE,2*SPR_SIZE]; 
+    const UVROCKA = [0*SPR_SIZE,3*SPR_SIZE]; 
+    const UVROCKB = [1*SPR_SIZE,3*SPR_SIZE]; 
+
+
     var xpos=[],ypos=[],life=[],alpha=[],fade=[],
         size=[],grow=[],rot=[],rotspd=[],
         xspd=[],yspd=[],friction=[],
@@ -55,34 +72,174 @@ var boom = new function() {
     };
 
     function freeID() {
-        // find an unused array index
-        // or a new one at the end
+        // reuse an idle particle
         for (i=0; i<max+1; i++) {
             if (!life[i]) break;
         }
-        if (i==max) { // a brand new one?
+        // didn't find one? increase pool size
+        if (i==max) { 
             max++; 
-            //console.log("new boom at "+x+","+y+" - max: " + max)
         } 
         return i;
     }
 
-    this.explosion = function(x,y) {
+    function impact(x,y) {
+        // short spiky flash
         i = freeID();
+        sprx[i] = UVIMPACT[0];
+        spry[i] = UVIMPACT[1];
         xpos[i] = x;
         ypos[i] = y;
-        sprx[i] = Math.floor(Math.random()*4)*256;
-        spry[i] = Math.floor(Math.random()*4)*256;
-        life[i] = 30;
-        alpha[i] = 1;
-        fade[i] = 1/30;
-        size[i] = 1;
-        grow[i] = 16;
+        life[i] = 8;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 256; 
+        grow[i] = 0;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
         rot[i] = Math.random()*Math.PI*2;
-        rotspd[i] = (Math.random()*2-1)*0.03;
-        xspd[i] = Math.random()*30-15;
-        yspd[i] = Math.random()*30-15;
-        friction[i] = 0.8;
+        rotspd[i] = 0;
+    }
+
+    function flash(x,y) {
+        // huge faint circle
+        i = freeID();
+        sprx[i] = UVFLASH[0];
+        spry[i] = UVFLASH[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 10;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 256; 
+        grow[i] = 0;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = 0;
+        rotspd[i] = 0;
+    }
+
+    function fireball(x,y) {
+        // slow big red fireball
+        i = freeID();
+        sprx[i] = UVFIRE[0];
+        spry[i] = UVFIRE[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 60;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 0; 
+        grow[i] = 5;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = Math.random()*Math.PI*2;
+        rotspd[i] = (Math.random()*2-1)*0.05;
+    }
+
+    function plasma(x,y) {
+        // bright plasma fireball
+        i = freeID();
+        sprx[i] = UVPLASMA[0];
+        spry[i] = UVPLASMA[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 30;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 0; 
+        grow[i] = 10;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = Math.random()*Math.PI*2;
+        rotspd[i] = (Math.random()*2-1)*0.05;
+    }
+
+    function shockwave(x,y) {
+        // a huge ring like the death star explosion
+        i = freeID();
+        sprx[i] = UVRING[0];
+        spry[i] = UVRING[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 60;
+        alpha[i] = 0.75; 
+        fade[i] = 2/life[i];
+        size[i] = 0; 
+        grow[i] = 24;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = 0;
+        rotspd[i] = 0;
+    }
+
+    function sparks(x,y) {
+        // fast moving sparkles
+        i = freeID();
+        sprx[i] = UVSPARKS[0];
+        spry[i] = UVSPARKS[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 16;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 24; 
+        grow[i] = 64;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = Math.random()*Math.PI*2;
+        rotspd[i] = 0;
+    }
+
+    function moon(x,y) {
+        // anime-inspired crescent moon of energy
+        i = freeID();
+        sprx[i] = UVMOON[0];
+        spry[i] = UVMOON[1];
+        xpos[i] = x;
+        ypos[i] = y;
+        life[i] = 33;
+        alpha[i] = 1; 
+        fade[i] = 1/life[i];
+        size[i] = 256; 
+        grow[i] = 0;
+        friction[i] = 0;
+        xspd[i] = 0;
+        yspd[i] = 0;
+        rot[i] = Math.random()*Math.PI*2;
+        rotspd[i] = 0;
+    }    
+
+    function rnd(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    this.explosion = function(x,y) {
+
+        fireball(x+rnd(-20,20),y+rnd(-20,20));
+        fireball(x+rnd(-20,20),y+rnd(-20,20));
+        fireball(x+rnd(-20,20),y+rnd(-20,20));
+        plasma(x+rnd(-20,20),y+rnd(-20,20));
+        plasma(x+rnd(-20,20),y+rnd(-20,20));
+        plasma(x+rnd(-20,20),y+rnd(-20,20));
+        shockwave(x,y);
+        sparks(x,y);
+        moon(x,y);
+        flash(x,y);
+        impact(x,y);
+
+        // random values example
+        // xspd[i] = Math.random()*30-15; // subtle movement
+        // friction[i] = 0.9; // decrease speed
+        // rot[i] = Math.random()*Math.PI*2; // 0-360 deg in radians
+        // rotspd[i] = (Math.random()*2-1)*0.03; // subtle slow spins
+
     };
 
 }(); // global boom is created immediately
