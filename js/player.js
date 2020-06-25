@@ -28,13 +28,14 @@ function playerClass() {
 	this.speedBurstCountdown = 0;
 	this.testangle = 0;
 	this.myShot = [];
-	this.weapons = [["basic", 0], ["mid", 0], ["laser", 0], ["atom", 0], ["chris", 0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
+	this.weapons = [["basic", 100], ["mid", 0], ["laser", 0], ["atom", 0], ["chris", 0]]; //Leave chris at 0!! Use cheatcode "chris" if you want to use it.
 	this.weaponCurrent;
 	this.reloadFrames = 0;
 	this.tempControlEnabled = false;
     this.outlineTimer = 0;
     this.ammoAmount;
-    
+	this.basicWeaponTimer = 0;
+	
     this.trails = new trailsFX(); // plasma from the engines
 
 	this.fireShot = function () {
@@ -54,7 +55,6 @@ function playerClass() {
 	}
 
     this.draw = function () {
-        
         this.trails.draw(this.x,this.y); // plasma from the engines
 
         // space ship
@@ -122,12 +122,18 @@ function playerClass() {
 			if (this.weapons[i][1] > 0) {
 				this.weaponCurrent = this.weapons[i][0];
 				this.ammoAmount = this.weapons[i][1];
+				if (i == 0) {
+					this.basicWeaponTimer++;
+				}
 				break;
-			} else if (i == 0) {
-				this.weaponCurrent = this.weapons[0][0];
 			}
 		}
-
+		console.log(Math.max(10, this.basicWeaponTimer % this.weapons[0][1]))
+		if(this.weaponCurrent == this.weapons[0][0] && this.weapons[0][1] < 100 && this.basicWeaponTimer % Math.max(15, this.weapons[0][1]) == 0){
+			this.weapons[0][1]++;
+		}else if(this.weaponCurrent != this.weapons[0][0] && this.weapons[0][1] != 100 ){
+			this.weapons[0][1] = 100;
+		}
 		this.moveShield();
 		this.spaceshipAutoReverse();
 		this.speedBurst();

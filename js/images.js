@@ -53,7 +53,8 @@ var imageNames = [
 	"uiSmallBracket_Left.png",
 	"uiSmallBracket_Right.png",
 	"uiCenterBracket_Left.png",
-	"uiCenterBracket_Right.png"
+    "uiCenterBracket_Right.png",
+    "boom.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];
