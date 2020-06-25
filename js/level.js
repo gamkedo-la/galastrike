@@ -22,16 +22,28 @@ var levelOneData = [ // FIRST LEVEL
 	//{kind:ENEMY_KIND_SAT, delayBefore:200, count:1, countSpacing: 50},
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:4}, // third wave
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.2, count:10, countSpacing: 50, onRail:5},
-	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50},
+	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
 
 ];
 
 var levelTwoData = [
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:2, countSpacing: 50},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:3, countSpacing: 50, onRail:0},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:2, countSpacing: 50, onRail:1},
-	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:100, atX:0.8, count:3, countSpacing: 50},
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:110, atX:0.5, count:2, countSpacing: 50},
+
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:7, countSpacing: 50, onRail:0},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:7, countSpacing: 50, onRail:1},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:7, countSpacing: 50, onRail:2},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:7, countSpacing: 50, onRail:3},
+
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.8, count:6, countSpacing: 50},
+
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:4},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:5, countSpacing: 50, onRail:5},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:7, countSpacing: 50, onRail:6},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:7, countSpacing: 50, onRail:7},
+	
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, count:1, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, count:1, countSpacing: 50},
+
+	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
 ];
 
 var levelThreeData = [
