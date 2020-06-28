@@ -236,6 +236,10 @@ function playerClass() {
         if(allHighScores.length > 10){
             allHighScores.pop();
 		}
+		this.saveHighScores();
+	}
+	this.saveHighScores = function(){
+
 		for(var i=0; i<allHighScores.length; i++){
 			window.localStorage.setItem('score' + i , allHighScores[i]);
 		} 
@@ -249,7 +253,8 @@ function playerClass() {
                     highScoreText = '0' + highScoreText;
 				}
 				colorText((i+1) + '. ' + highScoreText, c.width / 2 + 120,  c.height / 2 + 80 + i*30, "30px arial", "white" , "right");
-            }
+			}
+			colorText("Press C to clear scores", c.width / 2 , c.height - 20, "20px arial" , "grey", "center");
         }
 	}
 	

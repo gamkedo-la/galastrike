@@ -6,6 +6,7 @@ const KEY_DOWN_ARROW = 40;
 const KEY_SPACE = 32;
 const KEY_ENTER = 13;
 const KEY_SHIFT = 16;
+const KEY_C = 67;
 const KEY_Q = 81;
 const KEY_S = 83;
 const KEY_F = 70;
@@ -101,6 +102,13 @@ function keyPressed(evt) {
 			if (evt.keyCode == KEY_P) {
 				pausePressed = !pausePressed;
 				pauseGame(pausePressed);
+			}
+
+			if(evt.keyCode == KEY_C) {
+				for(i=0; i<10; i++){
+					allHighScores[i] = 0;
+				};
+				p1.saveHighScores();
 			}
 
 			if(evt.keyCode == KEY_SPACE) {
