@@ -7,7 +7,9 @@ const WIN_SCORE = 10000000000;
 let a,b;
 let playerScore = 0;
 let allHighScores = [];
-
+for(i=0; i<10; i++){
+	allHighScores.push(0);
+};
 function playerClass() {
 
 	// start position depends on canvas size
@@ -225,7 +227,7 @@ function playerClass() {
 	this.updateHighScore = function(){
         allHighScores.push(playerScore);
         allHighScores.sort(function(a,b) { 
-			return a - b; });
+			return  b - a; });
         if(allHighScores.length > 10){
             allHighScores.pop();
         }
@@ -238,7 +240,7 @@ function playerClass() {
                 while(highScoreText.length < 11){
                     highScoreText = '0' + highScoreText;
 				}
-				colorText(highScoreText, c.width / 2 - 80,  c.height / 2 + 80 + i*30, "30px arial", "white");
+				colorText((i+1) + '. ' + highScoreText, c.width / 2 + 120,  c.height / 2 + 80 + i*30, "30px arial", "white" , "right");
             }
         }
 	}
