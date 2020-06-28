@@ -12,6 +12,7 @@ const WAVE_WAIT_UNTIL_CLEAR = -1;
 const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
+
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
 	//{kind:ENEMY_KIND_AST, delayBefore:0, count:2, countSpacing: 50 }, 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:1},

@@ -128,7 +128,7 @@ function playerClass() {
 				break;
 			}
 		}
-		console.log(Math.max(10, this.basicWeaponTimer % this.weapons[0][1]))
+		//console.log(Math.max(10, this.basicWeaponTimer % this.weapons[0][1]))
 		if(this.weaponCurrent == this.weapons[0][0] && this.weapons[0][1] < 100 && this.basicWeaponTimer % Math.max(15, this.weapons[0][1]) == 0){
 			this.weapons[0][1]++;
 		}else if(this.weaponCurrent != this.weapons[0][0] && this.weapons[0][1] != 100 ){

@@ -22,12 +22,11 @@ function miniBossOne() {
 
 	this.draw = function () {
 
-		//ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
-		colorRect(this.x, this.y, this.w, this.h, 'white');
+		ctx.drawImage(imageArray["miniBossOne.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
 
 		if(this.hitImg == true) {
-				ctx.drawImage(imageArray["LV1_BossFlash.png"], this.x, this.y);
+				ctx.drawImage(imageArray["miniBossOneFlash.png"], this.x, this.y);
 				this.hitImg = false;
 			}
 
