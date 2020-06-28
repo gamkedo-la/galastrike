@@ -199,6 +199,7 @@ function playerClass() {
 	this.playerLose = function () {
 		playDyingSound();
 		mode = GAME_OVER;
+		this.updateHighScore();
 	}
 
 	this.spaceshipAutoReverse = function () {
@@ -231,13 +232,13 @@ function playerClass() {
 	}
 	
 	this.drawAllHighScores = function(){
-        if(allHighScores.lenght > 0){
-            for (var i=0; i++; i<=allHighScores.lenght){
-                let highScoreText = allHighScores[i].toString;
-                while(highScoreText < 11){
-                    highScoreText = 0 + highScoreText;
+        if(allHighScores.length > 0){
+            for (var i=0; i<allHighScores.length; i++){
+                let highScoreText = allHighScores[i].toString();
+                while(highScoreText.length < 11){
+                    highScoreText = '0' + highScoreText;
 				}
-				colorText(highScoreText, c.width / 2 - 80,  c.height / 2 + 80, "30px arial", "white");
+				colorText(highScoreText, c.width / 2 - 80,  c.height / 2 + 80 + i*30, "30px arial", "white");
             }
         }
 	}
