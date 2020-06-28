@@ -10,6 +10,11 @@ let allHighScores = [];
 for(i=0; i<10; i++){
 	allHighScores.push(0);
 };
+if(window.localStorage.getItem('score0') != null){
+	for(var i=0; i<allHighScores.length; i++){
+		allHighScores[i] = window.localStorage.getItem('score' + i );
+	} 
+}
 function playerClass() {
 
 	// start position depends on canvas size
@@ -230,7 +235,10 @@ function playerClass() {
 			return  b - a; });
         if(allHighScores.length > 10){
             allHighScores.pop();
-        }
+		}
+		for(var i=0; i<allHighScores.length; i++){
+			window.localStorage.setItem('score' + i , allHighScores[i]);
+		} 
 	}
 	
 	this.drawAllHighScores = function(){
