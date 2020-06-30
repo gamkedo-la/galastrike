@@ -49,14 +49,19 @@ function baseEnemy() {
 
 			this.basicShot();
 			this.playerCollisionDetection();
+			var nextPt;
+			if(this.railPt < railList[this.followRail].length) {
+				nextPt = this.railPt;
+			} else {
+				nextPt =  railList[this.followRail].length - 2;
+			}
 
             if ((this.fallowRail != -1) 
                 && railList[this.followRail] != undefined // can sometimes be null here
-                && (this.railPt < railList[this.followRail].length)
                 ) {
                 
-                var goalX = railList[this.followRail][this.railPt].x * c.width;
-				var goalY = railList[this.followRail][this.railPt].y * c.height;
+                var goalX = railList[this.followRail][nextPt].x * c.width;
+				var goalY = railList[this.followRail][nextPt].y * c.height;
 
 				this.ang = 0; //Math.atan2(goalY - this.y, goalX - this.x);
 				var moveAng = Math.atan2(goalY - this.y, goalX - this.x);
@@ -69,7 +74,7 @@ function baseEnemy() {
 				}
 
 				if (roundShapeCollisionWithRoundShape(this.x, this.y, 10, goalX, goalY, 10)) {
-					this.railPt++;
+					this.railPt = nextPt + 1;
 				}
 				return;
 			}
