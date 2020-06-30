@@ -30,7 +30,7 @@ var levelOneData = [ // FIRST LEVEL
 var levelTwoData = [
 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:3, countSpacing: 50, onRail:0},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:7, countSpacing: 50, onRail:1},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:7, countSpacing: 50, onRail:1},
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:7, countSpacing: 50, onRail:2},
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:7, countSpacing: 50, onRail:3},
 
@@ -138,14 +138,22 @@ function handelLevelSpawn() {
 			}
 			if(levelCurrent[i].count != undefined) { 
 				levelCurrent[i].count --; //the one spawns now
+				/*for(var s = upToSpawnIdx; s < levelCurrent.length; s++) {
+					levelCurrent[s].delayBefore -= levelCurrent[i].countSpacing;
+					console.log(levelCurrent[s].delayBefore); 
+				}*/
 				if(levelCurrent[i].count > 0) {
+					if(typeof(levelCurrent[i].waveStarted) == "undefined" || levelCurrent[i].waveStarted == false) {
+						levelCurrent[i].waveStarted = true;
+						if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
+							upToSpawnIdx ++;
+						}
+					} 
 					levelCurrent[i].delayBefore = levelCurrent[i].countSpacing;
 				} 
 				else {
 					levelCurrent[i].delayBefore = WAVE_FINSIHED;
-					if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
-						upToSpawnIdx ++;
-					}
+					
 				}
 			} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
 				upToSpawnIdx ++;
