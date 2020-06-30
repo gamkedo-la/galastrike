@@ -13,50 +13,55 @@ const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
 
-//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
-	//{kind:ENEMY_KIND_AST, delayBefore:0, count:2, countSpacing: 50 }, 
-//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:1},
-	//{kind:ENEMY_KIND_AST, delayBefore:0, count:1 }, 
-//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:2}, 
-	//{kind:ENEMY_KIND_SAT, delayBefore:200, count:1, countSpacing: 50},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:2, countSpacing: 50, onRail:3}, // second wave
-	//{kind:ENEMY_KIND_SAT, delayBefore:200, count:1, countSpacing: 50},
-	//{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:4}, // third wave
-	//{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.2, count:10, countSpacing: 50, onRail:5},
-	//{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
+
+
+	//{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:2, countSpacing: 50, onRail:0}, // first wave
+
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:0}, //second wave
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:1}, 
+
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:0}, //third wave
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:1}, 
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:2}, 
+
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:3}, // fourth wave
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:4}, 
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:5}, 
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:6}, 
+
+	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50},
 
 ];
 
 var levelTwoData = [
 
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:3, countSpacing: 50, onRail:0},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:7, countSpacing: 50, onRail:1},
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:7, countSpacing: 50, onRail:2},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:7, countSpacing: 50, onRail:3},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50, onRail:1},
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:2},
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50, onRail:3}, 
 
-	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.8, count:6, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.8, count:6, countSpacing: 50},// second wave
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:200, atX:0.3, count:6, countSpacing: 50},
 
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:4},
+
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:5 , countSpacing: 50, onRail:4},// third wave
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:5, countSpacing: 50, onRail:5},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:7, countSpacing: 50, onRail:6},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.2, count:7, countSpacing: 50, onRail:7},
 	
-	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, count:1, countSpacing: 50},
-	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, count:1, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, count:5, countSpacing: 50},
+	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, count:5, countSpacing: 50},
 
-	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
+	
 ];
 
 var levelThreeData = [
-	{kind:ENEMY_KIND_LONE_BOSS, delayBefore:0},
+
+	{kind:ENEMY_KIND_LONE_BOSS, delayBefore:0, count:1}, // boss fight
+
 ];
 
-var levelFourData = [
-	{kind:ENEMY_KIND_AST, delayBefore:0, count:1, countSpacing: 50}, 
-	{kind:ENEMY_KIND_SAT, delayBefore:0, count:1, countSpacing: 50},
-];
-
-var levelList = [levelOneData, levelTwoData, levelThreeData, levelFourData];
+var levelList = [levelOneData, levelTwoData, levelThreeData];
 var levelNum = 0; //determines what level is active
 var levelRails = [railListA, railListB, railListC, railListA];
 
@@ -92,6 +97,7 @@ function checkIfSpawnBlockedOrLevelOver() {
 			levelCurrent[upToSpawnIdx].delayBefore = 1;
 			lastSpawnTime = spawnClock;
 			upToSpawnIdx ++;
+			ui.messageToShow = ui.nextEnemyWave;
 		}
 	}
 }
@@ -114,7 +120,7 @@ function handelLevelSpawn() {
 				case ENEMY_KIND_DIVER_ALIEN:
 					spawnObj = new diverAlienClass();
 					break;
-					case ENEMY_KIND_MINIBOSS_ONE:
+				case ENEMY_KIND_MINIBOSS_ONE:
 					spawnObj = new miniBossOne();
 					break
 				case ENEMY_KIND_LONE_BOSS:

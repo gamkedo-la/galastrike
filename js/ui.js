@@ -12,6 +12,7 @@ function uiOverlay() {
     this.shield = 1;
     this.ammo = 2;
     this.speedBurst = 3;
+    this.nextEnemyWave = 5;
     this.messagesPosX = c.width/2;
     this.messagesPosY = c.height - 20;
     
@@ -21,6 +22,7 @@ function uiOverlay() {
     this.showCenterBrackets = false;
     this.uiCenterRightBracketPosX = c.width/2 + 10;
     this.uiCenterLeftBracketPosX = c.width/2 - 10;
+    this.uiCenterLeftBracketPosY = c.height - 45;
     this.centerBracketPauseTimer = 0;
     this.moveCenterBrackets = false;
     this.openBracketsTimer = 0;
@@ -65,8 +67,8 @@ function uiOverlay() {
         //center messages
         this.showUiCenterMessages();
         if(this.showCenterBrackets) {
-            ctx.drawImage(imageArray["uiCenterBracket_Left.png"], this.uiCenterLeftBracketPosX, c.height - 45);
-            ctx.drawImage(imageArray["uiCenterBracket_Right.png"], this.uiCenterRightBracketPosX, c.height - 45);
+            ctx.drawImage(imageArray["uiCenterBracket_Left.png"], this.uiCenterLeftBracketPosX, this.uiCenterLeftBracketPosY);
+            ctx.drawImage(imageArray["uiCenterBracket_Right.png"], this.uiCenterRightBracketPosX, this.uiCenterLeftBracketPosY);
         }
         
         //debugs - to be removed for release - DON'T DELETE
@@ -205,12 +207,29 @@ function uiOverlay() {
             this.uiBracketMovingTime = 30;
             colorText('MAX SPEED', this.messagesPosX, this.messagesPosY,'30px Courier', 'white','center');
             break;
+
+            case this.nextEnemyWave:
+            this.uiBracketMovingTime = 40;
+            colorText('MORE ENEMIES APPROACHING!', c.width/2, c.height/2,'50px Courier', 'white','center');
+            break;
         }
     }
 
     this.showUiCenterMessages = function() {
        
        if(this.messageToShow != undefined) {
+        //defining initial positions of center brackets 
+        if(this.messageToShow == this.nextEnemyWave) {
+            this.uiCenterLeftBracketPosY = c.height/2 - 30;
+            this.centerBracketSpeed = 8;
+            this.uiBracketMovingTime = 50;
+        } else {
+            this.uiCenterLeftBracketPosY = c.height - 45;
+            this.centerBracketSpeed = 5;
+            this.uiBracketMovingTime = 30;
+        }
+
+
             this.showCenterBrackets = true; // drawing brackets in center of UI
             this.centerBracketPauseTimer ++;
             if(this.centerBracketPauseTimer >= 20) {

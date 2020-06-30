@@ -43,8 +43,6 @@ var imageNames = [
 	"pickupItem_speed.png",
 	"MainScreen.png",
 	"TitleScreenTwo.png",
-	"leftUiSegment.png",
-	"rightUiSegment.png",
 	"bossBasicWeapon.png",
 	"GameOverScreen.png",
 	"uiLeftSegment.png",

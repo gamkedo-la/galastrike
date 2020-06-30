@@ -65,7 +65,7 @@ function satellites() {
 		this.destroyed = true;
 	
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
-			spawnLoot(this.x+this.w/2, this.y+this.h, "mid","laser","atom","speed","shield");
+			spawnLoot(this.x+this.w/2, this.y+this.h, "speed","shield");
 		}
 
 		p1.addToScore(10); //needs to be fixed

@@ -186,7 +186,7 @@ function baseEnemy() {
 		this.destroyed = true;
 
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
-			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","laser","atom","speed","shield");
+			spawnLoot(this.x + this.w/2, this.y + this.h/2, "mid","shield");
 		}
 
 		p1.addToScore(this.scoreValue); //needs to be fixed
