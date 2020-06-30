@@ -14,6 +14,9 @@ var debugShowRails = false;
 var countAlpha = 0; // counting for Pause draw screen
 var mode = TITLE_SCREEN;
 
+
+var astList = [];
+
 function gameMode() {
 
 	if (backgroundMusic.playing == false) {
@@ -30,6 +33,19 @@ function gameMode() {
 	starMove();
 	// space tech in front of stars but behind the game action
 	midgroundDraw();
+
+	// manages asteroids and satellites for each level
+	switch(levelNum) {
+		case levelNum = 0: // first level
+			handleSpawningAsteroids();
+		break;
+		case levelNum = 1: // second level
+			console.log("satellites");
+		break;
+		case levelNum = 2: // final boss fight
+			console.log("boss");
+		break;
+	}
 
 	//player ship
 	p1.draw();
@@ -52,6 +68,18 @@ function gameMode() {
 		}
 	}
 
+	// asteroids
+	for (var i = 0; i < astList.length; i++) {
+		astList[i].draw();
+		astList[i].move();
+	}
+
+	for (var i = astList.length - 1; i >= 0; i--) {
+		if (astList[i].readyToRemove()) {
+			astList.splice(i, 1);
+		}
+	}
+
 	//draws loot items
 	for (var i = 0; i < lootList.length; i++) {
 		lootList[i].draw();
@@ -66,6 +94,13 @@ function gameMode() {
 	}
 
 	ui.draw();
+}
+
+function handleSpawningAsteroids() {
+	var rn = Math.round(Math.random() * (25 - 1) + 1);
+	if(rn == 1) {
+		spawnAsteroids();
+	}
 }
 
 function levelTransitionScreen() {

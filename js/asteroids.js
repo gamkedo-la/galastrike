@@ -1,4 +1,9 @@
 
+function spawnAsteroids() {
+	var ast = new asteroids();
+	this.astList.push(ast);
+}
+
 function asteroids() {
 
 	this.hp = 1;
@@ -29,9 +34,10 @@ function asteroids() {
 		this.rotation += this.rotationSpeed;
 		this.playerCollisionDetection();
 		this.explosion.move(this.x, this.y);
+		this.readyToRemove();
 
 		if (this.y >= c.height) {
-			this.respawn();
+			//this.respawn();
 		}
 	}
 

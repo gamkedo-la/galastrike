@@ -13,7 +13,8 @@ const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
 
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:2, countSpacing: 50, onRail:0}, // first wave
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:3, countSpacing: 50, onRail:0}, // first wave
+	//{kind:ENEMY_KIND_AST, delayBefore:0 , count:1, countSpacing: 50,},
 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:0}, //second wave
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:1}, 
@@ -163,7 +164,7 @@ function handelLevelSpawn() {
 			lastSpawnTime = spawnClock;
 		}
 	}
-	if(mode != LEVEL_TRANSITION) {
+	if(mode != LEVEL_TRANSITION || mode != GAME_PAUSE) {
 		spawnClock ++;
 	}
 }
