@@ -9,7 +9,7 @@ function miniBossOne() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 100;
+	this.hp = 50;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
 
