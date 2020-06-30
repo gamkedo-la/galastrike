@@ -138,10 +138,6 @@ function handelLevelSpawn() {
 			}
 			if(levelCurrent[i].count != undefined) { 
 				levelCurrent[i].count --; //the one spawns now
-				/*for(var s = upToSpawnIdx; s < levelCurrent.length; s++) {
-					levelCurrent[s].delayBefore -= levelCurrent[i].countSpacing;
-					console.log(levelCurrent[s].delayBefore); 
-				}*/
 				if(levelCurrent[i].count > 0) {
 					if(typeof(levelCurrent[i].waveStarted) == "undefined" || levelCurrent[i].waveStarted == false) {
 						levelCurrent[i].waveStarted = true;
@@ -152,8 +148,7 @@ function handelLevelSpawn() {
 					levelCurrent[i].delayBefore = levelCurrent[i].countSpacing;
 				} 
 				else {
-					levelCurrent[i].delayBefore = WAVE_FINSIHED;
-					
+					levelCurrent[i].delayBefore = WAVE_FINSIHED;	
 				}
 			} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
 				upToSpawnIdx ++;

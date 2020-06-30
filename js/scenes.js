@@ -9,6 +9,8 @@ const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
 const LEVEL_TRANSITION = 7;
 
+var debugShowRails = false;
+
 var countAlpha = 0; // counting for Pause draw screen
 var mode = TITLE_SCREEN;
 
@@ -34,8 +36,9 @@ function gameMode() {
 	p1.move();
 
 	starMove();
-	drawRails();
-
+	if(debugShowRails == true) {
+		drawRails();
+	}
 	//draws and moves enemies and space debris
 	for (var i = 0; i < enemyList.length; i++) {
 		enemyList[i].draw();
