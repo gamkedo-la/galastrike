@@ -58,9 +58,10 @@ function baseEnemy() {
                 var goalX = railList[this.followRail][this.railPt].x * c.width;
 				var goalY = railList[this.followRail][this.railPt].y * c.height;
 
-				this.ang = Math.atan2(goalY - this.y, goalX - this.x);
-				this.sx = Math.cos(this.ang) * 4;
-				this.sy = Math.sin(this.ang) * 4;
+				this.ang = 0; //Math.atan2(goalY - this.y, goalX - this.x);
+				var moveAng = Math.atan2(goalY - this.y, goalX - this.x);
+				this.sx = Math.cos(moveAng) * 4;
+				this.sy = Math.sin(moveAng) * 4;
 
 				if(this.railPt == 0) {
 					this.x = goalX;

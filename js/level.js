@@ -13,13 +13,13 @@ const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
 
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
+//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
 	//{kind:ENEMY_KIND_AST, delayBefore:0, count:2, countSpacing: 50 }, 
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:1},
+//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:1},
 	//{kind:ENEMY_KIND_AST, delayBefore:0, count:1 }, 
-	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:2}, 
+//	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:2}, 
 	//{kind:ENEMY_KIND_SAT, delayBefore:200, count:1, countSpacing: 50},
-	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:3}, // second wave
+	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:10, countSpacing: 50, onRail:3}, // second wave
 	//{kind:ENEMY_KIND_SAT, delayBefore:200, count:1, countSpacing: 50},
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:10, countSpacing: 50, onRail:4}, // third wave
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.2, count:10, countSpacing: 50, onRail:5},
