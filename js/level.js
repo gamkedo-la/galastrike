@@ -13,9 +13,7 @@ const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
 
-
-
-	//{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:2, countSpacing: 50, onRail:0}, // first wave
+	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:2, countSpacing: 50, onRail:0}, // first wave
 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:0}, //second wave
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:1}, 
@@ -35,7 +33,7 @@ var levelOneData = [ // FIRST LEVEL
 
 ];
 
-var levelTwoData = [
+var levelTwoData = [ // Second Level
 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:0}, // first wave
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50, onRail:1},
