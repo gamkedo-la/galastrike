@@ -14,7 +14,7 @@ function satellites() {
 	this.hp = 3;
 	this.destroyed = false; // also used in playerWeapon.js
 	this.explosion = new explosion(15, 17, 12, 'yellow', 'red', 'green');
-	this.lootDropRate = 5;
+	this.lootDropRate = 1;
 	this.hitImg = false;
 
 	this.draw = function () {
@@ -69,9 +69,9 @@ function satellites() {
 	this.onDestroyed = function(){
 		this.destroyed = true;
 	
-		if(Math.round(Math.random() * this.lootDropRate) == 1){
+		//if(Math.round(Math.random() * this.lootDropRate) == 1){
 			spawnLoot(this.x+this.w/2, this.y+this.h, "speed","shield");
-		}
+		//}
 
 		p1.addToScore(10); //needs to be fixed
 		playDestroyedEnemyMidSound();

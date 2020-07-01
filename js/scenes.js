@@ -42,10 +42,12 @@ function gameMode() {
 			handleSpawningSatellites(100);
 		break;
 		case levelNum = 1: // second level
-			console.log("satellites");
+			handleSpawningAsteroids(50);
+			handleSpawningSatellites(100);
 		break;
 		case levelNum = 2: // final boss fight
-			console.log("boss");
+			handleSpawningAsteroids(50);
+			handleSpawningSatellites(100);
 		break;
 	}
 
@@ -125,7 +127,6 @@ function handleSpawningSatellites(odds) {
 			spawnSatellites();
 		}
 	}
-	console.log(rn);
 }
 
 function levelTransitionScreen() {
