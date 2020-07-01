@@ -80,7 +80,15 @@ function levelOneBossClass() {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y, this.w, this.h)) {
 			theShot.deactivate(theShot);
 			this.hp --;
-			this.hitImg = true;
+            this.hitImg = true;
+            
+            if (this.hp>0) {
+                boom.bigImpact(this.x+this.w/2,this.y+this.h/2);
+            } else {
+                boom.debrisBOSS(this.x+this.w/2,this.y+this.h/2);
+                boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+            }
+
 			if(this.hp <= this.hpToChangeToFullyOnScreen) {
 				this.fullyOnScreen = true;
 			}

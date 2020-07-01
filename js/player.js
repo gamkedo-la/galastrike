@@ -167,10 +167,13 @@ function playerClass() {
 
 	this.getHit = function (amount) {
 		if (!this.invincible || !this.shieldActive) {
-			if (!this.shieldActive) {
+
+            if (!this.shieldActive) {
 				this.playerLose();
 				return;
 			}
+
+            boom.bigImpact(this.x+this.w/2,this.y+this.h/2);
 
 			if (amount === undefined) {
 				this.playerShields--;
@@ -205,7 +208,8 @@ function playerClass() {
 	}
 
 	this.playerLose = function () {
-		playDyingSound();
+        boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+        playDyingSound();
 		mode = GAME_OVER;
 		this.updateHighScore();
 	}

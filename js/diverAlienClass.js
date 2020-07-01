@@ -99,6 +99,9 @@ function diverAlienClass() {
 	this.onDestroyed = function(){
 		this.destroyed = true;
 
+        boom.debrisB(this.x+this.w/2,this.y+this.h/2);
+        boom.smallExplosion(this.x+this.w/2,this.y+this.h/2);
+
 		if(Math.round(Math.random() * this.lootDropRate) == 1){
 			spawnLoot(this.x + this.w/2, this.y + this.h/2, "speed","shield");
 		}

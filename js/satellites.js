@@ -45,7 +45,10 @@ function satellites() {
 		
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
-			this.hitImg = true;
+            this.hitImg = true;
+            
+            boom.smallImpact(this.x+this.w/2,this.y+this.h/2);
+
 			if (this.hp <= 0 && !this.destroyed) {
 				this.onDestroyed();
 			}
@@ -68,7 +71,10 @@ function satellites() {
 
 	this.onDestroyed = function(){
 		this.destroyed = true;
-	
+    
+        boom.smallExplosion(this.x+this.w/2,this.y+this.h/2);
+        boom.debrisC(this.x+this.w/2,this.y+this.h/2);
+
 		//if(Math.round(Math.random() * this.lootDropRate) == 1){
 			spawnLoot(this.x+this.w/2, this.y+this.h, "speed","shield");
 		//}

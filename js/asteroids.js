@@ -56,7 +56,8 @@ function asteroids() {
 		if(p1.collisionCheck(false, this.x, this.y, this.r)){
 			if (!this.destroyed) {
 				p1.getHit();
-				this.hp--;
+                this.hp--;
+                boom.smallImpact(this.x+this.r,this.y+this.r);
 			}
 			if (!this.destroyed && this.hp <= 0) {
 				this.onDestroyed();
@@ -70,7 +71,10 @@ function asteroids() {
 			spawnLoot(this.x, this.y,"mid"); 
 		}
 		p1.addToScore(10); //needs to be fixed
-		
+        
+        boom.debrisROCKA(this.x+this.r,this.y+this.r); // FIXME: account for the three different kinds
+        boom.smallExplosion(this.x+this.r,this.y+this.r);
+        
 		playDestroyedEnemyMidSound();		
 		this.explosion.explode();
 	}

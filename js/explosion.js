@@ -26,6 +26,7 @@ function explosion(radius = 5, duration = 10, shrinkFactor = 7,
                 color = Math.random() > 0.5 ? color2 : color3;
                 color = Math.random() > 0.25 ? color4 : color;					
                                 
+                ctx.globalAlpha = 0.05;
                 colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
                 colorCircle(this.x + Math.random() * 5, this.y + Math.random() * 5, this.explosionRadiusNow, color);
                 colorCircle(this.x + Math.random() * 5, this.y - Math.random() * 5, this.explosionRadiusNow, color);
@@ -38,6 +39,7 @@ function explosion(radius = 5, duration = 10, shrinkFactor = 7,
                 colorCircle(this.x + Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
                 colorCircle(this.x + Math.random() * 20, this.y - Math.random() * 20, this.explosionRadiusNow, color);
                 colorCircle(this.x - Math.random() * 20, this.y + Math.random() * 20, this.explosionRadiusNow, color);
+                ctx.globalAlpha = 1;
                             
                 this.explosionRemovalCountdownNow--;
             }else if(this.explosionRemovalCountdownNow <= 0) {                
