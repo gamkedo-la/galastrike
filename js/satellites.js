@@ -1,3 +1,8 @@
+function spawnSatellites() {
+	var sat = new satellites();
+	sat.x = c.width * Math.random();
+	this.satList.push(sat);
+}
 
 function satellites() {
 	this.x = 500;

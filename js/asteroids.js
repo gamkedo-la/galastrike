@@ -1,6 +1,7 @@
 
 function spawnAsteroids() {
 	var ast = new asteroids();
+	ast.x = c.width * Math.random();
 	this.astList.push(ast);
 }
 

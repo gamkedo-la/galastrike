@@ -16,6 +16,7 @@ var mode = TITLE_SCREEN;
 
 
 var astList = [];
+var satList = [];
 
 function gameMode() {
 
@@ -37,7 +38,8 @@ function gameMode() {
 	// manages asteroids and satellites for each level
 	switch(levelNum) {
 		case levelNum = 0: // first level
-			handleSpawningAsteroids();
+			handleSpawningAsteroids(50);
+			handleSpawningSatellites(100);
 		break;
 		case levelNum = 1: // second level
 			console.log("satellites");
@@ -80,6 +82,18 @@ function gameMode() {
 		}
 	}
 
+	// satellites
+	for (var i = 0; i < satList.length; i++) {
+		satList[i].draw();
+		satList[i].move();
+	}
+
+	for (var i = satList.length - 1; i >= 0; i--) {
+		if (satList[i].readyToRemove()) {
+			satList.splice(i, 1);
+		}
+	}
+
 	//draws loot items
 	for (var i = 0; i < lootList.length; i++) {
 		lootList[i].draw();
@@ -96,11 +110,22 @@ function gameMode() {
 	ui.draw();
 }
 
-function handleSpawningAsteroids() {
-	var rn = Math.round(Math.random() * (25 - 1) + 1);
+function handleSpawningAsteroids(odds) {
+	var rn = Math.round(Math.random() * (odds - 1) + 1);
+	
 	if(rn == 1) {
 		spawnAsteroids();
 	}
+}
+
+function handleSpawningSatellites(odds) {
+	if(satList.length < 1) {
+		var rn = Math.round(Math.random() * (odds - 1) + 1);
+		if(rn == 1) {
+			spawnSatellites();
+		}
+	}
+	console.log(rn);
 }
 
 function levelTransitionScreen() {

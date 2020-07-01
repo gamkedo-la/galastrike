@@ -116,6 +116,11 @@ function playerShotClass(weaponType, ship) {
 				astList[i].shotHitMeCheck(this);
 			}
 		}
+		for (var i = 0; i < satList.length; i++) {
+			if(!satList[i].destroyed) {
+				satList[i].shotHitMeCheck(this);
+			}
+		}
 
 		if (this.weaponType == 'basic' || this.weaponType == 'mid') {
 			//checking screen boundaries
