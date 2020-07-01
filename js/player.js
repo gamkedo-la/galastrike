@@ -44,7 +44,26 @@ function playerClass() {
 	this.basicWeaponTimer = 0;
 	this.basicWeaponMaxNumberShot = 21;
 	
-    this.trails = new trailsFX(); // plasma from the engines
+	this.trails = new trailsFX(); // plasma from the engines
+	
+	this.reset = function () {
+		this.x = c.width / 2 - PLAYER_SHIP_WIDTH / 2;
+		this.y = c.height - AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM;
+		this.playerShields = 5; //Not more then 5!
+		this.shieldRotationSpeed = 0;
+		this.shieldActive = true;
+		this.invincible = false;
+		this.invincibleTimer = 0;
+		this.speedBuffer = false;
+		this.reverseSpeed = 3;
+		this.speedBurstCountdown = 0;
+		this.myShot = [];
+		this.weapons = [["basic", this.basicWeaponMaxNumberShot], ["mid", 0], ["laser", 0], ["atom", 0], ["chris", 0]];
+		this.weaponCurrent = [0][0];
+		this.reloadFrames = 0;
+		this.outlineTimer = 0;
+		this.basicWeaponTimer = 0;
+	}
 
 	this.fireShot = function () {
 		var isWeaponEmpty = false;

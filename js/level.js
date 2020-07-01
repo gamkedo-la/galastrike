@@ -75,6 +75,7 @@ function loadLevel(whichLevel) {
 	spawnClock = 0;
 	upToSpawnIdx = 1;
 	lastSpawnTime = 0;
+	p1.reset();
 }
 var upToSpawnIdx = 0;
 var levelCurrent;
