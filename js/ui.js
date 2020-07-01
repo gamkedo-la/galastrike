@@ -50,7 +50,7 @@ function uiOverlay() {
             false);                 // black 1x shadow?
         
         colorText(
-            p1.ammoAmount,          // string
+            p1.ammoAmount - 1,          // string
             330, c.height - 10,     // x and y
             "20px arial",           // font
             "white",                // color

@@ -42,24 +42,34 @@ function playerClass() {
     this.outlineTimer = 0;
     this.ammoAmount;
 	this.basicWeaponTimer = 0;
-	this.basicWeaponMaxNumberShot = 20;
+	this.basicWeaponMaxNumberShot = 21;
 	
     this.trails = new trailsFX(); // plasma from the engines
 
 	this.fireShot = function () {
+		var isWeaponEmpty = false;
+
 		//Pick the weapon to use from the array
 		for (var i = this.weapons.length - 1; i >= 0; i--) {
 			if (this.weaponCurrent == this.weapons[i][0]) {
-				this.weapons[i][1]--;
+
+				if(i == 0 && this.weapons[i][1] <= 1)
+					isWeaponEmpty = true;
+				else
+					this.weapons[i][1]--;
+				
 				break;
 			}
 		}
 
 		//Generate and activate the bullet
-		var newShot = new playerShotClass(this.weaponCurrent, this);
-		newShot.shotActive = true;
-		this.myShot.push(newShot);
-		this.reloadFrames = newShot.shotReloadRate;
+		if(!isWeaponEmpty)
+		{
+			var newShot = new playerShotClass(this.weaponCurrent, this);
+			newShot.shotActive = true;
+			this.myShot.push(newShot);
+			this.reloadFrames = newShot.shotReloadRate;
+		}
 	}
 
     this.draw = function () {
