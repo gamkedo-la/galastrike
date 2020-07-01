@@ -57,16 +57,17 @@ function satellites() {
 	}
 
 	this.playerCollisionDetection = function () {
+		
 		if (p1.collisionCheck(false, this.x, this.y + 12, this.w, this.h) ||		//sattelite body
 			p1.collisionCheck(false, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
-				if (!this.destroyed) {
+				while(this.hp > 0) {
 					p1.getHit();
 					this.hp--;
+					if (!this.destroyed && this.hp <= 0)
+						this.onDestroyed();
+					if(p1.playerShields <= 0) break;
 				}
-				if (!this.destroyed && this.hp <= 0) {
-					this.onDestroyed();
-				}
-		}
+			}
 	}
 
 	this.onDestroyed = function(){

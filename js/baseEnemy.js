@@ -176,11 +176,13 @@ function baseEnemy() {
 	}
 
 	this.playerCollisionDetection = function () {
-		if (this.playerCollisionShape()) {	
-			p1.getHit();
-			this.hp--;
-			if (this.hp <= 0 && !this.destroyed) {
-				this.onDestroyed();
+		if (this.playerCollisionShape()) {
+			while(this.hp > 0) {
+				p1.getHit();
+				this.hp--;
+				if (this.hp <= 0 && !this.destroyed)
+					this.onDestroyed();
+				if(p1.playerShields <= 0) break;
 			}
 		}
 	}
