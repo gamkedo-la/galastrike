@@ -21,7 +21,7 @@ var satList = [];
 function gameMode() {
 
 	if (backgroundMusic.playing == false) {
-		if (levelNum == 1)
+		if (levelNum % 2 == 1)
 			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
 		else
 			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
@@ -130,15 +130,21 @@ function handleSpawningSatellites(odds) {
 }
 
 function levelTransitionScreen() {
+	backgroundMusic.stop();
+
 	colorRect(0, 0, c.width, c.height, 'green');
 	colorText("Next Level?", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 }
 
 function gameOverScreen() {
+	backgroundMusic.stop();
+
 	ctx.drawImage(imageArray["GameOverScreen.png"], 0, 0, c.width, c.height);
 }
 
 function winScreen() {
+	backgroundMusic.stop();
+
 	colorRect(0, 0, c.width, c.height, 'green');
 	colorText("Player Wins", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 	colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
@@ -160,6 +166,8 @@ function mainMenuScreen() {
 }
 
 function creditScreen() {
+	backgroundMusic.stop();
+
 	colorRect(0, 0, c.width, c.height, 'black');
 	colorText("Credits", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 	colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
@@ -167,6 +175,8 @@ function creditScreen() {
 
 
 function gamePauseScreen() {
+	backgroundMusic.pause();
+
 	if (countAlpha == 0) {
 		ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 		ctx.fillRect(0, 0, c.width, c.height);

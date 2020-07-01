@@ -75,7 +75,16 @@ function loadLevel(whichLevel) {
 	spawnClock = 0;
 	upToSpawnIdx = 1;
 	lastSpawnTime = 0;
+
 	p1.reset();
+
+	if (backgroundMusic.playing == true)
+	{
+		if (levelNum % 2 == 1)
+			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
+		else
+			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+	}
 }
 var upToSpawnIdx = 0;
 var levelCurrent;
