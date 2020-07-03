@@ -1,6 +1,5 @@
 
 function spawnLoot(objX, objY, ...lootType) {
-	console.log(lootType)
 	var lootItem = new lootItemClass(objX, objY, lootType[Math.floor(Math.random() * lootType.length)]);
 	lootItem.active = true;
 	this.lootList.push(lootItem);
@@ -8,7 +7,6 @@ function spawnLoot(objX, objY, ...lootType) {
 }
 
 function lootItemClass(objX, objY, lootType) {
-	console.log(lootType)
 	this.x = objX;
 	this.y = objY;
 	this.r = 20;
