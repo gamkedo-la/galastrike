@@ -1,5 +1,6 @@
 
 var startingAngleBossLaser = 180;
+var rotateLaser = true;
 
 // WeaponType, ship center X, Ship Y
 function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
@@ -13,7 +14,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.shotReloadRate;
 	this.shootSpeed;
 	this.laserStartingPoint = startingAngleBossLaser;
-
+	this.rotatingLaser = rotateLaser;
 	this.shotAngle;
 	this.laserHitTime
 
@@ -29,7 +30,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.w = 30;
 				this.h = c.height;
 				this.shotAngle = this.laserStartingPoint;
-				this.shotReloadRate = 120; // sets the duration of the laser
+				this.shotReloadRate = 60; // sets the duration of the laser
 				this.laserHitTime = 20; //frametime for collision check
 				this.shootSpeed = 0;
 				playMidShootingSound();
@@ -65,8 +66,10 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.shotCheck();
 				this.x = this.x;
 				this.y = this.y;
-				this.shotAngle++;
 				this.shotReloadRate--;
+				if(this.rotatingLaser) {
+					this.shotAngle++;
+				}
 			}
 		}
 	}

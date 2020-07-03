@@ -10,7 +10,7 @@ function levelOneBossClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 100;
+	this.hp = 300;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
 
@@ -24,6 +24,11 @@ function levelOneBossClass() {
 	this.followPlayer = false;
 	this.goToCenter = false;
 	this.laserAttack = false;
+	this.straightLaser = false;
+	this.straightLaserActive = false;
+	this.basicAttack = true;
+
+	this.hpBarColor = 'green';
 	
 
 
@@ -31,6 +36,18 @@ function levelOneBossClass() {
 
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
+		colorRect(50, 40, 300, 20, 'white');
+		colorRect(50, 41, 298, 18, 'black');
+		colorRect(50, 40, this.hp, 20, this.hpBarColor);
+		ctx.drawImage(imageArray["uiCenterBracket_Left.png"], 40, 30);
+		ctx.drawImage(imageArray["uiCenterBracket_Right.png"], 350, 30);
+
+		if(this.hp >= 50 && this.hp <= 120) {
+			this.hpBarColor = 'yellow';
+		}
+		if(this.hp <= 49 ) {
+			this.hpBarColor = 'red';
+		}
 
 		if(this.hitImg == true) {
 				ctx.drawImage(imageArray["LV1_BossFlash.png"], this.x, this.y);
@@ -59,23 +76,28 @@ function levelOneBossClass() {
 		}
 
 		switch(this.hp) {
-			case 90:
+			case 250:
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
 				break;
 
-			case 80:
+			case 200:
 				this.followPlayer = false;
 				this.goToCenter = true;
 				break;
 
-			case 70:
-				this.laserAttack = true;
-				this.hp = 69;
+			case 150:
+				this.basicAttack = false;
+				this.followPlayer = true;
+				this.straightLaser = true;
+				this.hp = 149;
 				break;
 
-			case 60:
+			case 100:
 				this.laserAttack = false;
+				this.straightLaser = false;
+				this.basicAttack = true;
+				this.followPlayer = true;
 				break;
 		}
 
@@ -143,10 +165,12 @@ function levelOneBossClass() {
 		}
 	}
 
+	var straighLaserTimer = 0;
+		var straighLaserClock = false;
 	this.basicShot = function () {
 	
 
-		if(this.laserAttack == false) { // basic shots
+		if(this.basicAttack) { // basic shots
 			this.rn2 = Math.round(Math.random() * (20 - 1) + 1); 
 			if (this.rn2 == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h - 100;
@@ -170,7 +194,6 @@ function levelOneBossClass() {
 		}
 
 		if(this.laserAttack == true) {
-			
 
 			this.rn4 = Math.round(Math.random() * (60 - 1) + 1); 
 			if(this.rn4 == 1) {
@@ -179,7 +202,7 @@ function levelOneBossClass() {
 				if(this.fireLaser){
 					this.rn3 = Math.round(Math.random() * (2 - 1) + 1); 
 					if(this.rn3 == 1) {
-							startingAngleBossLaser = 240;
+							startingAngleBossLaser = 280;
 						} else {
 							startingAngleBossLaser = 180;
 						}
@@ -189,9 +212,38 @@ function levelOneBossClass() {
 					this.fireShot(this.shotX, this.shotY, 'laser');  // fiering from middle orb
 					this.fireLaser = false;
 				}
-			
 			}
-		}		
+		}	
+
+		if(this.straightLaser) {
+
+			this.rn = Math.round(Math.random() * (40 - 1) + 1); 
+			if(this.rn == 1 && this.straightLaserActive == false) {
+				straighLaserClock = true;
+				startingAngleBossLaser = 270;
+				rotateLaser = false;
+
+				this.followPlayer = false;
+
+				this.shotY = this.y + this.h - 100;
+				this.shotX = this.x + this.w / 2;
+				this.fireShot(this.shotX, this.shotY, 'laser');  // fiering from middle orb
+			}
+		
+		}	
+		if(straighLaserClock) {
+			straighLaserTimer ++;
+			console.log(straighLaserTimer);
+			if(straighLaserTimer >= 120) {
+				console.log("done");
+
+				this.followPlayer = true;
+				straighLaserClock = false;
+				straighLaserTimer = 0;
+				this.straightLaserActive = false;
+
+			}
+		}
 	}
 
 	this.playerBackPush = false;
