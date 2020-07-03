@@ -139,29 +139,33 @@ function miniBossOne() {
 
 	this.basicShot = function () {
 			this.rn = Math.round(Math.random() * (30 - 1) + 1); 
-			this.laserrn = Math.round(Math.random() * (240 - 1) + 1); 
+			this.rnAtom = Math.round(Math.random() * (10 - 1) + 1); 
 
 			if (this.rn == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h/2;
 				this.shotX = this.x + this.w / 2;
-				this.fireShot(this.shotX, this.shotY, 'atom');
+				this.fireShot(this.shotX, this.shotY, 'basic');
 			}
 				
 			
 			if (this.rn == 2) { //fiering from right orb			
 				this.shotY = this.y + this.h/2;
 				this.shotX = this.x + this.w/2 +30;
-				this.fireShot(this.shotX, this.shotY, 'atom');
+				this.fireShot(this.shotX, this.shotY, 'basic');
 				//playBossShootingSound();
 			}
 
-			if (this.laserrn == 241) { //fiering from left orb
+			if (this.rnAtom == 1 && !this.atomicWeaponActive) { //fiering from left orb
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
-				this.fireShot(this.shotX, this.shotY, 'laser');
+				this.fireShot(this.shotX, this.shotY, 'atom');
+				this.atomicWeaponActive = true;
 				//playBossShootingSound();
 			} 
 		}
+
+
+
 
 	this.playerBackPush = false;
 	this.playerPushBackTimer = 0;

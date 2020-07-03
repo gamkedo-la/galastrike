@@ -40,14 +40,14 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 			case 'atom':
 				this.w = 10;
 				this.removeAlienHp = 1;
-				this.shotReloadRate = 200; //the length of the atom explosion
-				this.atomHitTime = 40; //frametime for collision check to do damage
+				this.shotReloadRate = 30; //the length of the atom explosion
+				this.atomHitTime = 1; //frametime for collision check to do damage
 				this.shootSpeed = 20;
-				this.atomActive = false;
+				this.atomActive = false; 
 				playMidShootingSound();
 				break;
 		}	
-	
+	this.atomicAnimation = false;
 	this.draw = function() {
 		
 		if(this.shotActive == true) {
@@ -63,13 +63,31 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 					if (!this.atomActive) {
 						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_1.png"], this.x, this.y, 0);
 					} else {
-						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_2.png"], this.x, this.y, 0);
+						this.atomicAnimation = true;
+						this.handleAtomicAnimation();
 					}
 					break;
 			}
 			
 			//colorRect(this.x, this.y, this.w, this.h, 'white');
 		}		
+	}
+	this.atomicAnimationClock = 0;
+	this.atomStartReloadRate = false;
+	this.handleAtomicAnimation = function() {
+		if(this.atomicAnimation) {
+			this.atomicAnimationClock ++;
+			if(this.atomicAnimationClock <= 120) {
+				colorEmptyCircle(this.x, this.y, 350, 'white');
+			} 
+
+			if(this.atomicAnimationClock > 120) {
+				this.atomStartReloadRate = true;
+				drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_2.png"], this.x, this.y, 0); 
+			}
+			
+		}
+		//
 	}
 		
 
@@ -90,9 +108,8 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 			} else if (this.weaponType == 'atom') {
 				if(this.atomActive == false){
 					this.y += this.shootSpeed;
-				}else{
+				}else if (this.atomStartReloadRate) {
 					this.shotReloadRate--;
-					console.log(this.shotReloadRate)
 				}
 			}
 		}
@@ -118,7 +135,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				if (this.y > c.height){
 					this.deactivate();
 				}
-				if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
+				if (p1.collisionCheck(false, this.x, this.y, this.w, this.h) && this.atomStartReloadRate) {
 					if(this.shotReloadRate % this.atomHitTime == 0){
 						this.deactivate();			
 						p1.getHit();
@@ -152,8 +169,10 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.deactivate = function () {
 		//atom will deactive themself after shotreloadRate time is over
 		if (this.weaponType == 'atom') {
+		
 			this.atomActive = true;
 			this.w = 350;
+			
 		}
 	}
 
