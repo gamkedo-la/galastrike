@@ -18,6 +18,7 @@ function colorCircle(centerX, centerY, radius, fillColor) {
 function colorEmptyCircle(centerX, centerY, radius, strokeColor) {
 	ctx.beginPath();
 	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+	ctx.lineWidth = 1;
 	ctx.strokeStyle = strokeColor;
 	ctx.stroke();
 }

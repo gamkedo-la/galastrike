@@ -19,6 +19,9 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.laserHitTime;
 	this.atomHitTime;
 	this.atomActive;
+	this.atomicAnimationClock = 0;
+	this.atomStartReloadRate = false;
+	this.atomicRadius = 300;
 
 
 		switch (this.weaponType) {
@@ -72,16 +75,16 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 			//colorRect(this.x, this.y, this.w, this.h, 'white');
 		}		
 	}
-	this.atomicAnimationClock = 0;
-	this.atomStartReloadRate = false;
+
 	this.handleAtomicAnimation = function() {
 		if(this.atomicAnimation) {
 			this.atomicAnimationClock ++;
-			if(this.atomicAnimationClock <= 120) {
-				colorEmptyCircle(this.x, this.y, 350, 'white');
+			if(this.atomicAnimationClock <= 90) {
+				this.atomicRadius++;
+				colorEmptyCircle(this.x, this.y, this.atomicRadius, 'white');
 			} 
 
-			if(this.atomicAnimationClock > 120) {
+			if(this.atomicAnimationClock > 90) {
 				this.atomStartReloadRate = true;
 				drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_2.png"], this.x, this.y, 0); 
 			}

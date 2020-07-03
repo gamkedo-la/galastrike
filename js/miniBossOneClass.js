@@ -23,6 +23,12 @@ function miniBossOne() {
 	this.shotActive = false;
 	this.myShot = [];
 	this.hitImg = false;
+
+	this.resetAtomicWeaponClock = 0;
+	this.resetAtomicWeaponTimer = false;
+	this.atomicWeaponTimer = 1000;
+	this.basicShotOdds = 30; // the lower the number the faster the shooting speed
+	this.atomicWeaponActive = false;
 	
 
 
@@ -51,6 +57,7 @@ function miniBossOne() {
 	}
 
 	this.move = function () {
+		console.log (this.resetAtomicWeaponClock);
 		//movement ai
 
 		if (this.fullyOnScreen == false) {
@@ -68,13 +75,25 @@ function miniBossOne() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
-			case 149:
+			case 130:
 				this.followPlayer = true;
+				this.atomicWeaponActive = true;
+				this.basicShotOdds = 30;
+				this.atomicWeaponTimer = 600; 
+				break;
+
+			case 100:
+				this.followPlayer = false;
+				this.goToCenter = true;
+				this.atomicWeaponTimer = 300; 
+				this.basicShotOdds = 20;
 				break;
 
 			case 50:
-				this.followPlayer = false;
-				this.goToCenter = true;
+				this.goToCenter = false;
+				this.followPlayer = true;
+				this.basicShotOdds = 30;
+				this.atomicWeaponTimer = 100; 
 				break;
 			}
 
@@ -138,7 +157,7 @@ function miniBossOne() {
 	}
 
 	this.basicShot = function () {
-			this.rn = Math.round(Math.random() * (30 - 1) + 1); 
+			this.rn = Math.round(Math.random() * (this.basicShotOdds - 1) + 1); 
 			this.rnAtom = Math.round(Math.random() * (10 - 1) + 1); 
 
 			if (this.rn == 1) { // fiering from middle orb
@@ -160,9 +179,24 @@ function miniBossOne() {
 				this.shotX = this.x + this.w / 2 - 180;
 				this.fireShot(this.shotX, this.shotY, 'atom');
 				this.atomicWeaponActive = true;
+				this.resetAtomicWeaponTimer = true;
 				//playBossShootingSound();
 			} 
+
+			this.resetAtomicWeapon(this.atomicWeaponTimer);
 		}
+
+
+	this.resetAtomicWeapon = function(timer) {
+		if(this.resetAtomicWeaponTimer) {
+			this.resetAtomicWeaponClock ++;
+			if(this.resetAtomicWeaponClock >= timer) {
+				this.atomicWeaponActive = false;
+				this.resetAtomicWeaponClock = 0;
+				this.resetAtomicWeaponTimer = false;
+			}
+		}	
+	}
 
 
 
