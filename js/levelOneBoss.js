@@ -75,6 +75,7 @@ function levelOneBossClass() {
 			this.y = this.y;
 		}
 
+		//handling boss ai based on hp
 		switch(this.hp) {
 			case 250:
 				this.followPlayer = true;

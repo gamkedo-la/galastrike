@@ -9,7 +9,10 @@ function miniBossOne() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 50;
+	this.hp = 150;
+	this.hpBarColor = 'green';
+	this.showHpBar = false;
+
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
 
@@ -18,12 +21,22 @@ function miniBossOne() {
 	this.shotActive = false;
 	this.myShot = [];
 	this.hitImg = false;
+	
 
 
 	this.draw = function () {
+		this.showHpBar = true;
 
 		ctx.drawImage(imageArray["miniBossOne.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
+		if(this.showHpBar == true) {
+			colorRect(50, 40, 150, 20, 'white');
+			colorRect(50, 41, 149, 18, 'black');
+			colorRect(50, 40, this.hp, 20, this.hpBarColor);
+			ctx.drawImage(imageArray["uiCenterBracket_Left.png"], 40, 30);
+			ctx.drawImage(imageArray["uiCenterBracket_Right.png"], 200, 30);
+		}
+		
 
 		if(this.hitImg == true) {
 				ctx.drawImage(imageArray["miniBossOneFlash.png"], this.x, this.y);

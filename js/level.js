@@ -12,9 +12,8 @@ const WAVE_WAIT_UNTIL_CLEAR = -1;
 const WAVE_FINSIHED = -2;
 
 var levelOneData = [ // FIRST LEVEL
-
+	
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:3, countSpacing: 50, onRail:0}, // first wave
-	//{kind:ENEMY_KIND_AST, delayBefore:0 , count:1, countSpacing: 50,},
 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.5, count:5, countSpacing: 50, onRail:0}, //second wave
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:5, countSpacing: 50, onRail:1}, 
@@ -27,6 +26,7 @@ var levelOneData = [ // FIRST LEVEL
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:4}, 
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:5}, 
 	{kind:ENEMY_KIND_MID_ALIEN, delayBefore:100, atX:0.5, count:5, countSpacing: 50, onRail:6}, 
+	
 
 	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
 	//{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50},
@@ -56,8 +56,6 @@ var levelTwoData = [ // Second Level
 
 var levelThreeData = [
 
-	//{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, count:5, countSpacing: 50, onRail:0},
-	//{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, count:5, countSpacing: 50, onRail:1},
 	{kind:ENEMY_KIND_LONE_BOSS, delayBefore:0, count:1}, // boss fight
 
 ];
