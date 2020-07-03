@@ -13,13 +13,18 @@ function levelOneBossClass() {
 	this.hp = 100;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
-	this.hpToChangeToFullyOnScreen = 99;
+
 
 	this.shotX;
 	this.shotY;
 	this.shotActive = false;
+
 	this.myShot = [];
 	this.hitImg = false;
+	this.followPlayer = false;
+	this.goToCenter = false;
+	this.laserAttack = false;
+	
 
 
 	this.draw = function () {
@@ -53,11 +58,58 @@ function levelOneBossClass() {
 			this.y = this.y;
 		}
 
+		switch(this.hp) {
+			case 90:
+				this.followPlayer = true;
+				this.fullyOnScreen = true;
+				break;
+
+			case 80:
+				this.followPlayer = false;
+				this.goToCenter = true;
+				break;
+
+			case 70:
+				this.laserAttack = true;
+				this.hp = 69;
+				break;
+
+			case 60:
+				this.laserAttack = false;
+				break;
+		}
+
+
 		if (this.fullyOnScreen) {
 			if(this.y < c.height/2 - this.h) {
 				this.y += this.sy;
 			}
 		}
+
+		if(this.followPlayer == true) {
+			if(p1.x > this.x + this.w / 2) {
+				this.x += 3;
+			}
+			if(p1.x < this.x + this.w / 2) {
+				this.x -= 3;
+			}
+		}
+
+		if(this.goToCenter == true) {
+			
+			if(this.x > c.width/2 - this.w/2) {
+				this.x -= 3;
+			}
+
+			if(this.x < c.width / 2 - this.w / 2) {
+				this.x += 3;
+			}
+
+			if(this.x == c.width / 2 - this.w / 2) {
+				this.goToCenter = false
+			}
+		}
+
 		this.basicShot();
 		this.collitionDetection();
 		this.playerPushBack();
@@ -88,36 +140,59 @@ function levelOneBossClass() {
                 boom.debrisBOSS(this.x+this.w/2,this.y+this.h/2);
                 boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
             }
-
-			if(this.hp <= this.hpToChangeToFullyOnScreen) {
-				this.fullyOnScreen = true;
-			}
 		}
 	}
 
 	this.basicShot = function () {
-			this.rn = Math.round(Math.random() * (30 - 1) + 1); 
+	
 
-			if (this.rn == 1) { // fiering from middle orb
+		if(this.laserAttack == false) { // basic shots
+			this.rn2 = Math.round(Math.random() * (20 - 1) + 1); 
+			if (this.rn2 == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h - 100;
 				this.shotX = this.x + this.w / 2;
 				this.fireShot(this.shotX, this.shotY, 'basic');
 			}
-				
 			
-			if (this.rn == 2) { //fiering from right orb			
+			if (this.rn2 == 2) { //fiering from right orb			
 				this.shotY = this.y + this.h - 40;
 				this.shotX = this.x + 375;
 				this.fireShot(this.shotX, this.shotY, 'basic');
 				//playBossShootingSound();
 			}
-			if (this.rn == 3) { //fiering from left orb
+
+			if (this.rn2 == 3) { //fiering from left orb
 				this.shotY = this.y + this.h - 80;
 				this.shotX = this.x + this.w / 2 - 180;
 				this.fireShot(this.shotX, this.shotY, 'basic');
 				//playBossShootingSound();
 			} 
 		}
+
+		if(this.laserAttack == true) {
+			
+
+			this.rn4 = Math.round(Math.random() * (60 - 1) + 1); 
+			if(this.rn4 == 1) {
+				this.fireLaser = true;
+
+				if(this.fireLaser){
+					this.rn3 = Math.round(Math.random() * (2 - 1) + 1); 
+					if(this.rn3 == 1) {
+							startingAngleBossLaser = 240;
+						} else {
+							startingAngleBossLaser = 180;
+						}
+
+					this.shotY = this.y + this.h - 100;
+					this.shotX = this.x + this.w / 2;
+					this.fireShot(this.shotX, this.shotY, 'laser');  // fiering from middle orb
+					this.fireLaser = false;
+				}
+			
+			}
+		}		
+	}
 
 	this.playerBackPush = false;
 	this.playerPushBackTimer = 0;

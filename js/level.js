@@ -56,13 +56,15 @@ var levelTwoData = [ // Second Level
 
 var levelThreeData = [
 
+	//{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, count:5, countSpacing: 50, onRail:0},
+	//{kind:ENEMY_KIND_MID_ALIEN, delayBefore:0, count:5, countSpacing: 50, onRail:1},
 	{kind:ENEMY_KIND_LONE_BOSS, delayBefore:0, count:1}, // boss fight
 
 ];
 
 var levelList = [levelOneData, levelTwoData, levelThreeData];
 var levelNum = 0; //determines what level is active
-var levelRails = [railListA, railListB, railListC, railListA];
+var levelRails = [railListA, railListB, railListC];
 
 
 
