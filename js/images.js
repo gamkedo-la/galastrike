@@ -43,6 +43,7 @@ var imageNames = [
 	"pickupItem_laser.png",
 	"pickupItem_shield.png",
 	"pickupItem_speed.png",
+	"pickupItem_basic.png",
 	"MainScreen.png",
 	"TitleScreenTwo.png",
 	"bossBasicWeapon.png",

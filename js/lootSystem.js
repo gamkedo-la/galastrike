@@ -1,6 +1,6 @@
 
 function spawnLoot(objX, objY, ...lootType) {
-	var lootItem = new lootItemClass(objX, objY, lootType[Math.round(Math.random() * lootType.length)]);
+	var lootItem = new lootItemClass(objX, objY, lootType[Math.ceil(Math.random() * lootType.length)]);
 	lootItem.active = true;
 	this.lootList.push(lootItem);
 
@@ -19,6 +19,7 @@ function lootItemClass(objX, objY, lootType) {
 	this.wpMid = 10;
 	this.wpLaser = 5;
 	this.wpAtom = 1;
+	this.wpBasic = 10;
 
 	//default item amount PowerUps:
 	this.puSpeed = 120;
@@ -41,6 +42,9 @@ function lootItemClass(objX, objY, lootType) {
 					break;
 				case 'shield':
 					drawBitmapCenteredAtLocationWithRotation(imageArray["pickupItem_shield.png"], this.x, this.y, 0);
+					break;
+				case 'basic':
+					drawBitmapCenteredAtLocationWithRotation(imageArray["pickupItem_basic.png"], this.x, this.y, 0);
 					break;
 			}
 		}
@@ -80,6 +84,9 @@ function lootItemClass(objX, objY, lootType) {
 						p1.addShield(this.puShield);
 						ui.messageToShow = ui.shield;
 						break;
+					case 'basic':
+						p1.addWeapon("basic", this.wpBasic);
+						ui.messageToShow = ui.ammo;
 				}
 				this.active = false;
 			}

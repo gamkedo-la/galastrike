@@ -349,6 +349,8 @@ function playerClass() {
 			this.weapons[3][1] += amountToAdd;
 		} else if (weaponType == 'chris') {
 			this.weapons[4][1] += amountToAdd;
+		} else if (weaponType == 'basic') {
+			this.weapons[0][1] += amountToAdd;
 		}
 	}
 

@@ -80,6 +80,7 @@ function miniBossOne() {
 				this.atomicWeaponActive = true;
 				this.basicShotOdds = 30;
 				this.atomicWeaponTimer = 600; 
+				spawnLoot(this.x, this.y,"shield"); 
 				break;
 
 			case 100:

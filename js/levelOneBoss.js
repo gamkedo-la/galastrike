@@ -29,6 +29,8 @@ function levelOneBossClass() {
 	this.basicAttack = true;
 
 	this.hpBarColor = 'green';
+	this.dropLoot = false;
+	this.lootDrop;
 	
 
 
@@ -77,9 +79,10 @@ function levelOneBossClass() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
-			case 250:
+			case 290:
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
+				this.dropLoot = true;
 				break;
 
 			case 200:
@@ -92,13 +95,15 @@ function levelOneBossClass() {
 				this.followPlayer = true;
 				this.straightLaser = true;
 				this.hp = 149;
+				this.dropLoot = false;
 				break;
 
 			case 100:
-				this.laserAttack = false;
+				this.laserAttack = true;
 				this.straightLaser = false;
 				this.basicAttack = true;
 				this.followPlayer = true;
+				this.dropLoot = true;
 				break;
 		}
 
@@ -136,6 +141,7 @@ function levelOneBossClass() {
 		this.basicShot();
 		this.collitionDetection();
 		this.playerPushBack();
+		this.droppingLoot();
 
 		for (var i = this.myShot.length - 1; i >= 0; i--) { //for loop goes backwards to not skip cause of the splice
 			this.myShot[i].move();
@@ -143,6 +149,24 @@ function levelOneBossClass() {
 				this.myShot.splice(i, 1);
 			}
 		}
+		console.log(this.lootDrop);
+	}
+
+	this.droppingLoot = function() {
+		if(this.dropLoot) {
+			if(!this.lootDrop) {
+				console.log('loot drop not working');
+				
+				spawnLoot(this.x + this.w/2, this.y + this.h/2,"shield"); 
+				spawnLoot(this.x + this.w/2 + 60, this.y + this.h/2,"shield"); 
+				spawnLoot(this.x + this.w/2 + 120, this.y + this.h/2,"shield"); 
+
+
+				//boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+			}
+			//this.dropLoot = false;
+		}
+		this.lootDrop = this.dropLoot;
 	}
 	
 	this.fireShot = function (shotPosX, shotPosY, shotWeaponType) {
