@@ -131,7 +131,7 @@ function handelLevelSpawn() {
 					break;
 				case ENEMY_KIND_MINIBOSS_ONE:
 					spawnObj = new miniBossOne();
-					break
+					break;
 				case ENEMY_KIND_LONE_BOSS:
 					spawnObj = new levelOneBossClass();
 					break;

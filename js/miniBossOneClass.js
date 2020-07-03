@@ -68,7 +68,7 @@ function miniBossOne() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
-			case 100:
+			case 149:
 				this.followPlayer = true;
 				break;
 
@@ -144,14 +144,14 @@ function miniBossOne() {
 			if (this.rn == 1) { // fiering from middle orb
 				this.shotY = this.y + this.h/2;
 				this.shotX = this.x + this.w / 2;
-				this.fireShot(this.shotX, this.shotY, 'basic');
+				this.fireShot(this.shotX, this.shotY, 'atom');
 			}
 				
 			
 			if (this.rn == 2) { //fiering from right orb			
 				this.shotY = this.y + this.h/2;
 				this.shotX = this.x + this.w/2 +30;
-				this.fireShot(this.shotX, this.shotY, 'basic');
+				this.fireShot(this.shotX, this.shotY, 'atom');
 				//playBossShootingSound();
 			}
 

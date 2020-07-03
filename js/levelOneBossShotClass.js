@@ -16,7 +16,8 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.laserStartingPoint = startingAngleBossLaser;
 	this.rotatingLaser = rotateLaser;
 	this.shotAngle;
-	this.laserHitTime
+	this.laserHitTime;
+	this.atomActive;
 
 
 		switch (this.weaponType) {
@@ -34,7 +35,15 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.laserHitTime = 20; //frametime for collision check
 				this.shootSpeed = 0;
 				playMidShootingSound();
-			break;
+				break;
+			case 'atom':
+				this.w = 10;
+				this.removeAlienHp = 5;
+				this.shotReloadRate = 80;
+				this.shootSpeed = 20;
+				this.atomActive = false;
+				playMidShootingSound();
+				break;
 		}	
 	
 	this.draw = function() {
@@ -48,6 +57,13 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 					playLaserSound();
 					drawAngledLaserBeamLine(imageArray["boss_laser.png"], this.x, this.y, this.shotAngle);
 					break;
+				case 'atom':
+					if (!this.atomActive) {
+						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_1.png"], this.x, this.y, 0);
+					} else {
+						drawBitmapCenteredAtLocationWithRotation(imageArray["weapon_atom_2.png"], this.x, this.y, 0);
+					}
+					break;
 			}
 			
 			//colorRect(this.x, this.y, this.w, this.h, 'white');
@@ -59,19 +75,21 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 		if (this.shotActive == true) {
 
 			if (this.weaponType == 'basic') {
-				this.shotCheck();
 				this.y += this.shootSpeed;
 
 			} else if (this.weaponType == 'laser') {
-				this.shotCheck();
 				this.x = this.x;
 				this.y = this.y;
 				this.shotReloadRate--;
 				if(this.rotatingLaser) {
 					this.shotAngle++;
 				}
+
+			} else if (this.weaponType == 'atom' && this.atomActive == false) {
+				this.y += this.shootSpeed;
 			}
 		}
+		this.shotCheck();
 	}
 
 	this.shotCheck = function() { //called by this.move
@@ -86,7 +104,15 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.y = p1.y;
 			}
 
-		}else if(this.shotReloadRate > 0){
+		}
+
+		if(this.weaponType == 'atom') {
+			if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
+				this.deactivate();
+				p1.getHit();
+			}
+		}
+		else if(this.shotReloadRate > 0){
 			//collision check for the laser
 			if(this.shotReloadRate % this.laserHitTime == 0){
 				for (var i = 0; i < (c.height * 2) / this.w; i++) {
@@ -101,6 +127,14 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 			}
 		} else if (!(this.shotReloadRate > 0)) {
 			this.shotActive = false;
+		}
+	}
+
+	this.deactivate = function () {
+		//atom will deactive themself after shotreloadRate time is over
+		if (this.weaponType == 'atom') {
+			this.atomActive = true;
+			this.w = 350;
 		}
 	}
 
