@@ -15,6 +15,8 @@ function miniBossOne() {
 
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
+	this.followPlayer = false;
+	this.goToCenter = false;
 
 	this.shotX;
 	this.shotY;
@@ -62,6 +64,42 @@ function miniBossOne() {
 		if (this.fullyOnScreen == true) {
 			this.x = this.x;
 			this.y = this.y;
+		}
+
+		//handling boss ai based on hp
+		switch(this.hp) {
+			case 100:
+				this.followPlayer = true;
+				break;
+
+			case 50:
+				this.followPlayer = false;
+				this.goToCenter = true;
+				break;
+			}
+
+		if(this.followPlayer == true) {
+			if(p1.x > this.x  ) {
+				this.x += 3;
+			}
+			if(p1.x < this.x ) {
+				this.x -= 3;
+			}
+		}
+
+		if(this.goToCenter == true) {
+			
+			if(this.x > c.width/2 - this.w/2) {
+				this.x -= 3;
+			}
+
+			if(this.x < c.width / 2 - this.w / 2) {
+				this.x += 3;
+			}
+
+			if(this.x == c.width / 2 - this.w / 2) {
+				this.goToCenter = false
+			}
 		}
 
 		
