@@ -17,6 +17,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 	this.rotatingLaser = rotateLaser;
 	this.shotAngle;
 	this.laserHitTime;
+	this.atomHitTime;
 	this.atomActive;
 
 
@@ -32,14 +33,15 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.h = c.height;
 				this.shotAngle = this.laserStartingPoint;
 				this.shotReloadRate = 60; // sets the duration of the laser
-				this.laserHitTime = 20; //frametime for collision check
+				this.laserHitTime = 20;  //frametime for collision check to do damage
 				this.shootSpeed = 0;
 				playMidShootingSound();
 				break;
 			case 'atom':
 				this.w = 10;
-				this.removeAlienHp = 5;
-				this.shotReloadRate = 80;
+				this.removeAlienHp = 1;
+				this.shotReloadRate = 200; //the length of the atom explosion
+				this.atomHitTime = 40; //frametime for collision check to do damage
 				this.shootSpeed = 20;
 				this.atomActive = false;
 				playMidShootingSound();
@@ -85,8 +87,13 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 					this.shotAngle++;
 				}
 
-			} else if (this.weaponType == 'atom' && this.atomActive == false) {
-				this.y += this.shootSpeed;
+			} else if (this.weaponType == 'atom') {
+				if(this.atomActive == false){
+					this.y += this.shootSpeed;
+				}else{
+					this.shotReloadRate--;
+					console.log(this.shotReloadRate)
+				}
 			}
 		}
 		this.shotCheck();
@@ -107,26 +114,38 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 		}
 
 		if(this.weaponType == 'atom') {
-			if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
-				this.deactivate();
-				p1.getHit();
+			if(this.shotReloadRate > 0){
+				if (this.y > c.height){
+					this.deactivate();
+				}
+				if (p1.collisionCheck(false, this.x, this.y, this.w, this.h)) {
+					if(this.shotReloadRate % this.atomHitTime == 0){
+						this.deactivate();			
+						p1.getHit();
+					}
+				}	
+			} else {
+				this.shotActive = false;
 			}
 		}
-		else if(this.shotReloadRate > 0){
-			//collision check for the laser
-			if(this.shotReloadRate % this.laserHitTime == 0){
-				for (var i = 0; i < (c.height * 2) / this.w; i++) {
-					var theX = (this.x) - Math.cos(this.shotAngle * Math.PI / 180) * (this.w) * i;
-					var theY = (this.y) - Math.sin(this.shotAngle * Math.PI / 180) * (this.w) * i;
-					//colorCircle(theX,theY,15,'red');
-					if (p1.collisionCheck(false, theX, theY, this.w/2)) {
-							p1.getHit();
-							break;
-					}
-				}			
+
+		if(this.weaponType == 'laser'){
+			if(this.shotReloadRate > 0){
+				//collision check for the laser
+				if(this.shotReloadRate % this.laserHitTime == 0){
+					for (var i = 0; i < (c.height * 2) / this.w; i++) {
+						var theX = (this.x) - Math.cos(this.shotAngle * Math.PI / 180) * (this.w) * i;
+						var theY = (this.y) - Math.sin(this.shotAngle * Math.PI / 180) * (this.w) * i;
+						//colorCircle(theX,theY,15,'red');
+						if (p1.collisionCheck(false, theX, theY, this.w/2)) {
+								p1.getHit();
+								break;
+						}
+					}			
+				}
+			} else {
+				this.shotActive = false;
 			}
-		} else if (!(this.shotReloadRate > 0)) {
-			this.shotActive = false;
 		}
 	}
 
