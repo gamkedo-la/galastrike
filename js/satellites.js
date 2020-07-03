@@ -1,6 +1,19 @@
 function spawnSatellites() {
 	var sat = new satellites();
-	sat.x = c.width * Math.random();
+
+	this.rn = Math.round(Math.random() * (2 - 1) + 1); //handling spawning with different satellite arts.
+	switch(this.rn) {
+		case 1:
+			sat.satArt = imageArray["satellite_human.png"];
+			sat.satHitImg = imageArray["satellite_humanFlash.png"];
+			break;
+		case 2:
+			sat.satArt = imageArray["Alien_Satellite.png"];
+			sat.satHitImg = imageArray["Alien_SatelliteFlash.png"];
+			break;
+		}
+
+	sat.x = c.width * Math.random() - 100;
 	this.satList.push(sat);
 }
 
@@ -16,13 +29,16 @@ function satellites() {
 	this.explosion = new explosion(15, 17, 12, 'yellow', 'red', 'green');
 	this.lootDropRate = 1;
 	this.hitImg = false;
+	this.satArt;
+	this.satHitImg;
+	this.rotation = 0.0;
 
 	this.draw = function () {
 		if (!this.destroyed) {
-			ctx.drawImage(imageArray["satellite_human.png"], this.x, this.y);
+			drawBitmapCenteredAtLocationWithRotation(this.satArt, this.x, this.y, this.rotation);
 
 			if(this.hitImg == true) {
-				ctx.drawImage(imageArray["satellite_humanFlash.png"], this.x, this.y);
+				drawBitmapCenteredAtLocationWithRotation(this.satHitImg, this.x, this.y, this.rotation);
 				this.hitImg = false;
 			}
 		}

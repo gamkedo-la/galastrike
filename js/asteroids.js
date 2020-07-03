@@ -16,7 +16,7 @@ function spawnAsteroids() {
 			ast.astArt = imageArray["asteroid_5.png"];
 			break;
 		}
-	ast.x = c.width * Math.random();
+	ast.x = c.width * Math.random() - 100;
 	this.astList.push(ast);
 }
 

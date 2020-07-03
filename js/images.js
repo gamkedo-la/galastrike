@@ -31,6 +31,8 @@ var imageNames = [
 	"weapon_mid.png",
 	"satellite_human.png",
 	"satellite_humanFlash.png",
+	"Alien_Satellite.png",
+	"Alien_SatelliteFlash.png",
 	"miniBossOne.png",
 	"miniBossOneFlash.png",
 	"LV1_Boss.png",
