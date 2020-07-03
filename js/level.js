@@ -119,7 +119,7 @@ var spawnClock = 0;
 var lastSpawnTime = 0;
 
 function restoreAllLevelData() {
-	for(let i = 0; i < levelOneData.length; i++)
+	for(let i = 0; i < backupLevelOneData.length; i++)
 	{
 		levelOneData[i].kind = backupLevelOneData[i].kind;
 		levelOneData[i].delayBefore = backupLevelOneData[i].delayBefore;
@@ -128,7 +128,7 @@ function restoreAllLevelData() {
 		levelOneData[i].onRail = backupLevelOneData[i].onRail;
 		levelOneData[i].atX = backupLevelOneData[i].atX;
 	}
-	for(let i = 0; i < levelTwoData.length; i++)
+	for(let i = 0; i < backupLevelTwoData.length; i++)
 	{
 		levelTwoData[i].kind = backupLevelTwoData[i].kind;
 		levelTwoData[i].delayBefore = backupLevelTwoData[i].delayBefore;
@@ -137,7 +137,7 @@ function restoreAllLevelData() {
 		levelTwoData[i].onRail = backupLevelTwoData[i].onRail;
 		levelTwoData[i].atX = backupLevelTwoData[i].atX;
 	}
-	for(let i = 0; i < levelThreeData.length; i++)
+	for(let i = 0; i < backupLevelThreeData.length; i++)
 	{
 		levelThreeData[i].kind = backupLevelThreeData[i].kind;
 		levelThreeData[i].delayBefore = backupLevelThreeData[i].delayBefore;
