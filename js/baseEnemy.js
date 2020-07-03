@@ -47,8 +47,6 @@ function baseEnemy() {
 			this.x += this.sx;
 			this.y += this.sy;
 
-			this.basicShot();
-			this.playerCollisionDetection();
 			var nextPt;
 			if(this.railPt < railList[this.followRail].length) {
 				nextPt = this.railPt;
@@ -76,6 +74,8 @@ function baseEnemy() {
 				if (roundShapeCollisionWithRoundShape(this.x, this.y, 10, goalX, goalY, 10)) {
 					this.railPt = nextPt + 1;
 				}
+				this.playerCollisionDetection();
+				this.basicShot();
 				return;
 			}
 

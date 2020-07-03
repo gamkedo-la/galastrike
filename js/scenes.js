@@ -196,7 +196,7 @@ var creditsList = [
 "                                          PRESS SPACEBAR TO GO BACK TO THE GAME MENU",
 " ",
 "Simon J Hoffiz: Project lead, core gameplay, enemy waypoint system, input handling, player ship art, enemy ship art, boss art, speed powerup, level authoring, assorted bug fixes, UI design and related art, damage flash",
-"Muhammed \"EyeForcz\" Durmusoglu: Improved background scrolling, test cheats, code cleanup, art (shot, shield), precision collision, boss laser, atomic weapon, weapon upgrades, weapon images, loot spawn fixes, optimization, rate of fire delay",
+"Muhammed \"EyeForcz\" Durmusoglu: Collision, player weapon, player shield, cheats, lootsystem, laser and atomic weapon. Improved background scrolling. Game optimazation. Art for weapons, shields and loots",
 "Martina Natale: Sounds (player shots, boss shots, enemy destruction, item pickup, laser, player death), title menu and game over screens, compatibility fixes, shield bug fix, mute and pause features",
 "Christer \"McFunkypants\" Kaitila: Full screen and responsive support, edge detection, gamepad support, assorted bug fixes, parallax background art, optimizations, boss sprite tweaks, text shadows, thrust trails, space debris, layered boss explosion effects, explosion particles",
 "Alan Zaring: Main gameplay music composition",
