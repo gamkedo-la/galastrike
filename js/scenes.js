@@ -131,9 +131,10 @@ function handleSpawningSatellites(odds) {
 
 function levelTransitionScreen() {
 	backgroundMusic.stop();
+	ctx.drawImage(imageArray["NextLevelScreen.png"], 0, 0, c.width, c.height);
 
-	colorRect(0, 0, c.width, c.height, 'green');
-	colorText("Next Level?", c.width / 2 - 80, c.height / 2, "30px arial", "white");
+	//colorRect(0, 0, c.width, c.height, 'green');
+	//colorText("Next Level?", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 }
 
 function gameOverScreen() {
@@ -144,10 +145,11 @@ function gameOverScreen() {
 
 function winScreen() {
 	backgroundMusic.stop();
+	ctx.drawImage(imageArray["WinScreen.png"], 0, 0, c.width, c.height);
 
-	colorRect(0, 0, c.width, c.height, 'green');
-	colorText("Player Wins", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+	//colorRect(0, 0, c.width, c.height, 'green');
+	//colorText("Player Wins", c.width / 2 - 80, c.height / 2, "30px arial", "white");
+	//colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
 }
 
 function titleScreen() {

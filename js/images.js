@@ -47,6 +47,8 @@ var imageNames = [
 	"TitleScreenTwo.png",
 	"bossBasicWeapon.png",
 	"GameOverScreen.png",
+	"WinScreen.png",
+	"NextLevelScreen.png",
 	"uiLeftSegment.png",
 	"uiRightSegment.png",
 	"uiShieldBar.png",

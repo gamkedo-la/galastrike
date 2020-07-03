@@ -10,6 +10,7 @@ var cheatList = [
 	"atom",			// 5 - atomic weapon
 	"mid",			// 6 - mid weapon
 	"laser",		// 7 - laser weapon
+	"win"			// 8 - win screen
 ];
 
 function cheats(key) {
@@ -70,6 +71,9 @@ function cheats(key) {
 								break;
 							case 7: //cheat: laser weapon
 								p1.addWeapon("laser", 1)
+								break;
+							case 8:
+								mode = WIN_SCREEN;
 								break;
 						}
 						cheatBuffer = "";
