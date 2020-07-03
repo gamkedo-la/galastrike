@@ -111,70 +111,71 @@ function checkIfSpawnBlockedOrLevelOver() {
 	}
 }
 function handelLevelSpawn() {
-	if(upToSpawnIdx > levelCurrent.length) {
-		return;
-	}
-	for(var i=0; i < upToSpawnIdx; i++){
-		if(spawnClock == levelCurrent[i].delayBefore + lastSpawnTime) {
-			var spawnObj;
-			switch(levelCurrent[i].kind) {
-				case ENEMY_KIND_BASIC_ALIEN:
-					spawnObj = new basicAlienClass();
-					spawnObj.init(); //not yet on all objects
-					break;
-				case ENEMY_KIND_MID_ALIEN:
-					spawnObj = new midAlienClass();
-					spawnObj.init(); //not yet on all objects
-					break;
-				case ENEMY_KIND_DIVER_ALIEN:
-					spawnObj = new diverAlienClass();
-					break;
-				case ENEMY_KIND_MINIBOSS_ONE:
-					spawnObj = new miniBossOne();
-					break
-				case ENEMY_KIND_LONE_BOSS:
-					spawnObj = new levelOneBossClass();
-					break;
-				case ENEMY_KIND_AST:
-					spawnObj = new asteroids();
-					break;
-				case ENEMY_KIND_SAT:
-					spawnObj = new satellites();
-					break;
-				default:
-					console.log("attempted to spawn unknown kind " + levelCurrent[i].kind + " at time " + spawnClock);
-					break;
-			}
-			if(levelCurrent[i].atX != undefined) {
-				spawnObj.x = levelCurrent[i].atX * c.width;
-			}
-			if(levelCurrent[i].onRail != undefined) {
-				spawnObj.followRail = levelCurrent[i].onRail;
-			}
-			if(levelCurrent[i].count != undefined) { 
-				levelCurrent[i].count --; //the one spawns now
-				if(levelCurrent[i].count > 0) {
-					if(typeof(levelCurrent[i].waveStarted) == "undefined" || levelCurrent[i].waveStarted == false) {
-						levelCurrent[i].waveStarted = true;
-						if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
-							upToSpawnIdx ++;
-						}
-					} 
-					levelCurrent[i].delayBefore = levelCurrent[i].countSpacing;
-				} 
-				else {
-					levelCurrent[i].delayBefore = WAVE_FINSIHED;	
-				}
-			} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
-				upToSpawnIdx ++;
-			}
-			spawnObj.move();// giving a free cycle to start on rail point 1 will give it a super class with an init function
-			enemyList.push(spawnObj);
-			
-			lastSpawnTime = spawnClock;
+	if(mode != GAME_PAUSE && mode != LEVEL_TRANSITION)
+	{
+		if(upToSpawnIdx > levelCurrent.length) {
+			return;
 		}
-	}
-	if(mode != LEVEL_TRANSITION || mode != GAME_PAUSE) {
-		spawnClock ++;
+		for(var i=0; i < upToSpawnIdx; i++){
+			if(spawnClock == levelCurrent[i].delayBefore + lastSpawnTime) {
+				var spawnObj;
+				switch(levelCurrent[i].kind) {
+					case ENEMY_KIND_BASIC_ALIEN:
+						spawnObj = new basicAlienClass();
+						spawnObj.init(); //not yet on all objects
+						break;
+					case ENEMY_KIND_MID_ALIEN:
+						spawnObj = new midAlienClass();
+						spawnObj.init(); //not yet on all objects
+						break;
+					case ENEMY_KIND_DIVER_ALIEN:
+						spawnObj = new diverAlienClass();
+						break;
+					case ENEMY_KIND_MINIBOSS_ONE:
+						spawnObj = new miniBossOne();
+						break
+					case ENEMY_KIND_LONE_BOSS:
+						spawnObj = new levelOneBossClass();
+						break;
+					case ENEMY_KIND_AST:
+						spawnObj = new asteroids();
+						break;
+					case ENEMY_KIND_SAT:
+						spawnObj = new satellites();
+						break;
+					default:
+						console.log("attempted to spawn unknown kind " + levelCurrent[i].kind + " at time " + spawnClock);
+						break;
+				}
+				if(levelCurrent[i].atX != undefined) {
+					spawnObj.x = levelCurrent[i].atX * c.width;
+				}
+				if(levelCurrent[i].onRail != undefined) {
+					spawnObj.followRail = levelCurrent[i].onRail;
+				}
+				if(levelCurrent[i].count != undefined) { 
+					levelCurrent[i].count --; //the one spawns now
+					if(levelCurrent[i].count > 0) {
+						if(typeof(levelCurrent[i].waveStarted) == "undefined" || levelCurrent[i].waveStarted == false) {
+							levelCurrent[i].waveStarted = true;
+							if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
+								upToSpawnIdx ++;
+							}
+						} 
+						levelCurrent[i].delayBefore = levelCurrent[i].countSpacing;
+					} 
+					else {
+						levelCurrent[i].delayBefore = WAVE_FINSIHED;	
+					}
+				} else if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore != WAVE_WAIT_UNTIL_CLEAR) {
+					upToSpawnIdx ++;
+				}
+				spawnObj.move();// giving a free cycle to start on rail point 1 will give it a super class with an init function
+				enemyList.push(spawnObj);
+				
+				lastSpawnTime = spawnClock;
+			}
+		}
+			spawnClock++;
 	}
 }
