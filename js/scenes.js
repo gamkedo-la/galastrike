@@ -214,42 +214,43 @@ function lineWrapCredits() { // note: gets calling immediately after definition!
   const newCut = [];
   var maxLineChar = 127;
   var findEnd;
-  for(var i=0;i<creditsList.length;i++) {
-    while(creditsList[i].length > 0) {
+
+  for(let i = 0; i < creditsList.length; i++) {
+    const currentLine = creditsList[i];
+    for(let j = 0; j < currentLine.length; j++) {
+      const aChar = currentLine[j];
+      if(aChar === ":") {
+        if(i !== 0) {
+          newCut.push("\n");
+        }
+
+        newCut.push(currentLine.substring(0, j + 1));
+        newCut.push(currentLine.substring(j + 2, currentLine.length));
+        break;
+      } else if(j === currentLine.length - 1) {
+        if((i === 0) || (i >= creditsList.length - 2)) {
+          newCut.push(currentLine);
+        } else {
+          newCut.push(currentLine.substring(1, currentLine.length));
+        }
+      }
+    }
+  }
+
+  const newerCut = [];
+  for(var i=0;i<newCut.length;i++) {
+    while(newCut[i].length > 0) {
       findEnd = maxLineChar;
-      if(creditsList[i].length > maxLineChar) {
+      if(newCut[i].length > maxLineChar) {
         for(var ii=findEnd;ii>0;ii--) {
-          if(creditsList[i].charAt(ii) == " ") {
+          if(newCut[i].charAt(ii) == " ") {
             findEnd=ii;
             break;
           }
         }
       }
-      newCut.push(creditsList[i].substring(0, findEnd));
-      creditsList[i] = creditsList[i].substring(findEnd, creditsList[i].length);
-    }
-  }
-
-  const newerCut = [];
-  for(let i = 0; i < newCut.length; i++) {
-    const currentLine = newCut[i];
-    for(let j = 0; j < currentLine.length; j++) {
-      const aChar = currentLine[j];
-      if(aChar === ":") {
-        if(i !== 0) {
-          newerCut.push("\n");
-        }
-
-        newerCut.push(currentLine.substring(0, j + 1));
-        newerCut.push(currentLine.substring(j + 2, currentLine.length));
-        break;
-      } else if(j === currentLine.length - 1) {
-        if((i === 0) || (i >= newCut.length - 2)) {
-          newerCut.push(currentLine);
-        } else {
-          newerCut.push(currentLine.substring(1, currentLine.length));
-        }
-      }
+      newerCut.push(newCut[i].substring(0, findEnd));
+      newCut[i] = newCut[i].substring(findEnd, newCut[i].length);
     }
   }
 
@@ -259,7 +260,8 @@ lineWrapCredits(); // note: calling immediately as part of init, outside the fun
 
 const drawCredits = function() {
   var creditPosY = 10;
-  var leftX = 220;
+  var creditsW = 640;
+  var leftX = gameCanvas.width/2-creditsW/2;
   var wasFont = ctx.font;
   var wasAlign = ctx.textAlign;
 
