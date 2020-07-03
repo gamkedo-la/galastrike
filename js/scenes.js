@@ -166,11 +166,11 @@ function mainMenuScreen() {
 }
 
 function creditScreen() {
-	backgroundMusic.stop();
+	//backgroundMusic.stop(); 
 
 	colorRect(0, 0, c.width, c.height, 'black');
-	colorText("Credits", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+
+	drawCredits();
 }
 
 
@@ -187,3 +187,108 @@ function gamePauseScreen() {
 	colorText("Main Menu [SPACE]", c.width / 2 - 60, c.height / 2 + 80, "15px arial", "gray");
 	p1.drawAllHighScores();
 }
+
+var creditsList = [
+" ",
+"                                          PRESS SPACEBAR TO GO BACK TO THE GAME MENU",
+" ",
+"Simon J Hoffiz: Project lead, core gameplay, enemy waypoint system, input handling, player ship art, enemy ship art, boss art, speed powerup, level authoring, assorted bug fixes, UI design and related art, damage flash",
+"Muhammed \"EyeForcz\" Durmusoglu: Improved background scrolling, test cheats, code cleanup, art (shot, shield), precision collision, boss laser, atomic weapon, weapon upgrades, weapon images, loot spawn fixes, optimization, rate of fire delay",
+"Martina Natale: Sounds (player shots, boss shots, enemy destruction, item pickup, laser, player death), title menu and game over screens, compatibility fixes, shield bug fix, mute and pause features",
+"Christer \"McFunkypants\" Kaitila: Full screen and responsive support, edge detection, gamepad support, assorted bug fixes, parallax background art, optimizations, boss sprite tweaks, text shadows, thrust trails, space debris, layered boss explosion effects, explosion particles",
+"Alan Zaring: Main gameplay music composition",
+"Michael \"Misha\" Fewkes: Audio functionality, music integration and additional composition",
+"Alanna Linayre: Asteroid art, including variations",
+"Vaan Hope Khani: High score UI and implementation",
+"Bilal A. Cheema: Ammo limit, player state fix on stage start, collision improvement, enemy track bug fix",
+"Michelly Oliveira: Triple shot mid weapon functionality, powerup loot drop implementation",
+"Randy Tan Shaoxian: Explosion effect authoring and integration",
+"Ian Cherabier: Human satellite, alien satellite",
+"Gonzalo Delgado: Enemy alien ship sprite",
+  " ",
+  "Game made in HomeTeam GameDev, apply to join us at",
+  "HomeTeamGameDev.com"
+];
+
+function lineWrapCredits() { // note: gets calling immediately after definition!
+  const newCut = [];
+  var maxLineChar = 127;
+  var findEnd;
+  for(var i=0;i<creditsList.length;i++) {
+    while(creditsList[i].length > 0) {
+      findEnd = maxLineChar;
+      if(creditsList[i].length > maxLineChar) {
+        for(var ii=findEnd;ii>0;ii--) {
+          if(creditsList[i].charAt(ii) == " ") {
+            findEnd=ii;
+            break;
+          }
+        }
+      }
+      newCut.push(creditsList[i].substring(0, findEnd));
+      creditsList[i] = creditsList[i].substring(findEnd, creditsList[i].length);
+    }
+  }
+
+  const newerCut = [];
+  for(let i = 0; i < newCut.length; i++) {
+    const currentLine = newCut[i];
+    for(let j = 0; j < currentLine.length; j++) {
+      const aChar = currentLine[j];
+      if(aChar === ":") {
+        if(i !== 0) {
+          newerCut.push("\n");
+        }
+
+        newerCut.push(currentLine.substring(0, j + 1));
+        newerCut.push(currentLine.substring(j + 2, currentLine.length));
+        break;
+      } else if(j === currentLine.length - 1) {
+        if((i === 0) || (i >= newCut.length - 2)) {
+          newerCut.push(currentLine);
+        } else {
+          newerCut.push(currentLine.substring(1, currentLine.length));
+        }
+      }
+    }
+  }
+
+  creditsList = newerCut;
+}
+lineWrapCredits(); // note: calling immediately as part of init, outside the function
+
+const drawCredits = function() {
+  var creditPosY = 10;
+  var leftX = 220;
+  var wasFont = ctx.font;
+  var wasAlign = ctx.textAlign;
+
+    for(var i=0; i<creditsList.length; i++) {
+      var yPos = creditPosY + i * 12;
+      //if (200 < yPos && yPos < 600) {
+        if((i > 0) && (creditsList[i - 1] === "\n")) {
+          ctx.font= "13px Arial";
+          ctx.fillStyle="white";
+          ctx.textAlign="left";
+          ctx.fillText(creditsList[i],leftX,yPos);
+        } else if(i === creditsList.length - 2) {
+          ctx.font= "11px Arial";
+          ctx.fillStyle="white";
+          ctx.textAlign="center";
+          ctx.fillText(creditsList[i],gameCanvas.width/2,yPos);
+        } else if(i === creditsList.length - 1) {
+          ctx.font= "11px Arial";
+          ctx.fillStyle="#54b0bd";
+          ctx.textAlign="center";
+          ctx.fillText(creditsList[i],gameCanvas.width/2,yPos);
+        } else {
+          ctx.font= "11px Arial";
+          ctx.fillStyle="white";
+          ctx.textAlign="left";
+          ctx.fillText(creditsList[i],leftX,yPos);
+        }
+      // }
+    }
+    ctx.font= wasFont;
+    ctx.textAlign=wasAlign; // cleaning up after itself
+  };
