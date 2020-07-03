@@ -176,7 +176,7 @@ function miniBossOne() {
 
 			if (this.rnAtom == 1 && !this.atomicWeaponActive) { //fiering from left orb
 				this.shotY = this.y + this.h - 80;
-				this.shotX = this.x + this.w / 2 - 180;
+				this.shotX = this.x + this.w / 2;
 				this.fireShot(this.shotX, this.shotY, 'atom');
 				this.atomicWeaponActive = true;
 				this.resetAtomicWeaponTimer = true;
