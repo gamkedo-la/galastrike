@@ -185,8 +185,9 @@ function gamePauseScreen() {
 		countAlpha++;
 	}
 	console.log();
-	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 + 40, "30px arial", "white");
-	colorText("Main Menu [SPACE]", c.width / 2 - 60, c.height / 2 + 80, "15px arial", "gray");
+	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 - 120, "30px arial", "white");
+	colorText("Main Menu [SPACE]", c.width / 2 - 60, c.height / 2 - 90 , "15px arial", "gray");
+	colorText("HIGH SCORES", c.width / 2 - 75, c.height / 2 + 80, "25px arial", "white");
 	p1.drawAllHighScores();
 }
 

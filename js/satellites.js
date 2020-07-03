@@ -92,10 +92,8 @@ function satellites() {
         boom.smallExplosion(this.x+this.w/2,this.y+this.h/2);
         boom.debrisC(this.x+this.w/2,this.y+this.h/2);
 
-		//if(Math.round(Math.random() * this.lootDropRate) == 1){
-			spawnLoot(this.x+this.w/2, this.y+this.h, "speed","shield");
-		//}
-
+		spawnLoot(this.x+this.w/2, this.y+this.h, "speed","shield","mid");
+		
 		p1.addToScore(10); //needs to be fixed
 		playDestroyedEnemyMidSound();
 		this.explosion.explode();

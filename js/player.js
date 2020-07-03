@@ -287,7 +287,7 @@ function playerClass() {
                 while(highScoreText.length < 11){
                     highScoreText = '0' + highScoreText;
 				}
-				colorText((i+1) + '. ' + highScoreText, c.width / 2 + 120,  c.height / 2 + 80 + i*30, "30px arial", "white" , "right");
+				colorText((i+1) + '. ' + highScoreText, c.width / 2 + 80,  c.height / 2 + 130 + i*30, "20px arial", "white" , "right");
 			}
 			colorText("Press C to clear scores", c.width / 2 , c.height - 20, "20px arial" , "grey", "center");
         }

@@ -136,9 +136,3 @@ function pauseGame(pausePressed) {
 		mode = GAME_SCREEN;
 	countAlpha = 0;
 }
-
-
-
-
-
-
