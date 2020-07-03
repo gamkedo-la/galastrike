@@ -124,10 +124,9 @@ function moveEverything() {
 }
 
 function resetGame() {
-	mode = GAME_SCREEN;
 	playerScore = 0;
-	p1.playerShields = 3;
-	p1.shieldActive = true;
+	loadLevel(levelNum);
+	mode = GAME_SCREEN;
 }
 
 function pauseGame(pausePressed) {

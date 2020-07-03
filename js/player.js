@@ -50,7 +50,7 @@ function playerClass() {
 	this.reset = function () {
 		this.x = c.width / 2 - PLAYER_SHIP_WIDTH / 2;
 		this.y = c.height - AUTOREVERSE_DESIRED_DIST_FROM_BOTTOM;
-		this.playerShields = 5; //Not more then 5!
+		this.playerShields = 3; //5 is max
 		this.shieldRotationSpeed = 0;
 		this.shieldActive = true;
 		this.invincible = false;
