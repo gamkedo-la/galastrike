@@ -1,6 +1,21 @@
 
 function spawnAsteroids() {
 	var ast = new asteroids();
+	this.rn = Math.round(Math.random() * (4 - 1) + 1); //handling spawning with different asteroid arts.
+	switch(this.rn) {
+		case 1:
+			ast.astArt = imageArray["Asteroid_2.png"];
+			break;
+		case 2:
+			ast.astArt = imageArray["asteroid_3.png"];
+			break;
+		case 3:
+			ast.astArt = imageArray["asteroid_4.png"];
+			break;
+		case 4:
+			ast.astArt = imageArray["asteroid_5.png"];
+			break;
+		}
 	ast.x = c.width * Math.random();
 	this.astList.push(ast);
 }
@@ -20,11 +35,16 @@ function asteroids() {
 	this.rotationSpeed = 0.1;
 	this.lootDropRate = 2;
 
+	this.astArt;
+
 	this.draw = function () {
+
+		
+
 		let graphic = imageArray["asteroid_3.png"];
 
 		if (!this.destroyed) {
-			drawBitmapCenteredAtLocationWithRotation(graphic, this.x, this.y, this.rotation);
+			drawBitmapCenteredAtLocationWithRotation(this.astArt, this.x, this.y, this.rotation);
 		}
 		
 		this.explosion.draw();

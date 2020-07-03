@@ -29,7 +29,7 @@ function miniBossOne() {
 
 		ctx.drawImage(imageArray["miniBossOne.png"], this.x, this.y);
 		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
-		if(this.showHpBar == true) {
+		if(this.showHpBar == true) { // making hp bar only appear when class is call, works better with level handling/spawning
 			colorRect(50, 40, 150, 20, 'white');
 			colorRect(50, 41, 149, 18, 'black');
 			colorRect(50, 40, this.hp, 20, this.hpBarColor);
