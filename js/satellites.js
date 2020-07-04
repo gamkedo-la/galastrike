@@ -4,16 +4,17 @@ function spawnSatellites() {
 	this.rn = Math.round(Math.random() * (2 - 1) + 1); //handling spawning with different satellite arts.
 	switch(this.rn) {
 		case 1:
+			sat.satType = 'human';
 			sat.satArt = imageArray["satellite_human.png"];
 			sat.satHitImg = imageArray["satellite_humanFlash.png"];
 			sat.w = 120;
-			sat.h = 120;
+			sat.h = 33;
 			break;
 		case 2:
+			sat.satType = 'alien';
 			sat.satArt = imageArray["Alien_Satellite.png"];
 			sat.satHitImg = imageArray["Alien_SatelliteFlash.png"];
-			sat.w = 120;
-			sat.h = 33;
+			sat.w = 64;
 			break;
 		}
 
@@ -23,6 +24,7 @@ function spawnSatellites() {
 
 function satellites() {
 	
+	this.satType;
 	this.x = 500;
 	this.y = 0;
 	this.w;
@@ -40,10 +42,18 @@ function satellites() {
 
 	this.draw = function () {
 		if (!this.destroyed) {
-			drawBitmapCenteredAtLocationWithRotation(this.satArt, this.x, this.y, this.rotation);
+			if(this.satType == 'alien'){
+				drawBitmapCenteredAtLocationWithRotation(this.satArt, this.x, this.y, this.rotation);
+			}else if (this.satType == 'human'){
+				ctx.drawImage(this.satArt, this.x, this.y);
+			}
 
 			if(this.hitImg == true) {
-				drawBitmapCenteredAtLocationWithRotation(this.satHitImg, this.x, this.y, this.rotation);
+				if(this.satType == 'alien'){
+					drawBitmapCenteredAtLocationWithRotation(this.satHitImg, this.x, this.y, this.rotation);
+				}else if (this.satType == 'human'){
+					ctx.drawImage(this.satHitImg, this.x, this.y);
+				}
 				this.hitImg = false;
 			}
 		}
@@ -61,8 +71,9 @@ function satellites() {
 	}
 
 	this.shotHitMeCheck = function (theShot) {
-		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
-			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {		//sattelite round plate on front
+		if 	((this.satType == 'human' && (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r) ||
+			 collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h))) ||
+			(this.satType == 'alien' && collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + this.w/2, this.y + this.w/2, this.w))){
 		
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
@@ -79,8 +90,8 @@ function satellites() {
 
 	this.playerCollisionDetection = function () {
 		
-		if (p1.collisionCheck(false, this.x, this.y + 12, this.w, this.h) ||		//sattelite body
-			(this.satArt == imageArray["satellite_human.png"] && p1.collisionCheck(false, this.x + 48, this.y + 60, this.r))) {			//sattelite round plate on front
+		if 	((this.satType == 'human' && (p1.collisionCheck(false, this.x + 48, this.y + 60, this.r) || p1.collisionCheck(false, this.x, this.y + 12, this.w, this.h))) ||
+			(this.satType == 'alien' && p1.collisionCheck(false, this.x + this.w/2, this.y + this.w/2, this.w))) {
 				while(this.hp > 0) {
 					p1.getHit();
 					this.hp--;
