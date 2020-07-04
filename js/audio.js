@@ -1,4 +1,4 @@
-var DEBUG_MEETING_VOL = true;
+var DEBUG_MEETING_VOL = false;//true;
 var musicVolume = 0.7;
 var effectsVolume = 0.7;
 var isMuted = false;
@@ -265,5 +265,10 @@ function playDyingSound() {
 
 function playLaserSound() {
 	var audio = new soundOverlapsClass('./audio/laser1point4sec.mp3');
+	audio.play();
+}
+
+function playPlayerDamageSound() {
+	var audio = new soundOverlapsClass('./audio/plDmg.mp3');
 	audio.play();
 }
