@@ -6,10 +6,14 @@ function spawnSatellites() {
 		case 1:
 			sat.satArt = imageArray["satellite_human.png"];
 			sat.satHitImg = imageArray["satellite_humanFlash.png"];
+			sat.w = 120;
+			sat.h = 120;
 			break;
 		case 2:
 			sat.satArt = imageArray["Alien_Satellite.png"];
 			sat.satHitImg = imageArray["Alien_SatelliteFlash.png"];
+			sat.w = 120;
+			sat.h = 33;
 			break;
 		}
 
@@ -18,10 +22,11 @@ function spawnSatellites() {
 }
 
 function satellites() {
+	
 	this.x = 500;
 	this.y = 0;
-	this.w = 120;
-	this.h = 33;
+	this.w;
+	this.h;
 	this.r = 13;
 	this.sy = 3;
 	this.hp = 3;
@@ -57,7 +62,7 @@ function satellites() {
 
 	this.shotHitMeCheck = function (theShot) {
 		if (collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x, this.y + 12, this.w, this.h) || 	//sattelite body
-			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
+			collisionCheck(theShot.x, theShot.y, theShot.w, theShot.h, this.x + 48, this.y + 60, this.r)) {		//sattelite round plate on front
 		
 			theShot.deactivate();
 			this.hp -= theShot.removeAlienHp;
@@ -75,7 +80,7 @@ function satellites() {
 	this.playerCollisionDetection = function () {
 		
 		if (p1.collisionCheck(false, this.x, this.y + 12, this.w, this.h) ||		//sattelite body
-			p1.collisionCheck(false, this.x + 48, this.y + 60, this.r)) {			//sattelite round plate on front
+			(this.satArt == imageArray["satellite_human.png"] && p1.collisionCheck(false, this.x + 48, this.y + 60, this.r))) {			//sattelite round plate on front
 				while(this.hp > 0) {
 					p1.getHit();
 					this.hp--;
