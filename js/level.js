@@ -155,9 +155,18 @@ function loadLevel(whichLevel) {
 	levelNum = whichLevel;
 	levelCurrent = levelList[levelNum];
 	railList = levelRails[levelNum];
-	spawnClock = 0;
-	upToSpawnIdx = 1;
-	lastSpawnTime = 0;
+	if(whichLevel == 0 && upToSpawnIdx >= 10)
+	{
+		upToSpawnIdx = 11;
+		spawnClock = 50 * (upToSpawnIdx+1);
+		lastSpawnTime = spawnClock;
+	}
+	else
+	{
+		upToSpawnIdx = 1;
+		spawnClock = 0;
+		lastSpawnTime = 0;
+	}
 
 	p1.reset();
 
