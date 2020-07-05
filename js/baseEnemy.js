@@ -111,7 +111,7 @@ function baseEnemy() {
 	this.draw = function() {
 		if (!this.destroyed) {
 			drawBitmapCenteredAtLocationWithRotation(imageArray[this.imgName], this.x, this.y, this.ang);
-			colorText(this.hp, this.x + 90, this.y, "18px arial", "orange"); // hp indicator
+			//colorText(this.hp, this.x + 90, this.y, "18px arial", "orange"); // hp indicator
 
 			if(this.hitImg == true) {
 				drawBitmapCenteredAtLocationWithRotation(imageArray[this.imgFlashName], this.x, this.y, this.ang);

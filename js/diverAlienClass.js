@@ -26,7 +26,7 @@ function diverAlienClass() {
 
 		//colorRect(this.x, this.y, this.w, this.h, 'red');
 		ctx.drawImage(imageArray["enemyC.png"], this.x, this.y);
-		colorText(this.hp, this.x + 60, this.y, "18px arial", "orange"); // hp indicator
+		//colorText(this.hp, this.x + 60, this.y, "18px arial", "orange"); // hp indicator
 
 		if(this.hitImg == true) {
 			ctx.drawImage(imageArray["enemyCFlash.png"], this.x, this.y);

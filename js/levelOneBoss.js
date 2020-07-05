@@ -37,7 +37,7 @@ function levelOneBossClass() {
 	this.draw = function () {
 
 		ctx.drawImage(imageArray["LV1_Boss.png"], this.x, this.y);
-		colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
+		//colorText(this.hp, this.x + this.w, this.y + this.h - 150, "18px arial", "orange"); // hp indicator
 		colorRect(50, 40, 300, 20, 'white');
 		colorRect(50, 41, 298, 18, 'black');
 		colorRect(50, 40, this.hp, 20, this.hpBarColor);
@@ -79,13 +79,13 @@ function levelOneBossClass() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
-			case 290:
+			case 250:
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
 				this.dropLoot = true;
 				break;
 
-			case 280:
+			case 240:
 				this.lootDrop = true;
 				break;
 

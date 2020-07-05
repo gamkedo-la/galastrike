@@ -47,7 +47,7 @@ function gameMode() {
 		break;
 		case levelNum = 2: // final boss fight
 			handleSpawningAsteroids(50);
-			handleSpawningSatellites(100);
+			handleSpawningSatellites(50);
 		break;
 	}
 
