@@ -187,10 +187,14 @@ function levelOneBossClass() {
             this.hitImg = true;
             
             if (this.hp>0) {
-                boom.bigImpact(this.x+this.w/2,this.y+this.h/2);
+				boom.bigImpact((this.x+this.w/2)+((Math.random() * this.w) - this.w/2),
+					(this.y+this.h/2)+((Math.random() * this.h) - this.h/2));
             } else {
                 boom.debrisBOSS(this.x+this.w/2,this.y+this.h/2);
-                boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+				boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+				boom.bigExplosion(this.x+this.w,this.y+this.h/1.5);
+				boom.bigExplosion(this.x,this.y+this.h/1.5);
+				boom.bigExplosion(this.x+this.w/2,this.y+this.h/1.5);
             }
 		}
 	}

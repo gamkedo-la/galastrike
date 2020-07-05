@@ -44,6 +44,7 @@ function playerClass() {
     this.outlineTimer = 0;
     this.ammoAmount;
 	this.basicWeaponTimer = 0;
+	this.explosion = new explosion(20, 20, 18, 'yellow', 'red', 'blue');
 	
 	this.trails = new trailsFX(); // plasma from the engines
 	
@@ -93,7 +94,7 @@ function playerClass() {
 	}
 
     this.draw = function () {
-        this.trails.draw(this.x,this.y); // plasma from the engines
+		this.trails.draw(this.x,this.y); // plasma from the engines
 
         // space ship
 		if (this.chrisCode == false) {
@@ -175,7 +176,6 @@ function playerClass() {
 		this.moveShield();
 		this.spaceshipAutoReverse();
 		this.speedBurst();
-
 	}
 
 	this.noShieldOutline = function() {
@@ -203,7 +203,9 @@ function playerClass() {
 				return;
 			}
 
-            boom.bigImpact(this.x+this.w/2,this.y+this.h/2);
+			boom.bigImpact(this.x+PLAYER_SHIP_WIDTH/2,this.y+PLAYER_SHIP_HEIGHT/2);
+			boom.smallExplosion(this.x+PLAYER_SHIP_WIDTH/2,this.y+PLAYER_SHIP_HEIGHT/2);
+			playPlayerDamageSound();
 
 			if (amount === undefined) {
 				this.playerShields--;
