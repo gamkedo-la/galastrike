@@ -119,7 +119,6 @@ function satellites() {
 		this.hp = 1;
 		this.destroyed = false;
 		
-		//shieldPU.pickedUP = false;
 		this.y = -50;
 		this.x = Math.round(Math.random() * (c.width - 80) + 80);
 		this.explosion = this.explosion ? new explosion() : this.explosion;

@@ -193,9 +193,9 @@ function baseEnemy() {
         boom.debrisA(this.x+this.w/2,this.y+this.h/2);
         boom.smallExplosion(this.x+this.w/2,this.y+this.h/2);
 
-		//if(Math.round(Math.random() * this.lootDropRate) == 1){
-			spawnLoot(this.x + this.w/2, this.y + this.h/2, "basic");//, "mid", "shield");
-		//}
+		if(Math.round(Math.random() * this.lootDropRate) == 1){
+			spawnLoot(this.x + this.w/2, this.y + this.h/2, "basic", "mid", "shield");
+		}
 
 		p1.addToScore(this.scoreValue); //needs to be fixed
 		playDestroyedEnemyMidSound(); // not yet different for each enemy

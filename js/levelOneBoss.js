@@ -85,6 +85,10 @@ function levelOneBossClass() {
 				this.dropLoot = true;
 				break;
 
+			case 280:
+				this.lootDrop = true;
+				break;
+
 			case 200:
 				this.followPlayer = false;
 				this.goToCenter = true;
@@ -95,7 +99,7 @@ function levelOneBossClass() {
 				this.followPlayer = true;
 				this.straightLaser = true;
 				this.hp = 149;
-				this.dropLoot = false;
+				this.dropLoot = true;
 				break;
 
 			case 100:
@@ -162,9 +166,10 @@ function levelOneBossClass() {
 				spawnLoot(this.x + this.w/2 + 120, this.y + this.h/2,"shield"); 
 
 
-				//boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+				boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+				this.lootDrop = false;
 			}
-			//this.dropLoot = false;
+			
 		}
 		this.lootDrop = this.dropLoot;
 	}
