@@ -11,6 +11,7 @@ function basicAlienClass() {
 		this.hp = BASIC_ALIEN_HP;
 		this.imgName = "enemyA.png";
 		this.imgFlashName = "enemyAFlash.png";
+		this.imgShotName = "enemyAalt_shot.png";
 		this.scoreValue = 20;
 		this.shotSpeed = 10;
 	}

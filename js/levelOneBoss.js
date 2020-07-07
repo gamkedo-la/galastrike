@@ -41,6 +41,7 @@ function levelOneBossClass() {
 		colorRect(50, 40, 300, 20, 'white');
 		colorRect(50, 41, 298, 18, 'black');
 		colorRect(50, 40, this.hp, 20, this.hpBarColor);
+		//colorText("Final Alien Boss", 60, 60, "15px arial", "white"); 
 		ctx.drawImage(imageArray["uiCenterBracket_Left.png"], 40, 30);
 		ctx.drawImage(imageArray["uiCenterBracket_Right.png"], 350, 30);
 

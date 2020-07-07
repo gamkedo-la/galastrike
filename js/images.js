@@ -14,6 +14,7 @@ var imageNames = [
 	"enemyA.png",
 	"enemyAFlash.png",
 	"enemyAalt_shot.png",
+	"enemyMid_shot.png",
 	"enemyB.png",
 	"enemyBFlash.png",
 	"enemyC.png",

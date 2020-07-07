@@ -20,7 +20,7 @@ function baseEnemy() {
 	this.explosion = null;
 	this.imgName = "pickupItem_shield.png";
 	this.imgShotName = "enemyAalt_shot.png";
-	this.imgFlashName = "enemyAFlash.png";
+	this.imgFlashName = "weapon_basic.png"; //placeholder
 	this.hitImg = false;
 	this.scoreValue = 10;
 	this.h = 70; // related to explosion need to look into it
