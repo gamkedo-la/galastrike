@@ -148,10 +148,22 @@ function restoreAllLevelData() {
 	}
 }
 
-function loadLevel(whichLevel) {
-	restoreAllLevelData();
+function resetEnnemiesAndBackground()
+{
+	backgroundScrollX = 0;
+	backgroundScrollY = 0;
+	midgroundScrollX = 0;
+	midgroundScrollY = 0;
 	enemyList = [];
 	lootList = [];
+	astList = [];
+	satList = [];
+}
+
+function loadLevel(whichLevel) {
+	restoreAllLevelData();
+	resetEnnemiesAndBackground();
+	
 	levelNum = whichLevel;
 	levelCurrent = levelList[levelNum];
 	railList = levelRails[levelNum];
