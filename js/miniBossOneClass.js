@@ -51,6 +51,14 @@ function miniBossOne() {
 				this.hitImg = false;
 			}
 
+		if(this.hp >= 50 && this.hp <= 100) {
+			this.hpBarColor = 'yellow';
+		}
+		if(this.hp <= 49 ) {
+			this.hpBarColor = 'red';
+		}
+
+
 		for (var i = 0; i < this.myShot.length; i++) {
 			this.myShot[i].draw();
 		}
