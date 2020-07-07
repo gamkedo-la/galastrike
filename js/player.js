@@ -65,6 +65,7 @@ function playerClass() {
 		this.reloadFrames = 0;
 		this.outlineTimer = 0;
 		this.basicWeaponTimer = 0;
+		playerScore = 0;
 	}
 
 	this.fireShot = function () {
