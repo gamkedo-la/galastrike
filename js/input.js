@@ -72,6 +72,7 @@ function keyPressed(evt) {
 
 		case MAIN_MENU:
 			if (evt.keyCode == KEY_ENTER) {
+				loadLevel(0);
 				mode = GAME_SCREEN;
 			}
 			if (evt.keyCode == KEY_SHIFT) {
