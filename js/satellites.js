@@ -15,6 +15,7 @@ function spawnSatellites() {
 			sat.satArt = imageArray["Alien_Satellite.png"];
 			sat.satHitImg = imageArray["Alien_SatelliteFlash.png"];
 			sat.w = 64;
+			sat.h = 64;
 			break;
 		}
 
