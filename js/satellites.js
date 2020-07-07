@@ -19,7 +19,7 @@ function spawnSatellites() {
 			break;
 		}
 
-	sat.x = c.width * Math.random() - 150;
+	sat.x = c.width * Math.random() - 250;
 	this.satList.push(sat);
 }
 
