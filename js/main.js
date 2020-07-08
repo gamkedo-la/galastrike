@@ -109,6 +109,10 @@ function drawEverything() {
 		case LEVEL_TRANSITION:
 			levelTransitionScreen();
 			break;
+
+		case GAME_CONTROLS:
+			controlScreen();
+			break;
     }
     
     boom.draw(); // particles are drawn in all states

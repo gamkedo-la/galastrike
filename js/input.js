@@ -64,6 +64,7 @@ function keyPressed(evt) {
 			break;
 
 		case TITLE_SCREEN:
+		case GAME_CONTROLS:
 		case CREDIT_SCREEN:
 			if (evt.keyCode == KEY_SPACE) {
 				mode = MAIN_MENU;
@@ -75,11 +76,14 @@ function keyPressed(evt) {
 				loadLevel(0);
 				mode = GAME_SCREEN;
 			}
-			if (evt.keyCode == KEY_SHIFT) {
+			if (evt.keyCode == KEY_C) {
 				mode = CREDIT_SCREEN;
 			}
 			if (evt.keyCode == KEY_F) {
 				toggleFullscreen();
+			}
+			if (evt.keyCode == KEY_SHIFT) {
+				mode = GAME_CONTROLS;
 			}
 			if (evt.keyCode == KEY_1) {
 				loadLevel(0);
@@ -93,10 +97,7 @@ function keyPressed(evt) {
 				loadLevel(2);
 				mode = GAME_SCREEN;
 			}
-			if (evt.keyCode == KEY_4) {
-				loadLevel(3);
-				mode = GAME_SCREEN;
-			}
+		
 			break;
 
 		case GAME_PAUSE:

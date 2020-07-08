@@ -8,6 +8,7 @@ const MAIN_MENU = 4;
 const CREDIT_SCREEN = 5;
 const GAME_PAUSE = 6;
 const LEVEL_TRANSITION = 7;
+const GAME_CONTROLS = 8; 
 
 var debugShowRails = false;
 
@@ -175,10 +176,17 @@ function creditScreen() {
 	drawCredits();
 }
 
+function controlScreen() {
+
+	colorRect(0, 0, c.width, c.height, 'black');
+	colorText("Game Controls", c.width / 2 - 70, c.height / 2 - 120, "30px arial", "white");
+	colorText("Main Menu [SPACE]", c.width / 2 - 70, c.height / 2 - 90, "30px arial", "white");
+
+}
+
 
 function gamePauseScreen() {
 	backgroundMusic.pause();
-
 	if (countAlpha == 0) {
 		ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 		ctx.fillRect(0, 0, c.width, c.height);
@@ -187,15 +195,16 @@ function gamePauseScreen() {
 	console.log();
 	colorText("PAUSED [P]", c.width / 2 - 70, c.height / 2 - 120, "30px arial", "white");
 	colorText("Main Menu [SPACE]", c.width / 2 - 60, c.height / 2 - 90 , "15px arial", "gray");
+	colorText("Game Controls [ENTER]", c.width / 2 - 70, c.height / 2 - 60 , "15px arial", "gray");
 	colorText("HIGH SCORES", c.width / 2 - 75, c.height / 2 + 80, "25px arial", "white");
 	p1.drawAllHighScores();
 }
 
 var creditsList = [
 " ",
-"                                          PRESS SPACEBAR TO GO BACK TO THE GAME MENU",
+"                                          [SPACEBAR] TO GO BACK TO THE GAME MENU",
 " ",
-"Simon J Hoffiz: Project lead, core gameplay, enemy waypoint system, input handling, player ship art, enemy ship art, boss art, speed powerup, level authoring, assorted bug fixes, UI design and related art, damage flash",
+"Simon Hoffiz: Project lead, core gameplay, enemy waypoint system, input handling, player ship art, enemy ship art, boss art, speed powerup, level authoring, assorted bug fixes, UI design and related art, damage flash",
 "Muhammed \"EyeForcz\" Durmusoglu: Collision, player weapon, player shield, cheats, lootsystem, laser and atomic weapon. Improved background scrolling. Game optimazation. Various bug fixes. Art for weapons, shields and loots",
 "Martina Natale: Sounds (player shots, boss shots, enemy destruction, item pickup, laser, player death), title menu and game over screens, compatibility fixes, shield bug fix, mute and pause features",
 "Christer \"McFunkypants\" Kaitila: Full screen and responsive support, edge detection, gamepad support, assorted bug fixes, parallax background art, optimizations, boss sprite tweaks, text shadows, thrust trails, space debris, layered boss explosion effects, explosion particles",
