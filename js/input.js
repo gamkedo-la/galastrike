@@ -31,7 +31,7 @@ function initInput() {
 }
 
 function keyPressed(evt) {
-	//console.log("Key pressed: " + evt.keyCode);
+	console.log("Key pressed: " + evt.keyCode);
 
 
 	switch (mode) {
@@ -64,6 +64,11 @@ function keyPressed(evt) {
 			break;
 
 		case TITLE_SCREEN:
+			if (evt.keyCode > 0) {
+				mode = MAIN_MENU;
+			}
+			break;
+
 		case GAME_CONTROLS:
 		case CREDIT_SCREEN:
 			if (evt.keyCode == KEY_SPACE) {
@@ -72,7 +77,7 @@ function keyPressed(evt) {
 			break;
 
 		case MAIN_MENU:
-			if (evt.keyCode == KEY_ENTER) {
+			if (evt.keyCode == KEY_SPACE) {
 				loadLevel(0);
 				mode = GAME_SCREEN;
 			}

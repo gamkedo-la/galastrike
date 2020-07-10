@@ -153,19 +153,25 @@ function winScreen() {
 	//colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
 }
 
+
 function titleScreen() {
     ctx.drawImage(imageArray["TitleScreenTwo.png"], 0, 0, c.width, c.height);
+    starDraw();
+    starMove();
+
 
     // some particles just for fun
-    if (Math.random()<0.05) boom.bigExplosion(Math.random()*c.width,Math.random()*256);
-    if (Math.random()<0.05) boom.smallExplosion(Math.random()*c.width,Math.random()*256);
-    if (Math.random()<0.05) boom.bigImpact(Math.random()*c.width,Math.random()*256);
-    if (Math.random()<0.05) boom.smallImpact(Math.random()*c.width,Math.random()*256);
+    //if (Math.random()<0.05) boom.bigExplosion(Math.random()*c.width,Math.random()*256);
+    //if (Math.random()<0.05) boom.smallExplosion(Math.random()*c.width,Math.random()*256);
+    //if (Math.random()<0.05) boom.bigImpact(Math.random()*c.width,Math.random()*256);
+    //if (Math.random()<0.05) boom.smallImpact(Math.random()*c.width,Math.random()*256);
 
 }
 
 function mainMenuScreen() {
 	ctx.drawImage(imageArray["MainScreen.png"], 0, 0, c.width, c.height);
+	starDraw();
+	starMove();
 }
 
 function creditScreen() {
