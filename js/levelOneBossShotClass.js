@@ -38,7 +38,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.shotReloadRate = 60; // sets the duration of the laser
 				this.laserHitTime = 20;  //frametime for collision check to do damage
 				this.shootSpeed = 0;
-				playMidShootingSound();
+				//playMidShootingSound();
 				break;
 			case 'atom':
 				this.w = 10;
@@ -47,7 +47,7 @@ function levelOneBossShotClass(shotPosX, shotPosY, shotWeaponType) {
 				this.atomHitTime = 1; //frametime for collision check to do damage
 				this.shootSpeed = 20;
 				this.atomActive = false; 
-				playMidShootingSound();
+				//playMidShootingSound();
 				break;
 		}	
 	this.atomicAnimation = false;

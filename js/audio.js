@@ -265,6 +265,7 @@ function playDyingSound() {
 
 function playLaserSound() {
 	var audio = new soundOverlapsClass('./audio/laser1point4sec.mp3');
+	setEffectsVolume(0.4);
 	audio.play();
 }
 

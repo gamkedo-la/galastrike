@@ -84,6 +84,7 @@ function levelOneBossClass() {
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
 				this.dropLoot = true;
+				this.laserAttack = true;
 				break;
 
 			case 240:
