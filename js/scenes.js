@@ -72,6 +72,7 @@ function gameMode() {
 			checkIfSpawnBlockedOrLevelOver();
 		}
 	}
+	transitioningToNextLevelScreen();
 
 	// asteroids
 	for (var i = 0; i < astList.length; i++) {

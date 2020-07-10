@@ -11,6 +11,11 @@ const ENEMY_KIND_MINIBOSS_ONE = 6;
 const WAVE_WAIT_UNTIL_CLEAR = -1;
 const WAVE_FINSIHED = -2;
 
+var nextLevelClock = 0;
+var nextLevelScreen = false;
+
+var transitionTime = 90;
+
 var backupLevelOneData = [ // FIRST LEVEL
 	
 	{kind:ENEMY_KIND_BASIC_ALIEN, delayBefore:0, atX:0.5, count:3, countSpacing: 50, onRail:0}, // first wave
@@ -29,8 +34,7 @@ var backupLevelOneData = [ // FIRST LEVEL
 	
 
 	{kind:ENEMY_KIND_MINIBOSS_ONE, delayBefore:WAVE_WAIT_UNTIL_CLEAR, atX:0.2, count:1, countSpacing: 50}, // boss fight
-	/*{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50},
-	{kind:ENEMY_KIND_DIVER_ALIEN, delayBefore:0, atX:0.2, count:5, countSpacing: 50},*/
+
 
 ];
 
@@ -189,16 +193,14 @@ function loadLevel(whichLevel) {
 }
 
 function checkIfSpawnBlockedOrLevelOver() {
+	console.log(nextLevelScreen);
 	if(enemyList.length == 0) {
 		if(upToSpawnIdx >= levelCurrent.length) {
-			mode = LEVEL_TRANSITION;
-			levelNum++;
-			if(levelNum >= levelList.length) {
-				mode = WIN_SCREEN;
-			} else {
-				loadLevel(levelNum);
-			}
+			nextLevelScreen = true;
+
+			
 		}
+
 		if(upToSpawnIdx < levelCurrent.length && levelCurrent[upToSpawnIdx].delayBefore == WAVE_WAIT_UNTIL_CLEAR) {
 			levelCurrent[upToSpawnIdx].delayBefore = 1;
 			lastSpawnTime = spawnClock;
@@ -206,7 +208,29 @@ function checkIfSpawnBlockedOrLevelOver() {
 			ui.messageToShow = ui.nextEnemyWave;
 		}
 	}
+	
 }
+
+function transitioningToNextLevelScreen() {
+	if(nextLevelScreen) {
+		console.log(nextLevelClock);
+		nextLevelClock ++;
+		if(nextLevelClock >= transitionTime) {
+			mode = LEVEL_TRANSITION;
+			levelNum++;
+
+			nextLevelClock = 0;
+			nextLevelScreen = false;
+
+			if(levelNum >= levelList.length) {
+				mode = WIN_SCREEN;
+			} else {
+				loadLevel(levelNum);
+			}
+		}
+	}
+}
+
 function handelLevelSpawn() {
 	if(mode != GAME_PAUSE && mode != LEVEL_TRANSITION)
 	{
