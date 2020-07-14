@@ -180,7 +180,7 @@ function mainMenuScreen() {
 	// animated underscore for MAIN MENU
 	if(lineStartPosX >= c.width/2 - 200) {
 		if(lineStartPosX >= c.width/2 - 150) {
-			lineStartPosX -= 5;
+			lineStartPosX -= 3;
 		} else {
 			lineStartPosX -= 1;
 		}
@@ -188,7 +188,7 @@ function mainMenuScreen() {
 
 	if(lineEndPosX <= c.width/2 + 200) {
 		if(lineEndPosX <= c.width/2 + 150) {
-			lineEndPosX += 5;
+			lineEndPosX += 3;
 		} else {
 			lineEndPosX += 1;
 		}

@@ -77,6 +77,8 @@ function keyPressed(evt) {
 			break;
 
 		case MAIN_MENU:
+			lineStartPosX = c.width/2;
+			lineEndPosX = c.width/2;
 			if (evt.keyCode == KEY_SPACE) {
 				loadLevel(0);
 				mode = GAME_SCREEN;
