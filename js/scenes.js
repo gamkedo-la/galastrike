@@ -204,10 +204,9 @@ function creditScreen() {
 }
 
 function controlScreen() {
-
-	colorRect(0, 0, c.width, c.height, 'black');
-	colorText("Game Controls", c.width / 2 - 70, c.height / 2 - 120, "30px arial", "white");
-	colorText("Main Menu [SPACE]", c.width / 2 - 70, c.height / 2 - 90, "30px arial", "white");
+	ctx.drawImage(imageArray["GameControlScreen.png"], 0, 0, c.width, c.height);
+	starDraw();
+	starMove();
 
 }
 
