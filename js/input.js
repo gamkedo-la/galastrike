@@ -60,6 +60,7 @@ function keyPressed(evt) {
 		case GAME_OVER:
 			if (evt.keyCode == KEY_SPACE) {
 				resetGame();
+				playGameOverTrack = true;
 			}
 			break;
 

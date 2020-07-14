@@ -22,10 +22,12 @@ var satList = [];
 function gameMode() {
 
 	if (backgroundMusic.playing == false) {
-		if (levelNum % 2 == 1)
+		if (levelNum % 2 == 1) {
 			backgroundMusic.loopSong("./RAW/moreMusic.mp3");
-		else
+		}
+		else {
 			backgroundMusic.loopSong("./RAW/gameplayMusicV2.mp3");
+		}
 	}
 
 	// scrolling bg image
@@ -139,9 +141,14 @@ function levelTransitionScreen() {
 	//colorText("Next Level?", c.width / 2 - 80, c.height / 2, "30px arial", "white");
 }
 
+
 function gameOverScreen() {
 	backgroundMusic.stop();
-
+	if(playGameOverTrack) {
+		playGameOverScreenSound();
+		playGameOverTrack = false;
+	}
+	
 	ctx.drawImage(imageArray["GameOverScreen.png"], 0, 0, c.width, c.height);
 }
 
@@ -149,9 +156,11 @@ function winScreen() {
 	backgroundMusic.stop();
 	ctx.drawImage(imageArray["WinScreen.png"], 0, 0, c.width, c.height);
 
-	//colorRect(0, 0, c.width, c.height, 'green');
-	//colorText("Player Wins", c.width / 2 - 80, c.height / 2, "30px arial", "white");
-	//colorText("Main Menu: [SPACE]", c.width / 2 - 70, c.height / 2 + 40, "15px arial", "white");
+
+	if(playWinScreenTrack) {
+		playWinScreenSound();
+		playWinScreenTrack = false;
+	}
 }
 
 

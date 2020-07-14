@@ -2,6 +2,8 @@ var DEBUG_MEETING_VOL = false;//true;
 var musicVolume = 0.7;
 var effectsVolume = 0.7;
 var isMuted = false;
+var playGameOverTrack = true;
+var playWinScreenTrack = true;
 
 const VOLUME_INCREMENT = 0.0333;
 const DEBUG_SOUNDS = false; // spammy console logs
@@ -271,5 +273,15 @@ function playLaserSound() {
 
 function playPlayerDamageSound() {
 	var audio = new soundOverlapsClass('./audio/plDmg.mp3');
+	audio.play();
+}
+
+function playGameOverScreenSound() {
+	var audio = new soundOverlapsClass('./audio/loseScreen.wav');
+	audio.play();
+}
+
+function playWinScreenSound() {
+	var audio = new soundOverlapsClass('./audio/winScreen.wav');
 	audio.play();
 }

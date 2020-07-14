@@ -24,7 +24,7 @@ window.onload = function () {
 	imageLoading();
 	gameInit();
 	starInit();
-	lineStartPosX = c.width/2;
+	lineStartPosX = c.width/2;// variables for line animation at Main Menu
 	lineEndPosX = c.width/2;
 }
 
