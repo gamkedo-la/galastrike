@@ -13,6 +13,8 @@ var speedPU; // speed Power Up
 var weaponPU; // weapon Power Up
 var activeLevel;
 var uiOverlay;
+var lineStartPosX;
+var lineEndPosX;
 
 window.onload = function () {
 	c = document.getElementById('gameCanvas');
@@ -22,6 +24,8 @@ window.onload = function () {
 	imageLoading();
 	gameInit();
 	starInit();
+	lineStartPosX = c.width/2;
+	lineEndPosX = c.width/2;
 }
 
 // some of these need access to things only available after onload

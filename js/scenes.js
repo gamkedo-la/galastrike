@@ -160,7 +160,6 @@ function titleScreen() {
     starDraw();
     starMove();
 
-
     // some particles just for fun
     //if (Math.random()<0.05) boom.bigExplosion(Math.random()*c.width,Math.random()*256);
     //if (Math.random()<0.05) boom.smallExplosion(Math.random()*c.width,Math.random()*256);
@@ -168,11 +167,32 @@ function titleScreen() {
     //if (Math.random()<0.05) boom.smallImpact(Math.random()*c.width,Math.random()*256);
 
 }
+var lineStartCenterPoint = 950;
+var lineStartPosY = 400;
+var lineEndPosY = 400;
 
 function mainMenuScreen() {
 	ctx.drawImage(imageArray["MainScreen.png"], 0, 0, c.width, c.height);
+	colorLine(lineStartPosX, lineStartPosY, lineEndPosX, lineEndPosY, 1, 'white');
 	starDraw();
 	starMove();
+
+	// animated underscore for MAIN MENU
+	if(lineStartPosX >= c.width/2 - 200) {
+		if(lineStartPosX >= c.width/2 - 150) {
+			lineStartPosX -= 5;
+		} else {
+			lineStartPosX -= 1;
+		}
+	}
+
+	if(lineEndPosX <= c.width/2 + 200) {
+		if(lineEndPosX <= c.width/2 + 150) {
+			lineEndPosX += 5;
+		} else {
+			lineEndPosX += 1;
+		}
+	}
 }
 
 function creditScreen() {
