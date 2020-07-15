@@ -61,7 +61,8 @@ var imageNames = [
 	"uiSmallBracket_Right.png",
 	"uiCenterBracket_Left.png",
     "uiCenterBracket_Right.png",
-    "boom.png"
+    "boom.png",
+    "smallControlMappingDiagram.png"
 ];
 var imageLoadCounter = imageNames.length;
 var imageArray = [];

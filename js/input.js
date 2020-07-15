@@ -124,6 +124,7 @@ function keyPressed(evt) {
 			if(evt.keyCode == KEY_SPACE) {
 				mode = MAIN_MENU;
 			}
+
 			break;
 
 		case LEVEL_TRANSITION:
