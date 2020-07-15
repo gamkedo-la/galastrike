@@ -10,7 +10,7 @@ function levelOneBossClass() {
 	this.bottomLine = 300; // distance from bottom of screen
 	this.screenBuffer = 20;
 
-	this.hp = 300;
+	this.hp = 3;
 	this.enteredScreen = false;
 	this.fullyOnScreen = false;
 
@@ -80,6 +80,10 @@ function levelOneBossClass() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
+			case 2:
+				this.fullyOnScreen = true;
+				break;
+			/*
 			case 250:
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
@@ -111,6 +115,7 @@ function levelOneBossClass() {
 				this.followPlayer = true;
 				this.dropLoot = true;
 				break;
+				*/
 		}
 
 
@@ -168,7 +173,7 @@ function levelOneBossClass() {
 				spawnLoot(this.x + this.w/2 + 120, this.y + this.h/2,"shield"); 
 
 
-				boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
+				boom.smallExplosion(this.x+this.w/2,this.y+this.h/2);
 				this.lootDrop = false;
 			}
 			
@@ -188,15 +193,23 @@ function levelOneBossClass() {
 			this.hp --;
             this.hitImg = true;
             
-            if (this.hp>0) {
+            if (this.hp>=0) {
 				boom.bigImpact((this.x+this.w/2)+((Math.random() * this.w) - this.w/2),
 					(this.y+this.h/2)+((Math.random() * this.h) - this.h/2));
             } else {
-                boom.debrisBOSS(this.x+this.w/2,this.y+this.h/2);
-				boom.bigExplosion(this.x+this.w/2,this.y+this.h/2);
-				boom.bigExplosion(this.x+this.w,this.y+this.h/1.5);
-				boom.bigExplosion(this.x,this.y+this.h/1.5);
+            	boom.smallExplosion(this.x, this.y + 100);
+				boom.smallExplosion(this.x + this.w/2 + 100, this.y + 150);
+				boom.smallExplosion(this.x + this.w, this.y + 80);
+                
+				boom.bigExplosion(this.x+this.w + 100,this.y+this.h/1.7);
+				boom.smallExplosion(this.x,this.y+this.h/1.4);
 				boom.bigExplosion(this.x+this.w/2,this.y+this.h/1.5);
+
+				boom.smallExplosion(this.x + 150, this.y + this.h + 80);
+				boom.bigExplosion(this.x + this.w/2 - 80, this.y + this.h);
+				boom.smallExplosion(this.x + this.w, this.y + this.h );
+
+				boom.debrisBOSS(this.x+this.w/2,this.y+this.h/2);
             }
 		}
 	}
