@@ -80,10 +80,7 @@ function levelOneBossClass() {
 
 		//handling boss ai based on hp
 		switch(this.hp) {
-			case 2:
-				this.fullyOnScreen = true;
-				break;
-			/*
+
 			case 250:
 				this.followPlayer = true;
 				this.fullyOnScreen = true;
@@ -115,7 +112,7 @@ function levelOneBossClass() {
 				this.followPlayer = true;
 				this.dropLoot = true;
 				break;
-				*/
+			
 		}
 
 
